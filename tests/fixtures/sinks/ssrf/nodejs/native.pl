@@ -1,0 +1,17 @@
+% fixture : sinks/ssrf/nodejs/native.pl
+
+% fetch( "https://slack.com/api/oauth.v2.access", { ... } ) : the instrumented global
+kb_call_resolved(startloc_42_26_endloc_52_6_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts, 'nodejs.fetch').
+
+% import fetch from "node-fetch" : a distinct fqn, not listed yet ( see the catalog comment )
+kb_call_resolved(startloc_60_20_endloc_60_35_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts, 'node-fetch.fetch').
+% new URL( url ) : building a url is not a request
+kb_call_resolved(startloc_61_20_endloc_61_32_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts, 'nodejs.URL').
+
+must(sinks_ssrf_nodejs_fetch(startloc_42_26_endloc_52_6_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts)).
+% wired into the family api
+must(sinks_ssrf(startloc_42_26_endloc_52_6_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts)).
+
+must_not(sinks_ssrf_nodejs_fetch(startloc_60_20_endloc_60_35_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts)).
+must_not(sinks_ssrf_nodejs_fetch(startloc_61_20_endloc_61_32_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts)).
+must_not(sinks_ssrf(startloc_61_20_endloc_61_32_apps_slash_web_slash_app_slash_api_slash_v1_slash_integrations_slash_slack_slash_callback_slash_route_dot_ts)).

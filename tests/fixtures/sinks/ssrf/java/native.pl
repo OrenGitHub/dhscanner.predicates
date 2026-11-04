@@ -1,0 +1,47 @@
+% fixture : sinks/ssrf/java/native.pl
+
+% apache httpclient 4 : new HttpGet( processedURL ) ( the constructor is the sink )
+kb_call_resolved(startloc_205_31_endloc_205_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.apache.http.client.methods.HttpGet').
+% apache httpclient 4 : client.execute( request )
+kb_call_resolved(startloc_206_20_endloc_206_45_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.apache.http.impl.client.CloseableHttpClient.execute').
+% apache httpclient 5 : new HttpPost( url )
+kb_call_resolved(startloc_207_31_endloc_207_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.apache.hc.client5.http.classic.methods.HttpPost').
+% apache httpclient 5 : client.execute( request )
+kb_call_resolved(startloc_208_20_endloc_208_45_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.apache.hc.client5.http.impl.classic.CloseableHttpClient.execute').
+% java.net.http : client.send( request, handler )
+kb_call_resolved(startloc_209_20_endloc_209_60_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'java.net.http.HttpClient.send').
+% java.net.URL : url.openStream()
+kb_call_resolved(startloc_210_20_endloc_210_48_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'java.net.URL.openStream').
+% spring : restTemplate.getForObject( url, String.class )
+kb_call_resolved(startloc_211_20_endloc_211_70_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.springframework.web.client.RestTemplate.getForObject').
+% spring reactive : webClient.get()
+kb_call_resolved(startloc_212_20_endloc_212_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.springframework.web.reactive.function.client.WebClient.get').
+% commons-io : FileUtils.copyURLToFile( url, file )
+kb_call_resolved(startloc_213_9_endloc_213_50_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.apache.commons.io.FileUtils.copyURLToFile').
+
+% new URL( s ) : building a url is not a request
+kb_call_resolved(startloc_220_19_endloc_220_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'java.net.URL').
+% new URI( s ) : building a uri is not a request
+kb_call_resolved(startloc_221_19_endloc_221_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'java.net.URI').
+% a 1st-party factory client : execute does not resolve, too generic
+kb_call_resolved(startloc_222_20_endloc_222_45_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'Unknown.execute').
+% httpclient 4 HttpTrace is listed, its httpclient 5 counterpart is not
+kb_call_resolved(startloc_223_31_endloc_223_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java, 'org.apache.hc.client5.http.classic.methods.HttpTrace').
+
+must(sinks_ssrf_java(startloc_205_31_endloc_205_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_206_20_endloc_206_45_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_207_31_endloc_207_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_208_20_endloc_208_45_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_209_20_endloc_209_60_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_210_20_endloc_210_48_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_211_20_endloc_211_70_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_212_20_endloc_212_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must(sinks_ssrf_java(startloc_213_9_endloc_213_50_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+% wired into the family api
+must(sinks_ssrf(startloc_205_31_endloc_205_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+
+must_not(sinks_ssrf_java(startloc_220_19_endloc_220_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must_not(sinks_ssrf_java(startloc_221_19_endloc_221_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must_not(sinks_ssrf_java(startloc_222_20_endloc_222_45_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must_not(sinks_ssrf_java(startloc_223_31_endloc_223_59_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).
+must_not(sinks_ssrf(startloc_220_19_endloc_220_40_dspace_slash_content_slash_crosswalk_slash_OREIngestionCrosswalk_dot_java)).

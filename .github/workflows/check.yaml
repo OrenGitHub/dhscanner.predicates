@@ -1,0 +1,46 @@
+name: check
+
+# Unprivileged on purpose : no secrets, read-only token, nothing is
+# published from this repo. Releases are git tags ; queryengine pins one
+# as a submodule and is the only place an image gets built.
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+
+  check:
+
+    runs-on: ubuntu-latest
+
+    # Same swipl as production : queryengine's release image
+    # ( Dockerfile.rel ) is ubuntu:24.04 + swi-prolog-nox ( 9.0.4 ).
+    container: ubuntu:24.04
+
+    steps:
+    - name: install swipl
+      run: |
+        apt-get update
+        apt-get install -y --no-install-recommends swi-prolog-nox
+        swipl --version
+
+    # The catalogs include each other as 'predicates/<family>/...' ( they
+    # are loaded from queryengine's root ), so check out as predicates/.
+    - uses: actions/checkout@v4
+      with:
+        path: predicates
+        persist-credentials: false
+
+    - name: load gate
+      run: swipl predicates/tests/check.pl load
+
+    - name: fixtures
+      run: swipl predicates/tests/check.pl fixtures

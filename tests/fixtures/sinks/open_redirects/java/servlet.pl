@@ -1,0 +1,23 @@
+% fixture : sinks/open_redirects/java/servlet.pl
+
+% jakarta ( servlet 5+ ) : response.sendRedirect( redirectUrl )
+kb_call_resolved(startloc_88_13_endloc_88_47_dspace_slash_server_slash_OidcRestController_dot_java, 'jakarta.servlet.http.HttpServletResponse.sendRedirect').
+% legacy javax : response.sendRedirect( location )
+kb_call_resolved(startloc_42_9_endloc_42_40_legacy_slash_LoginServlet_dot_java, 'javax.servlet.http.HttpServletResponse.sendRedirect').
+
+% response.sendError( 400 ) : same response, not a redirect
+kb_call_resolved(startloc_90_13_endloc_90_37_dspace_slash_server_slash_OidcRestController_dot_java, 'jakarta.servlet.http.HttpServletResponse.sendError').
+% response.setHeader( "Location", url ) : not covered by this catalog
+kb_call_resolved(startloc_91_13_endloc_91_49_dspace_slash_server_slash_OidcRestController_dot_java, 'jakarta.servlet.http.HttpServletResponse.setHeader').
+% sendRedirect on an unresolved receiver
+kb_call_resolved(startloc_92_13_endloc_92_40_dspace_slash_server_slash_OidcRestController_dot_java, 'Unknown.sendRedirect').
+
+must(sinks_open_redirect_java_servlet(startloc_88_13_endloc_88_47_dspace_slash_server_slash_OidcRestController_dot_java)).
+must(sinks_open_redirect_java_servlet(startloc_42_9_endloc_42_40_legacy_slash_LoginServlet_dot_java)).
+% wired into the family api
+must(sinks_open_redirect(startloc_88_13_endloc_88_47_dspace_slash_server_slash_OidcRestController_dot_java)).
+
+must_not(sinks_open_redirect_java_servlet(startloc_90_13_endloc_90_37_dspace_slash_server_slash_OidcRestController_dot_java)).
+must_not(sinks_open_redirect_java_servlet(startloc_91_13_endloc_91_49_dspace_slash_server_slash_OidcRestController_dot_java)).
+must_not(sinks_open_redirect_java_servlet(startloc_92_13_endloc_92_40_dspace_slash_server_slash_OidcRestController_dot_java)).
+must_not(sinks_open_redirect(startloc_90_13_endloc_90_37_dspace_slash_server_slash_OidcRestController_dot_java)).

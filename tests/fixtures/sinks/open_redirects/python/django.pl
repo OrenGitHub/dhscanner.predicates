@@ -1,0 +1,26 @@
+% fixture : sinks/open_redirects/python/django.pl
+
+% from django.shortcuts import redirect ; redirect( obj )
+kb_call_resolved(startloc_1517_16_endloc_1517_29_weblate_slash_trans_slash_views_slash_edit_dot_py, 'django.shortcuts.redirect').
+% from django.http import HttpResponseRedirect ; HttpResponseRedirect( url )
+kb_call_resolved(startloc_1520_16_endloc_1520_41_weblate_slash_trans_slash_views_slash_edit_dot_py, 'django.http.HttpResponseRedirect').
+% from django.http.response import HttpResponsePermanentRedirect ; HttpResponsePermanentRedirect( url )
+kb_call_resolved(startloc_1521_16_endloc_1521_50_weblate_slash_trans_slash_views_slash_edit_dot_py, 'django.http.response.HttpResponsePermanentRedirect').
+
+% render( request, template ) : not a redirect
+kb_call_resolved(startloc_1530_16_endloc_1530_45_weblate_slash_trans_slash_views_slash_edit_dot_py, 'django.shortcuts.render').
+% reverse( name ) : builds a url, does not answer with it
+kb_call_resolved(startloc_1531_16_endloc_1531_33_weblate_slash_trans_slash_views_slash_edit_dot_py, 'django.urls.reverse').
+% obj.redirect( url ) on an unresolved receiver
+kb_call_resolved(startloc_1532_16_endloc_1532_33_weblate_slash_trans_slash_views_slash_edit_dot_py, 'Unknown.redirect').
+
+must(sinks_open_redirect_python_django(startloc_1517_16_endloc_1517_29_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+must(sinks_open_redirect_python_django(startloc_1520_16_endloc_1520_41_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+must(sinks_open_redirect_python_django(startloc_1521_16_endloc_1521_50_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+% wired into the family api
+must(sinks_open_redirect(startloc_1517_16_endloc_1517_29_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+
+must_not(sinks_open_redirect_python_django(startloc_1530_16_endloc_1530_45_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+must_not(sinks_open_redirect_python_django(startloc_1531_16_endloc_1531_33_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+must_not(sinks_open_redirect_python_django(startloc_1532_16_endloc_1532_33_weblate_slash_trans_slash_views_slash_edit_dot_py)).
+must_not(sinks_open_redirect(startloc_1530_16_endloc_1530_45_weblate_slash_trans_slash_views_slash_edit_dot_py)).

@@ -1,0 +1,40 @@
+% fixture : callgraph/api.pl
+%
+% callgraph/api.pl exports callgraph_callable_calls_callable/2, today the
+% java virtual-dispatch leaf only.
+
+% interface ItemService { void update( Context c, Item i ); }
+kb_class_def(startloc_6_1_endloc_40_2_org_slash_dspace_slash_content_slash_service_slash_ItemService_dot_java, 'ItemService', 'org/dspace/content/service/ItemService.java').
+kb_method_of_class(startloc_12_5_endloc_12_50_org_slash_dspace_slash_content_slash_service_slash_ItemService_dot_java, startloc_6_1_endloc_40_2_org_slash_dspace_slash_content_slash_service_slash_ItemService_dot_java).
+kb_method_has_name(startloc_12_5_endloc_12_50_org_slash_dspace_slash_content_slash_service_slash_ItemService_dot_java, 'update').
+
+% class ItemServiceImpl implements ItemService { public void update( ... ) { ... } }
+kb_class_def(startloc_8_1_endloc_200_2_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, 'ItemServiceImpl', 'org/dspace/content/ItemServiceImpl.java').
+kb_class_has_1st_party_super(startloc_8_1_endloc_200_2_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, 'ItemService', 'org/dspace/content/service/ItemService.java').
+kb_method_of_class(startloc_50_5_endloc_70_6_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, startloc_8_1_endloc_200_2_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java).
+kb_method_has_name(startloc_50_5_endloc_70_6_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, 'update').
+
+% class ItemRestController {
+%     public void patch( ... ) { itemService.update( ctx, item ); }      ItemService itemService
+%     public void list( ... ) { items.stream(); }                        3rd party call only
+% }
+kb_class_def(startloc_10_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'ItemRestController', 'org/dspace/app/rest/ItemRestController.java').
+kb_method_of_class(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_10_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java).
+kb_method_has_name(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'patch').
+kb_called_from(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java).
+kb_call_resolved(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/content/service/ItemService.java", firstPartyImportedName = Just "ItemService"}).update').
+kb_method_of_class(startloc_32_5_endloc_36_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_10_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java).
+kb_method_has_name(startloc_32_5_endloc_36_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'list').
+kb_called_from(startloc_34_9_endloc_34_24_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_32_5_endloc_36_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java).
+kb_call_resolved(startloc_34_9_endloc_34_24_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'java.util.List.stream').
+
+% itemService.update dispatches to the interface method and to its implementation
+must(callgraph_callable_calls_callable(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java,
+     startloc_50_5_endloc_70_6_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java)).
+must(callgraph_callable_calls_callable(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java,
+     startloc_12_5_endloc_12_50_org_slash_dspace_slash_content_slash_service_slash_ItemService_dot_java)).
+
+% a 3rd party call is not a callgraph edge
+must_not(callgraph_callable_calls_callable(startloc_32_5_endloc_36_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, _)).
+% edges are caller -> callee only
+must_not(callgraph_callable_calls_callable(startloc_50_5_endloc_70_6_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, _)).
