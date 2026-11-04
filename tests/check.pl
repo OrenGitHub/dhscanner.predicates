@@ -12,9 +12,8 @@
 % 1. load gate : api.pl ( the root, including the six family api.pl files )
 %    loads with no warnings or errors, every catalog .pl file is reached
 %    from it, and every predicate a catalog calls is defined : by a catalog,
-%    by SWI, by the KB ( tests/kb_schema.pl ) or by the host
-%    ( tests/host.pl ). And every predicate the host calls ( host_calls/1
-%    in tests/host.pl ) is defined.
+%    by SWI or by the KB ( tests/kb_schema.pl ). And every predicate the
+%    host calls ( host_calls/1 in tests/host.pl ) is defined.
 % 2. coverage : every catalog file <F>.pl has tests/fixtures/<F>.pl with at
 %    least one must/1 and at least one must_not/1.
 % 3. fixtures : each fixture is a small KB ( kb_* facts from kb_schema.pl

@@ -3,6 +3,23 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.2.0
+
+Targets: dhscanner-kbgen 2.4.0.
+
+queryengine drops its utils.pl ( the CVE-detection queries behind
+`/querycheck` ) ; what the kbapi templates still need moves here.
+
+- `callgraph/reach.pl`: `callgraph_reaches_call_bounded/3`, the bounded
+  breadth-first call-site closure behind kbapi
+  `SelectControlFlowReachableSinks`. It was queryengine's
+  `utils_control_flow_reaches_call_bounded/4` ( the unused `Visited`
+  argument is dropped ) ; same answers.
+- `endpoints/nodejs/nextjs.pl`: `atom_concat/3` instead of the host's
+  `endswith/2`. The catalogs now call nothing outside SWI and the KB.
+- `tests/host.pl`: `host_calls/1` is now the predicates the kbapi templates
+  call ; the predicates only utils.pl called stay defined.
+
 ## v1.1.0
 
 Targets: dhscanner-kbgen 2.4.0.
@@ -38,7 +55,8 @@ Known issues, kept as is so that v1.0.0 matches queryengine's tree:
   `kb_has_fqn/2`, which kbgen never emits ( `known_undefined/1` in
   `tests/check.pl` ). Nothing calls them. `sinks/db/golang/gorm.pl` has
   nothing else, so its fixture has no cases ( `fixture_exempt/1` ).
-- `endpoints/nodejs/nextjs.pl` calls the host helper `endswith/2`.
+- `endpoints/nodejs/nextjs.pl` calls the host helper `endswith/2` ( fixed
+  in v1.2.0 ).
 - `auth/nodejs/native.pl` and `auth/common.pl` define derived predicates
   named `kb_gated_return_null/1` and `kb_gated_return_on_comparison/4`,
   which belong to the KB's `kb_` prefix.

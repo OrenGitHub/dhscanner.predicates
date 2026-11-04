@@ -14,7 +14,7 @@ api.pl                                the root : includes the six family api.pl 
 <family>/<kind>/<language>/<lib>.pl   one leaf per kind / language / framework
 tests/check.pl                        the harness ( load gate + fixtures )
 tests/kb_schema.pl                    the kb_* facts kbgen emits ( the KB contract )
-tests/host.pl                         what queryengine calls, and the helpers it lends
+tests/host.pl                         what queryengine's kbapi templates call ( the public API )
 tests/fixtures/<same path as the leaf>
 ```
 
@@ -57,7 +57,7 @@ every fact with its arity.
   [dhscanner.runner](https://github.com/OrenGitHub/dhscanner.runner/issues) instead.
 - **Never define a predicate whose name starts with `kb_`.** That prefix
   belongs to the KB.
-- Use SWI built-ins, not the host helpers in `tests/host.pl`.
+- Use SWI built-ins only : the host defines no helpers for the catalogs.
 - No `assert` / `retract` / global variables. `:- table` is fine for
   recursive predicates.
 - Comment the leaf: which source shapes it recognizes, which near misses it

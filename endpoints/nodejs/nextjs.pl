@@ -15,7 +15,7 @@ endpoints_http_get_nextjs(GetHandler, RequestObject, Url) :-
     kb_param_i_of_callable(RequestObject, _, GetHandler),
     kb_param_has_name(RequestObject, 'req'),
     kb_param_has_resolved_type(RequestObject, 'next/server.NextRequest'),
-    endswith(FileName, 'route.ts').
+    atom_concat(_, 'route.ts', FileName).
 
 % -----------------------------------------------------------------------------
 % endpoints_http_post_nextjs( PostHandler, RequestObject, Url )
@@ -29,7 +29,7 @@ endpoints_http_post_nextjs(PostHandler, RequestObject, Url) :-
     kb_param_i_of_callable(RequestObject, _, PostHandler),
     endpoints_param_has_request_name_nextjs(RequestObject),
     endpoints_param_has_request_resolved_type_nextjs(RequestObject),
-    endswith(FileName, 'route.ts').
+    atom_concat(_, 'route.ts', FileName).
 
 % -----------------------------------------------------------------------------
 % endpoints_http_put_nextjs( PutHandler, RequestObject, Url )
@@ -71,7 +71,7 @@ endpoints_http_put_nextjs_direct(PutHandler, RequestObject, Url) :-
     kb_param_i_of_callable(RequestObject, _, PutHandler),
     endpoints_param_has_request_name_nextjs(RequestObject),
     endpoints_param_has_request_resolved_type_nextjs(RequestObject),
-    endswith(FileName, 'route.ts').
+    atom_concat(_, 'route.ts', FileName).
 
 % Wrapper-style ( v2 ) shape. The exported `PUT` const is a thin
 % arrow whose body is a single call to a HOC :
