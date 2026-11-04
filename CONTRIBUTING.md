@@ -9,6 +9,7 @@ PR reaches scans only after the maintainer tags a release and moves the
 ## Layout
 
 ```
+api.pl                                the root : includes the six family api.pl files
 <family>/api.pl                       family entry points, includes every leaf
 <family>/<kind>/<language>/<lib>.pl   one leaf per kind / language / framework
 tests/check.pl                        the harness ( load gate + fixtures )

@@ -9,11 +9,12 @@
 %     swipl predicates/tests/check.pl load       % 1. load gate only
 %     swipl predicates/tests/check.pl fixtures   % 2. + 3. only
 %
-% 1. load gate : the six family api.pl files load with no warnings or errors,
-%    every catalog .pl file is reached from its family api.pl, and every
-%    predicate a catalog calls is defined : by a catalog, by SWI, by the KB
-%    ( tests/kb_schema.pl ) or by the host ( tests/host.pl ). And every
-%    predicate the host calls ( host_calls/1 in tests/host.pl ) is defined.
+% 1. load gate : api.pl ( the root, including the six family api.pl files )
+%    loads with no warnings or errors, every catalog .pl file is reached
+%    from it, and every predicate a catalog calls is defined : by a catalog,
+%    by SWI, by the KB ( tests/kb_schema.pl ) or by the host
+%    ( tests/host.pl ). And every predicate the host calls ( host_calls/1
+%    in tests/host.pl ) is defined.
 % 2. coverage : every catalog file <F>.pl has tests/fixtures/<F>.pl with at
 %    least one must/1 and at least one must_not/1.
 % 3. fixtures : each fixture is a small KB ( kb_* facts from kb_schema.pl
@@ -29,13 +30,9 @@
 
 :- initialization(main, main).
 
-% Same order as queryengine's api.pl.
-family_api('predicates/dataflow/api').
-family_api('predicates/auth/api').
-family_api('predicates/endpoints/api').
-family_api('predicates/sinks/api').
-family_api('predicates/sanitizers/api').
-family_api('predicates/callgraph/api').
+% The root : includes the six family api.pl files, exactly what queryengine
+% loads ( its utils.pl includes 'predicates/api' ).
+root_api('predicates/api').
 
 % Called by a catalog, defined nowhere. Each entry is a known bug kept so
 % that v1.0.0 stays identical to queryengine's predicates/ ; fix it and
@@ -136,7 +133,8 @@ load_everything :-
     ensure_loaded(user:Schema),
     ensure_loaded(user:Host),
     assertz(collecting(load)),
-    forall(family_api(Api), load_files(user:Api, [])),
+    root_api(Api),
+    load_files(user:Api, []),
     retractall(collecting(_)),
     find_undefined_calls.
 

@@ -1,7 +1,7 @@
 % -----------------------------------------------------------------------------
 % The host interface : dhscanner.service.queryengine loads these catalogs
-% ( its api.pl includes the six predicates/<family>/api.pl files ), and the
-% two sides call into each other.
+% ( its utils.pl includes 'predicates/api', the root api.pl of this repo ),
+% and the two sides call into each other.
 %
 % host_calls( Name/Arity ) : the catalog predicates the host calls, from its
 %   templates/*.pl and utils.pl. This is the public API of a release : the

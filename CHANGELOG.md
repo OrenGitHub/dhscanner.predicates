@@ -3,6 +3,18 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.1.0
+
+Targets: dhscanner-kbgen 2.4.0.
+
+- `api.pl` moves here from queryengine: the root, including the six family
+  `api.pl` files in the same order. queryengine includes `'predicates/api'`
+  instead of keeping its own copy. The load gate now loads this root, so
+  the family load order has one source.
+- `tests/fixtures/api.pl`
+
+No catalog changes. Hosts that still ship their own `api.pl` keep working.
+
 ## v1.0.0
 
 Targets: dhscanner-kbgen 2.4.0.
