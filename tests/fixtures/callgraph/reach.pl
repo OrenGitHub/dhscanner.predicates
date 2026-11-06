@@ -27,6 +27,19 @@
 %
 %   ItemRestController.patch : itemService.update( ctx, item )  -> ItemServiceImpl.update
 %   ItemServiceImpl.update   : Files.delete( path )
+%
+% ruby ( block edge ) :
+%
+%   app/controllers/categories_controller.rb
+%     def update                                                 U   ( hop 0 )
+%       json_result(@category) do |cat|                          B   ( hop 1, block edge )
+%         DB.exec("UPDATE ...")
+%       end
+%       log(1)                                                   a non lambda arg, no edge
+%     end
+%     def other
+%       each do DB.query("...") end                              O   a block of another def
+%     end
 
 % -----------------------------------------------------------------------------
 % next.js : W, the thin HOC wrapper ( same shape as the endpoints fixture )
@@ -99,6 +112,30 @@ kb_called_from(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_
 kb_call_resolved(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/content/service/ItemService.java", firstPartyImportedName = Just "ItemService"}).update').
 
 % -----------------------------------------------------------------------------
+% ruby : U = CategoriesController#update , B = its block
+
+kb_callable_source_body_length(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, 2).
+% U : json_result( @category ) do |cat| ... end , the block B is arg 1
+kb_called_from(startloc_260_5_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_arg_i_for_call(startloc_260_17_endloc_260_26_app_slash_controllers_slash_categories_controller_dot_rb, 0, startloc_260_5_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_arg_i_for_call(startloc_260_33_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb, 1, startloc_260_5_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_callable_source_body_length(startloc_260_33_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb, 1).
+% B : DB.exec( ... )
+kb_called_from(startloc_261_7_endloc_261_30_app_slash_controllers_slash_categories_controller_dot_rb, startloc_260_33_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_call_resolved(startloc_261_7_endloc_261_30_app_slash_controllers_slash_categories_controller_dot_rb, 'DB.exec').
+% U : log( 1 ) , a constant arg is no callable
+kb_called_from(startloc_316_5_endloc_316_11_app_slash_controllers_slash_categories_controller_dot_rb, startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_arg_i_for_call(startloc_316_9_endloc_316_10_app_slash_controllers_slash_categories_controller_dot_rb, 0, startloc_316_5_endloc_316_11_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_const_int(startloc_316_9_endloc_316_10_app_slash_controllers_slash_categories_controller_dot_rb, 1).
+% other : each do ... end , its block O belongs to other , not to U
+kb_callable_source_body_length(startloc_320_5_endloc_322_8_app_slash_controllers_slash_categories_controller_dot_rb, 1).
+kb_called_from(startloc_321_7_endloc_321_40_app_slash_controllers_slash_categories_controller_dot_rb, startloc_320_5_endloc_322_8_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_arg_i_for_call(startloc_321_12_endloc_321_40_app_slash_controllers_slash_categories_controller_dot_rb, 0, startloc_321_7_endloc_321_40_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_callable_source_body_length(startloc_321_12_endloc_321_40_app_slash_controllers_slash_categories_controller_dot_rb, 1).
+kb_called_from(startloc_321_15_endloc_321_35_app_slash_controllers_slash_categories_controller_dot_rb, startloc_321_12_endloc_321_40_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_call_resolved(startloc_321_15_endloc_321_35_app_slash_controllers_slash_categories_controller_dot_rb, 'DB.query').
+
+% -----------------------------------------------------------------------------
 % next.js
 
 % hop 0 : Source's own call sites
@@ -135,3 +172,16 @@ must_not(callgraph_reach_edge(startloc_5_18_endloc_7_10_app_slash_api_slash_v2_s
 % the dispatch edge reaches the implementation's Files.delete in 1 hop
 must(callgraph_reaches_call_bounded(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_60_9_endloc_60_30_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, 1)).
 must_not(callgraph_reaches_call_bounded(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_60_9_endloc_60_30_org_slash_dspace_slash_content_slash_ItemServiceImpl_dot_java, 0)).
+
+% -----------------------------------------------------------------------------
+% ruby
+
+% the block edge : U's block body is 1 hop away
+must(callgraph_reach_edge(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_260_33_endloc_315_8_app_slash_controllers_slash_categories_controller_dot_rb)).
+must(callgraph_reaches_call_bounded(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_261_7_endloc_261_30_app_slash_controllers_slash_categories_controller_dot_rb, 1)).
+must_not(callgraph_reaches_call_bounded(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_261_7_endloc_261_30_app_slash_controllers_slash_categories_controller_dot_rb, 0)).
+% a non lambda arg is no edge
+must_not(callgraph_reach_edge(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_316_9_endloc_316_10_app_slash_controllers_slash_categories_controller_dot_rb)).
+% the block of another def is not reached
+must_not(callgraph_reaches_call_bounded(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_321_15_endloc_321_35_app_slash_controllers_slash_categories_controller_dot_rb, 10)).
+must(callgraph_reaches_call_bounded(startloc_320_5_endloc_322_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_321_15_endloc_321_35_app_slash_controllers_slash_categories_controller_dot_rb, 1)).

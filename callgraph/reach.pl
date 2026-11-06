@@ -23,6 +23,10 @@
 %      `PUT` only calls `authenticatedApiClient({ handler : <lambda> })`,
 %      the request handling lives in the lambda
 %   4. java virtual dispatch ( callgraph_callable_calls_callable/2 )
+%   5. a lambda passed as an argument of a call site in the caller's body :
+%      a ruby block ( `json_result(@category) do |cat| ... end` , the
+%      parsers lower the block to the call's last arg ) or a js callback.
+%      An over approximation : the callee is assumed to call it
 %
 % Moved from queryengine's utils.pl ( utils_control_flow_reaches_call_bounded
 % and friends ), OrenGitHub/dhscanner.runner#143.
@@ -61,3 +65,8 @@ callgraph_reach_edge(Wrapper, Handler) :-
 
 callgraph_reach_edge(Caller, Callee) :-
     callgraph_callable_calls_callable(Caller, Callee).
+
+callgraph_reach_edge(Caller, Lambda) :-
+    kb_called_from(CallSite, Caller),
+    kb_arg_i_for_call(Lambda, _, CallSite),
+    kb_callable_source_body_length(Lambda, _).
