@@ -3,6 +3,20 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.4.0
+
+Targets: dhscanner-kbgen 2.4.0.
+
+- `callgraph/reach.pl`: a 5th one-hop edge, from a caller to a lambda passed
+  as an argument of a call site in its body ( `kb_arg_i_for_call` of a
+  callable ). A ruby block is that lambda : the parsers lower
+  `json_result(@category) do |cat| ... end` to a call whose last arg is the
+  block ( parsers 1.1.54 ). JS callbacks ( `arr.forEach(x => ...)` ) take the
+  edge too. An over approximation : the callee is assumed to call it.
+  Discourse : reachable call sites over the 1,290 handlers 10,026 -> 13,745,
+  `categories#update` 2 -> 30.
+- `tests/fixtures/callgraph/reach.pl`: a ruby block section.
+
 ## v1.3.0
 
 Targets: dhscanner-kbgen 2.4.0.
