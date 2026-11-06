@@ -3,6 +3,22 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.3.0
+
+Targets: dhscanner-kbgen 2.4.0.
+
+- `sinks/db/ruby/mini_sql.pl`: `sinks_sqli_ruby_mini_sql/1`, raw sql sent
+  through the mini_sql gem, wired into `sinks_sqli/1`. A connection is a top
+  level name ( `::DB = MiniSqlMultisiteConnection.instance` ) whose value is
+  a `new` / `get` / `instance` of one of the gem's 8 connection classes, or
+  of a 1st party subclass of one ( `kb_class_has_3rd_party_super` ), and the
+  sink is any of its 9 sql methods ( `mini_sql_sql_arg/2` records the sql
+  argument, `query_decorator` takes it 2nd ). Exact atoms only. Needs the
+  ruby front / parsers / codegen of OrenGitHub/dhscanner.runner#146, which
+  bind `DB` to its file and keep the qualified super name. Discourse : 1,152
+  sinks, every `DB.<sql method>` call ( runner #142 ).
+- `tests/fixtures/sinks/db/ruby/mini_sql.pl`
+
 ## v1.2.0
 
 Targets: dhscanner-kbgen 2.4.0.

@@ -17,6 +17,7 @@
 :- [ 'predicates/sinks/db/nodejs/prisma' ].
 :- [ 'predicates/sinks/db/java/jpa' ].
 :- [ 'predicates/sinks/db/python/django' ].
+:- [ 'predicates/sinks/db/ruby/mini_sql' ].
 :- [ 'predicates/sinks/rce/golang/native' ].
 :- [ 'predicates/sinks/deser/ruby/native' ].
 
@@ -26,6 +27,7 @@ sinks_sqli(Call) :- sinks_sqli_php_yii(Call).
 sinks_sqli(Call) :- sinks_sqli_nodejs_prisma(Call).
 sinks_sqli(Call) :- sinks_sqli_java_jpa(Call).
 sinks_sqli(Call) :- sinks_sqli_python_django(Call).
+sinks_sqli(Call) :- sinks_sqli_ruby_mini_sql(Call).
 
 sinks_ssrf(Call) :- sinks_ssrf_python(Call).
 sinks_ssrf(Call) :- sinks_ssrf_nodejs_fetch(Call).
