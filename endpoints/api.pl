@@ -40,6 +40,7 @@ endpoints_user_input(UserInput) :- endpoints_user_input_express(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_echo(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_spring(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_servlet(UserInput).
+endpoints_user_input(UserInput) :- endpoints_user_input_rails(UserInput).
 
 % -----------------------------------------------------------------------------
 % endpoints_http( Handler, Verb, RequestObject, Url )

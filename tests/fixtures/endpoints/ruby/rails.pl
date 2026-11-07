@@ -138,3 +138,50 @@ must_not(endpoints_controller_rails(startloc_1_1_endloc_9_4_app_slash_models_sla
 must_not(endpoints_controller_rails(startloc_1_1_endloc_9_4_app_slash_mycontrollers_slash_admin_controller_dot_rb)).
 % api : a private method is no endpoint
 must_not(endpoints_http(startloc_44_3_endloc_46_6_app_slash_controllers_slash_posts_controller_dot_rb, _, _, _)).
+
+% ---------------------------------------------------------------------------
+% user input ( runner #152 ) : Discourse app/controllers/admin/users_controller.rb
+%
+% class Admin::UsersController < Admin::StaffController
+%   def penalty_history                                 # :107
+%     ...
+%         user_id: params[:user_id].to_i,               # :142
+% class Admin::StaffController < ApplicationController  # no def
+% class ApplicationController < ActionController::Base
+kb_class_def(startloc_3_46_endloc_3_61_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, 'Admin.UsersController', 'app/controllers/admin/users_controller.rb').
+kb_class_def(startloc_3_46_endloc_3_61_app_slash_controllers_slash_admin_slash_staff_controller_dot_rb, 'Admin.StaffController', 'app/controllers/admin/staff_controller.rb').
+kb_class_def(startloc_5_65_endloc_5_86_app_slash_controllers_slash_application_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_class_has_1st_party_super(startloc_3_46_endloc_3_61_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, 'Admin.StaffController', 'app/controllers/admin/staff_controller.rb').
+kb_class_has_1st_party_super(startloc_3_46_endloc_3_61_app_slash_controllers_slash_admin_slash_staff_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_class_has_3rd_party_super(startloc_5_65_endloc_5_86_app_slash_controllers_slash_application_controller_dot_rb, 'ActionController.Base', 'ActionController.Base').
+kb_method_of_class(startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_3_46_endloc_3_61_app_slash_controllers_slash_admin_slash_users_controller_dot_rb).
+kb_method_has_name(startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, penalty_history).
+kb_call_resolved(startloc_142_4383_endloc_142_4389_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, params).
+kb_called_from(startloc_142_4383_endloc_142_4389_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb).
+% hypothetical : `params` inside a block of the same action
+%     json_result do |x| ; params[:id] ; end            # :120
+kb_call_resolved(startloc_120_3500_endloc_120_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, json_result).
+kb_called_from(startloc_120_3500_endloc_120_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb).
+kb_arg_i_for_call(startloc_120_3512_endloc_122_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, 0, startloc_120_3500_endloc_120_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb).
+kb_call_resolved(startloc_121_3515_endloc_121_3521_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, params).
+kb_called_from(startloc_121_3515_endloc_121_3521_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_120_3512_endloc_122_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb).
+% hypothetical : a class of its own with a `params` method, no controller
+% class StaffActionLogger ; def log ; params ; end ; def params ; end
+kb_class_def(startloc_3_7_endloc_3_24_app_slash_services_slash_staff_action_logger_dot_rb, 'StaffActionLogger', 'app/services/staff_action_logger.rb').
+kb_method_of_class(startloc_10_3_endloc_12_6_app_slash_services_slash_staff_action_logger_dot_rb, startloc_3_7_endloc_3_24_app_slash_services_slash_staff_action_logger_dot_rb).
+kb_method_has_name(startloc_10_3_endloc_12_6_app_slash_services_slash_staff_action_logger_dot_rb, log).
+kb_call_resolved(startloc_11_5_endloc_11_11_app_slash_services_slash_staff_action_logger_dot_rb, params).
+kb_called_from(startloc_11_5_endloc_11_11_app_slash_services_slash_staff_action_logger_dot_rb, startloc_10_3_endloc_12_6_app_slash_services_slash_staff_action_logger_dot_rb).
+
+% the action's own `params` call, and one in its block
+must(endpoints_user_input_of_method_rails(startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_142_4383_endloc_142_4389_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
+must(endpoints_user_input_of_method_rails(startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_121_3515_endloc_121_3521_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
+% the super chain, through a def-less controller
+must(endpoints_action_controller_rails(startloc_3_46_endloc_3_61_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
+% wired into the family api
+must(endpoints_user_input(startloc_142_4383_endloc_142_4389_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
+% not a controller : its own `params`
+must_not(endpoints_user_input_rails(startloc_11_5_endloc_11_11_app_slash_services_slash_staff_action_logger_dot_rb)).
+must_not(endpoints_action_controller_rails(startloc_3_7_endloc_3_24_app_slash_services_slash_staff_action_logger_dot_rb)).
+% a call that is not `params`
+must_not(endpoints_user_input_rails(startloc_120_3500_endloc_120_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
