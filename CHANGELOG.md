@@ -3,6 +3,29 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.5.0
+
+Targets: dhscanner-kbgen 2.4.0. Needs parsers 1.1.55 / codegen 1.0.46 /
+fronts rb a43bb34 for the Discourse numbers ( a `params` vcall, hash keys,
+dotted class names, def-less classes in the kb ).
+
+- `callgraph/class_method.pl`: two edges through `callgraph_java_lookup/3`.
+  A call on a class ( `kb_call_method_of_class`, `new` looks up
+  `initialize` ) reaches that method of the class or its nearest 1st party
+  super. A receiverless call ( implicit self ) reaches the method of exactly
+  that name in the caller's own class ( or a 1st party super ), climbing
+  out of blocks ( `callgraph_enclosing_method/2` ). No language check : a
+  structural heuristic. Discourse : reachable calls 13,745 -> 30,414, sqli
+  handlers 4 -> 23.
+- `dataflow/api.pl`: arg i of such a call flows into param i.
+- `endpoints/ruby/rails.pl`: `endpoints_user_input_rails/1`, a `params`
+  call in a method ( or its blocks ) of a class whose super chain reaches
+  the 3rd party `ActionController.Base`, wired into `endpoints_user_input/1`,
+  and `endpoints_user_input_of_method_rails/2` ( new in `host_calls/1` ) for
+  the queryengine handlers template. Discourse : 665 handlers, 1,718 inputs.
+- `AGENTS.md`: no string parsing of kb atoms in a catalog ; prefer a
+  structural heuristic to a language check.
+
 ## v1.4.0
 
 Targets: dhscanner-kbgen 2.4.0.
