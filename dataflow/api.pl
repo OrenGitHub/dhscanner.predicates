@@ -38,3 +38,11 @@ dataflow_inter_edge_from_arg_to_param(Arg, Param) :-
     kb_func_def(Func, FuncName, FuncDefinedInFile, _),
     kb_arg_i_for_call(Arg, Index, Call),
     kb_param_i_of_callable(Param, Index, Func).
+
+% a method of a 1st party class : `CategoryUser.set_notification_level_for_category( user, level, id )`
+% ( `callgraph_class_method_callee/2`, OrenGitHub/dhscanner.runner#152 ). Positional args only : a
+% ruby `key: value` arg is not a positional param.
+dataflow_inter_edge_from_arg_to_param(Arg, Param) :-
+    callgraph_class_method_callee(Call, Method),
+    kb_arg_i_for_call(Arg, Index, Call),
+    kb_param_i_of_callable(Param, Index, Method).

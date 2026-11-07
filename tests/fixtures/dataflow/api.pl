@@ -70,6 +70,37 @@ kb_param_i_of_callable(startloc_11_12_endloc_11_17_app_slash_utils_dot_py, 0, st
 kb_dataflow_edge(startloc_11_12_endloc_11_17_app_slash_utils_dot_py, startloc_12_19_endloc_12_24_app_slash_utils_dot_py).
 
 % -----------------------------------------------------------------------------
+% inter-procedural : a ruby method of a 1st party class ( OrenGitHub/dhscanner.runner#152 )
+%
+% app/controllers/categories_controller.rb
+%   category_id = params[:category_id].to_i                                                     :357
+%   CategoryUser.set_notification_level_for_category(current_user, notification_level, category_id)   :360
+% app/models/category_user.rb
+%   def self.set_notification_level_for_category(user, level, category_id)                     :67
+%     CategoryUser.find(category_id)                                                            :68
+%
+% ( :68 is made positional here : the real line is `where(user:, category_id:)`, a `key:` arg,
+% which kbgen gets as a 9999 placeholder, no edge until OrenGitHub/dhscanner.runner#152 step 5 )
+
+kb_class_def(startloc_3_39_endloc_3_51_app_slash_models_slash_category_user_dot_rb, 'CategoryUser', 'app/models/category_user.rb').
+kb_method_of_class(startloc_67_1834_endloc_85_2382_app_slash_models_slash_category_user_dot_rb, startloc_3_39_endloc_3_51_app_slash_models_slash_category_user_dot_rb).
+kb_method_has_name(startloc_67_1834_endloc_85_2382_app_slash_models_slash_category_user_dot_rb, 'set_notification_level_for_category').
+kb_param_i_of_callable(startloc_67_1879_endloc_67_1883_app_slash_models_slash_category_user_dot_rb, 0, startloc_67_1834_endloc_85_2382_app_slash_models_slash_category_user_dot_rb).
+kb_param_i_of_callable(startloc_67_1885_endloc_67_1890_app_slash_models_slash_category_user_dot_rb, 1, startloc_67_1834_endloc_85_2382_app_slash_models_slash_category_user_dot_rb).
+kb_param_i_of_callable(startloc_67_1892_endloc_67_1903_app_slash_models_slash_category_user_dot_rb, 2, startloc_67_1834_endloc_85_2382_app_slash_models_slash_category_user_dot_rb).
+kb_dataflow_edge(startloc_67_1892_endloc_67_1903_app_slash_models_slash_category_user_dot_rb, startloc_68_1915_endloc_68_1960_app_slash_models_slash_category_user_dot_rb).
+
+% params[:category_id].to_i -> category_id ( the local, by its definition site ) -> arg 2
+kb_dataflow_edge(startloc_357_11716_endloc_357_11741_app_slash_controllers_slash_categories_controller_dot_rb, startloc_357_11702_endloc_357_11713_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_arg_i_for_call(startloc_357_11702_endloc_357_11713_app_slash_controllers_slash_categories_controller_dot_rb, 2, startloc_360_11808_endloc_360_11903_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_arg_i_for_call(startloc_358_11747_endloc_358_11765_app_slash_controllers_slash_categories_controller_dot_rb, 1, startloc_360_11808_endloc_360_11903_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_call_method_of_class(startloc_360_11808_endloc_360_11903_app_slash_controllers_slash_categories_controller_dot_rb, 'set_notification_level_for_category', startloc_3_39_endloc_3_51_app_slash_models_slash_category_user_dot_rb).
+
+% CategoryUser.find_by(id: x) : an ActiveRecord finder, no 1st party method
+kb_arg_i_for_call(startloc_370_25_endloc_370_30_app_slash_controllers_slash_categories_controller_dot_rb, 0, startloc_370_5_endloc_370_31_app_slash_controllers_slash_categories_controller_dot_rb).
+kb_call_method_of_class(startloc_370_5_endloc_370_31_app_slash_controllers_slash_categories_controller_dot_rb, 'find_by', startloc_3_39_endloc_3_51_app_slash_models_slash_category_user_dot_rb).
+
+% -----------------------------------------------------------------------------
 % expectations
 
 % one edge
@@ -120,3 +151,17 @@ must(dataflow_inter_path(startloc_44_12_endloc_44_35_app_slash_views_dot_py, sta
 must_not(dataflow_inter_path(startloc_48_11_endloc_48_34_app_slash_views_dot_py, startloc_12_19_endloc_12_24_app_slash_utils_dot_py, _)).
 % name never flows into read_file
 must_not(dataflow_inter_path(startloc_40_12_endloc_40_35_app_slash_views_dot_py, startloc_8_17_endloc_8_18_app_slash_utils_dot_py, _)).
+
+% ruby method : arg i -> param i, by index
+must(dataflow_inter_edge(startloc_357_11702_endloc_357_11713_app_slash_controllers_slash_categories_controller_dot_rb,
+     startloc_67_1892_endloc_67_1903_app_slash_models_slash_category_user_dot_rb)).
+must(dataflow_inter_edge(startloc_358_11747_endloc_358_11765_app_slash_controllers_slash_categories_controller_dot_rb,
+     startloc_67_1885_endloc_67_1890_app_slash_models_slash_category_user_dot_rb)).
+% params[:category_id].to_i -> category_id -> set_notification_level_for_category( .., category_id ) -> CategoryUser.find( category_id )
+must(dataflow_inter_path(startloc_357_11716_endloc_357_11741_app_slash_controllers_slash_categories_controller_dot_rb,
+     startloc_68_1915_endloc_68_1960_app_slash_models_slash_category_user_dot_rb, _)).
+% arg 2 is not param 1
+must_not(dataflow_inter_edge(startloc_357_11702_endloc_357_11713_app_slash_controllers_slash_categories_controller_dot_rb,
+     startloc_67_1885_endloc_67_1890_app_slash_models_slash_category_user_dot_rb)).
+% an ActiveRecord finder has no 1st party params
+must_not(dataflow_inter_edge(startloc_370_25_endloc_370_30_app_slash_controllers_slash_categories_controller_dot_rb, _)).
