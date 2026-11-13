@@ -1,0 +1,43 @@
+% fixture : sinks/open_redirects/ruby/rails.pl
+
+% Chatwoot enterprise/app/controllers/api/v1/auth_controller.rb
+%
+% class Api::V1::AuthController < ApplicationController
+%   def saml_login                                         # :5
+%     redirect_to saml_initiation_url, status: :temporary_redirect   # :16
+%     respond_to do |format| ; redirect_to x ; end          # hypothetical, a block
+% class ApplicationController < ActionController::Base
+kb_class_def(startloc_1_1_endloc_100_4_app_slash_controllers_slash_auth_controller_dot_rb, 'Api.V1.AuthController', 'app/controllers/auth_controller.rb').
+kb_class_def(startloc_1_1_endloc_30_4_app_slash_controllers_slash_application_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_class_has_1st_party_super(startloc_1_1_endloc_100_4_app_slash_controllers_slash_auth_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_class_has_3rd_party_super(startloc_1_1_endloc_30_4_app_slash_controllers_slash_application_controller_dot_rb, 'ActionController.Base', 'ActionController.Base').
+kb_method_of_class(startloc_5_181_endloc_17_630_app_slash_controllers_slash_auth_controller_dot_rb, startloc_1_1_endloc_100_4_app_slash_controllers_slash_auth_controller_dot_rb).
+kb_method_has_name(startloc_5_181_endloc_17_630_app_slash_controllers_slash_auth_controller_dot_rb, saml_login).
+kb_call_resolved(startloc_16_563_endloc_16_623_app_slash_controllers_slash_auth_controller_dot_rb, redirect_to).
+kb_called_from(startloc_16_563_endloc_16_623_app_slash_controllers_slash_auth_controller_dot_rb, startloc_5_181_endloc_17_630_app_slash_controllers_slash_auth_controller_dot_rb).
+% the block : the last arg of respond_to, a lambda
+kb_call_resolved(startloc_18_10_endloc_20_10_app_slash_controllers_slash_auth_controller_dot_rb, respond_to).
+kb_called_from(startloc_18_10_endloc_20_10_app_slash_controllers_slash_auth_controller_dot_rb, startloc_5_181_endloc_17_630_app_slash_controllers_slash_auth_controller_dot_rb).
+kb_arg_i_for_call(startloc_18_20_endloc_20_10_app_slash_controllers_slash_auth_controller_dot_rb, 0, startloc_18_10_endloc_20_10_app_slash_controllers_slash_auth_controller_dot_rb).
+kb_call_resolved(startloc_19_12_endloc_19_30_app_slash_controllers_slash_auth_controller_dot_rb, redirect_to).
+kb_called_from(startloc_19_12_endloc_19_30_app_slash_controllers_slash_auth_controller_dot_rb, startloc_18_20_endloc_20_10_app_slash_controllers_slash_auth_controller_dot_rb).
+% a controller method named like a redirect, not redirect_to
+kb_call_resolved(startloc_21_5_endloc_21_30_app_slash_controllers_slash_auth_controller_dot_rb, redirect_to_error_page).
+kb_called_from(startloc_21_5_endloc_21_30_app_slash_controllers_slash_auth_controller_dot_rb, startloc_5_181_endloc_17_630_app_slash_controllers_slash_auth_controller_dot_rb).
+
+% hypothetical : a class of its own calling its own redirect_to, no controller
+% class Router ; def go ; redirect_to ; end ; end
+kb_class_def(startloc_1_1_endloc_9_4_app_slash_services_slash_router_dot_rb, 'Router', 'app/services/router.rb').
+kb_method_of_class(startloc_2_3_endloc_4_6_app_slash_services_slash_router_dot_rb, startloc_1_1_endloc_9_4_app_slash_services_slash_router_dot_rb).
+kb_method_has_name(startloc_2_3_endloc_4_6_app_slash_services_slash_router_dot_rb, go).
+kb_call_resolved(startloc_3_5_endloc_3_16_app_slash_services_slash_router_dot_rb, redirect_to).
+kb_called_from(startloc_3_5_endloc_3_16_app_slash_services_slash_router_dot_rb, startloc_2_3_endloc_4_6_app_slash_services_slash_router_dot_rb).
+
+must(sinks_open_redirect_ruby_rails(startloc_16_563_endloc_16_623_app_slash_controllers_slash_auth_controller_dot_rb)).
+% inside a block of the action
+must(sinks_open_redirect_ruby_rails(startloc_19_12_endloc_19_30_app_slash_controllers_slash_auth_controller_dot_rb)).
+% wired into the family api
+must(sinks_open_redirect(startloc_16_563_endloc_16_623_app_slash_controllers_slash_auth_controller_dot_rb)).
+
+must_not(sinks_open_redirect_ruby_rails(startloc_21_5_endloc_21_30_app_slash_controllers_slash_auth_controller_dot_rb)).
+must_not(sinks_open_redirect_ruby_rails(startloc_3_5_endloc_3_16_app_slash_services_slash_router_dot_rb)).

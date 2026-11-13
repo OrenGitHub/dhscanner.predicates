@@ -8,10 +8,12 @@
 :- [ 'predicates/sinks/ssrf/golang/native' ].
 :- [ 'predicates/sinks/ssrf/nodejs/native' ].
 :- [ 'predicates/sinks/ssrf/java/native' ].
+:- [ 'predicates/sinks/ssrf/ruby/native' ].
 :- [ 'predicates/sinks/open_redirects/python/tornado' ].
 :- [ 'predicates/sinks/open_redirects/python/django' ].
 :- [ 'predicates/sinks/open_redirects/nodejs/native' ].
 :- [ 'predicates/sinks/open_redirects/java/servlet' ].
+:- [ 'predicates/sinks/open_redirects/ruby/rails' ].
 :- [ 'predicates/sinks/db/php/yii' ].
 :- [ 'predicates/sinks/db/golang/gorm' ].
 :- [ 'predicates/sinks/db/nodejs/prisma' ].
@@ -32,6 +34,7 @@ sinks_sqli(Call) :- sinks_sqli_ruby_mini_sql(Call).
 sinks_ssrf(Call) :- sinks_ssrf_python(Call).
 sinks_ssrf(Call) :- sinks_ssrf_nodejs_fetch(Call).
 sinks_ssrf(Call) :- sinks_ssrf_java(Call).
+sinks_ssrf(Call) :- sinks_ssrf_ruby(Call).
 
 sinks_http_request(Call) :- sinks_http_request_golang(Call).
 
@@ -52,6 +55,7 @@ sinks_open_redirect(Call) :- sinks_open_redirect_python_tornado(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_python_django(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_nodejs_response_redirect(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_java_servlet(Call).
+sinks_open_redirect(Call) :- sinks_open_redirect_ruby_rails(Call).
 
 sinks_unsafe_deserialization(Call) :- sinks_unsafe_deserialization_ruby(Call).
 

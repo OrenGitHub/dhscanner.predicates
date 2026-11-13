@@ -3,6 +3,22 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.6.0
+
+Targets: dhscanner-kbgen 2.4.0. Ruby sinks, no new kb fact.
+
+- `sinks/open_redirects/ruby/rails.pl`: `sinks_open_redirect_ruby_rails/1`,
+  a receiverless `redirect_to` in a method ( or its blocks ) of a class whose
+  super chain reaches `ActionController.Base`, wired into
+  `sinks_open_redirect/1`.
+- `sinks/ssrf/ruby/native.pl`: `sinks_ssrf_ruby/1`, the `HTTParty` /
+  `RestClient` / `Faraday` verbs, `Net.HTTP.get / get_response / post /
+  post_form / start` and `OAuth2.Client.new.auth_code.get_token`, wired into
+  `sinks_ssrf/1`. Building a connection ( `Faraday.new`, `Net.HTTP.new` ) is
+  not a request.
+- Chatwoot ( parsers 1.1.56 / codegen 1.0.47 ) : 39 redirect sinks, 97 ssrf
+  sinks ( OrenGitHub/dhscanner.runner#154 ).
+
 ## v1.5.0
 
 Targets: dhscanner-kbgen 2.4.0. Needs parsers 1.1.55 / codegen 1.0.46 /
