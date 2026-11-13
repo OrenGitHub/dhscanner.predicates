@@ -101,6 +101,36 @@ kb_arg_i_for_call(startloc_370_25_endloc_370_30_app_slash_controllers_slash_cate
 kb_call_method_of_class(startloc_370_5_endloc_370_31_app_slash_controllers_slash_categories_controller_dot_rb, 'find_by', startloc_3_39_endloc_3_51_app_slash_models_slash_category_user_dot_rb).
 
 % -----------------------------------------------------------------------------
+% inter-procedural : a value returned by a ruby method flows to its call ( OrenGitHub/dhscanner.runner#158 )
+%
+% app/controllers/slack_uploads_controller.rb ( Chatwoot, the real kb facts )
+%   class SlackUploadsController < ApplicationController                         :1
+%     def show                                                                  :5
+%       redirect_to blob_url                                                     :7
+%       redirect_to avatar_url                                                   :9
+%     def avatar_url                                                            :28
+%       "#{base_url}/integrations/slack/#{params[:sender_type]}.png"             :30
+
+kb_class_def(startloc_1_6_endloc_1_28_app_slash_controllers_slash_slack_uploads_controller_dot_rb, 'SlackUploadsController', 'app/controllers/slack_uploads_controller.rb').
+kb_method_of_class(startloc_5_148_endloc_11_254_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_1_6_endloc_1_28_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+kb_method_has_name(startloc_5_148_endloc_11_254_app_slash_controllers_slash_slack_uploads_controller_dot_rb, 'show').
+kb_method_of_class(startloc_28_591_endloc_31_725_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_1_6_endloc_1_28_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+kb_method_has_name(startloc_28_591_endloc_31_725_app_slash_controllers_slash_slack_uploads_controller_dot_rb, 'avatar_url').
+
+% params -> params[:sender_type] -> the fstring, which avatar_url returns
+kb_dataflow_edge(startloc_30_692_endloc_30_698_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_692_endloc_30_712_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+kb_dataflow_edge(startloc_30_692_endloc_30_712_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+kb_callable_returns_value(startloc_28_591_endloc_31_725_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+
+% redirect_to avatar_url : the call of avatar_url -> redirect_to
+kb_call_method_of_class(startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb, 'avatar_url', startloc_1_6_endloc_1_28_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+kb_dataflow_edge(startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_9_216_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+
+% redirect_to blob_url : blob_url is not defined in the class, so no callee
+kb_call_method_of_class(startloc_7_190_endloc_7_198_app_slash_controllers_slash_slack_uploads_controller_dot_rb, 'blob_url', startloc_1_6_endloc_1_28_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+kb_dataflow_edge(startloc_7_190_endloc_7_198_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_7_178_endloc_7_198_app_slash_controllers_slash_slack_uploads_controller_dot_rb).
+
+% -----------------------------------------------------------------------------
 % expectations
 
 % one edge
@@ -165,3 +195,17 @@ must_not(dataflow_inter_edge(startloc_357_11702_endloc_357_11713_app_slash_contr
      startloc_67_1885_endloc_67_1890_app_slash_models_slash_category_user_dot_rb)).
 % an ActiveRecord finder has no 1st party params
 must_not(dataflow_inter_edge(startloc_370_25_endloc_370_30_app_slash_controllers_slash_categories_controller_dot_rb, _)).
+
+% ruby : the value avatar_url returns -> the call avatar_url
+must(dataflow_inter_edge(startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb)).
+% params[:sender_type] -> "#{..}/integrations/slack/#{..}.png" -> ( returned ) -> avatar_url -> redirect_to
+must(dataflow_inter_path(startloc_30_692_endloc_30_698_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_9_216_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb,
+     [(startloc_30_692_endloc_30_698_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_692_endloc_30_712_app_slash_controllers_slash_slack_uploads_controller_dot_rb),
+      (startloc_30_692_endloc_30_712_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb),
+      (startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb),
+      (startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_9_216_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb)])).
+% a call of a method the class does not define gets nothing back
+must_not(dataflow_inter_edge(_, startloc_7_190_endloc_7_198_app_slash_controllers_slash_slack_uploads_controller_dot_rb)).
+must_not(dataflow_inter_path(startloc_30_692_endloc_30_698_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_7_178_endloc_7_198_app_slash_controllers_slash_slack_uploads_controller_dot_rb, _)).
+% a return flows to the call, never the other way
+must_not(dataflow_inter_edge(startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb)).

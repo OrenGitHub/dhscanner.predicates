@@ -26,6 +26,21 @@ dataflow_inter_path(U, V, Path) :-
     append(CallerSidePath, [(Call, Callee)|CalleeSidePath], Path).
 
 dataflow_inter_edge(U, V) :- dataflow_inter_edge_from_arg_to_param(U, V).
+dataflow_inter_edge(U, V) :- dataflow_inter_edge_from_return_to_call(U, V).
+
+% a value a method of a 1st party class returns flows to the call ( OrenGitHub/dhscanner.runner#158 ) :
+%
+%     def show
+%       redirect_to avatar_url                                           Call ( :9 )
+%     def avatar_url
+%       "#{base_url}/integrations/slack/#{params[:sender_type]}.png"    Returned ( :30 )
+%
+% ( Chatwoot `slack_uploads_controller.rb` ). The callee is the one `callgraph_class_method_callee/2`
+% resolves, and every value it returns ( `kb_callable_returns_value/2`, a ruby def returns its last
+% expression ) flows to every call of it : context insensitive, one tainted return is enough.
+dataflow_inter_edge_from_return_to_call(Returned, Call) :-
+    callgraph_class_method_callee(Call, Method),
+    kb_callable_returns_value(Method, Returned).
 
 dataflow_inter_edge_from_arg_to_param(Arg, Param) :-
     kb_call_1st_party_func_defined_in_dir(Call, FuncName, FuncDefinedInDir),
