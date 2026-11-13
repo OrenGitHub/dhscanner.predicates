@@ -3,6 +3,18 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.7.0
+
+Targets: dhscanner-kbgen 2.4.0. A new dataflow shape, no new kb fact.
+
+- `dataflow/api.pl`: `dataflow_inter_edge_from_return_to_call/2`, a value a
+  method of a 1st party class returns ( `kb_callable_returns_value/2` ) flows
+  to every call of it that `callgraph_class_method_callee/2` resolves. Context
+  insensitive : one tainted return is enough. Chatwoot
+  `SlackUploadsController#show` : `params[:sender_type]` ( `avatar_url` :30 )
+  -> the returned string -> `avatar_url` :9 -> `redirect_to` :9
+  ( OrenGitHub/dhscanner.runner#158 ).
+
 ## v1.6.1
 
 Targets: dhscanner-kbgen 2.4.0. Needs parsers 1.1.57 for java `this.m( .. )`
