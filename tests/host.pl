@@ -20,6 +20,7 @@ host_calls(endpoints_http_auth/3).
 host_calls(endpoints_http_servlet/2).
 host_calls(endpoints_user_input_servlet/1).
 host_calls(endpoints_user_input_of_method_rails/2).
+host_calls(endpoints_user_input_of_handler_rails/2).
 host_calls(sanitizers_condition_checks_input/6).
 host_calls(sanitizers_top_level_if_then_else/4).
 host_calls(sinks_arbitrary_file_deletion/1).

@@ -5,7 +5,7 @@ records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` )
 
 ## v1.6.0
 
-Targets: dhscanner-kbgen 2.4.0. Ruby sinks, no new kb fact.
+Targets: dhscanner-kbgen 2.4.0. Ruby sinks and rails handler inputs, no new kb fact.
 
 - `sinks/open_redirects/ruby/rails.pl`: `sinks_open_redirect_ruby_rails/1`,
   a receiverless `redirect_to` in a method ( or its blocks ) of a class whose
@@ -16,8 +16,16 @@ Targets: dhscanner-kbgen 2.4.0. Ruby sinks, no new kb fact.
   post_form / start` and `OAuth2.Client.new.auth_code.get_token`, wired into
   `sinks_ssrf/1`. Building a connection ( `Faraday.new`, `Net.HTTP.new` ) is
   not a request.
+- `endpoints/ruby/rails.pl`: `endpoints_user_input_of_handler_rails/2`, the
+  `params` calls of a rails action and of the methods it reaches within 10
+  hops ( the reach bound of a sink query ), a new `host_calls` entry : the
+  queryengine handlers template reads it instead of
+  `endpoints_user_input_of_method_rails/2`, so a `params` read in a private
+  helper is a user input of the action.
 - Chatwoot ( parsers 1.1.56 / codegen 1.0.47 ) : 39 redirect sinks, 97 ssrf
-  sinks ( OrenGitHub/dhscanner.runner#154 ).
+  sinks ; `instagram/callbacks#show` has 7 inputs ( was 1 ) and
+  `params[:error]` flows into its `redirect_to` ( OrenGitHub/dhscanner.runner#154,
+  #156 ).
 
 ## v1.5.0
 

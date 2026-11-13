@@ -185,3 +185,44 @@ must_not(endpoints_user_input_rails(startloc_11_5_endloc_11_11_app_slash_service
 must_not(endpoints_action_controller_rails(startloc_3_7_endloc_3_24_app_slash_services_slash_staff_action_logger_dot_rb)).
 % a call that is not `params`
 must_not(endpoints_user_input_rails(startloc_120_3500_endloc_120_3530_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
+
+% ---------------------------------------------------------------------------
+% handler user input through a helper ( runner #154 ) : Chatwoot
+% app/controllers/api/v1/accounts/whatsapp/manual_setup_controller.rb
+%
+% class Api::V1::Accounts::Whatsapp::ManualSetupController < ApplicationController
+%   def preview                                          # :5
+%     render json: validation_service.perform
+%   def validation_service                               # :52  ( private )
+%     Whatsapp::ManualSetupValidationService.new(**connection_params.to_h.symbolize_keys)
+%   def connection_params                                # :56  ( private )
+%     params.permit(:waba_id, :phone_number_id, :access_token)   # :57
+%   def webhook_status                                   # :20 , calls no helper
+kb_class_def(startloc_1_1_endloc_80_4_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, 'Api.V1.Accounts.Whatsapp.ManualSetupController', 'app/controllers/whatsapp/manual_setup_controller.rb').
+kb_class_has_1st_party_super(startloc_1_1_endloc_80_4_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_method_of_class(startloc_5_232_endloc_9_351_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_1_1_endloc_80_4_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+kb_method_has_name(startloc_5_232_endloc_9_351_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, preview).
+kb_method_of_class(startloc_52_1600_endloc_54_1700_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_1_1_endloc_80_4_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+kb_method_has_name(startloc_52_1600_endloc_54_1700_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, validation_service).
+kb_method_of_class(startloc_56_1750_endloc_58_1800_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_1_1_endloc_80_4_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+kb_method_has_name(startloc_56_1750_endloc_58_1800_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, connection_params).
+kb_method_of_class(startloc_20_700_endloc_24_866_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_1_1_endloc_80_4_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+kb_method_has_name(startloc_20_700_endloc_24_866_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, webhook_status).
+% preview -> validation_service ( receiverless, implicit self )
+kb_call_resolved(startloc_6_262_endloc_6_280_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, validation_service).
+kb_called_from(startloc_6_262_endloc_6_280_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_5_232_endloc_9_351_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+% validation_service -> connection_params
+kb_call_resolved(startloc_53_1650_endloc_53_1667_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, connection_params).
+kb_called_from(startloc_53_1650_endloc_53_1667_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_52_1600_endloc_54_1700_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+% connection_params : params
+kb_call_resolved(startloc_57_1774_endloc_57_1780_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, params).
+kb_called_from(startloc_57_1774_endloc_57_1780_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_56_1750_endloc_58_1800_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb).
+
+% two helpers down
+must(endpoints_user_input_of_handler_rails(startloc_5_232_endloc_9_351_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, startloc_57_1774_endloc_57_1780_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb)).
+% the handler's own params still count ( 0 hops )
+must(endpoints_user_input_of_handler_rails(startloc_107_3284_endloc_146_4453_app_slash_controllers_slash_admin_slash_users_controller_dot_rb, startloc_142_4383_endloc_142_4389_app_slash_controllers_slash_admin_slash_users_controller_dot_rb)).
+% not in preview's own body
+must_not(endpoints_user_input_of_method_rails(startloc_5_232_endloc_9_351_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, _)).
+% an action that calls no helper reading params
+must_not(endpoints_user_input_of_handler_rails(startloc_20_700_endloc_24_866_app_slash_controllers_slash_whatsapp_slash_manual_setup_controller_dot_rb, _)).

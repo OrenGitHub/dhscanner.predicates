@@ -116,6 +116,26 @@ endpoints_user_input_of_method_rails(Method, Call) :-
     kb_method_of_class(Method, Class),
     endpoints_action_controller_rails(Class).
 
+% endpoints_user_input_of_handler_rails( Handler, Call ) : the `params` calls
+% of `Handler`, and of the methods it calls ( runner #154 ). An action often
+% reads `params` in a private helper, not in its own body :
+%
+%   def preview
+%     render json: validation_service.perform   # -> connection_params
+%   ...
+%   def connection_params
+%     params.permit(:waba_id, :phone_number_id, :access_token)
+%
+% Within the hops of the reach bound, so the same calls a sink query from
+% the handler sees. Only `params` of controller methods, as above.
+endpoints_user_input_of_handler_rails(Handler, Call) :-
+    endpoints_user_input_hops_rails(N),
+    callgraph_callables_within(Handler, N, Callables),
+    member(Method, Callables),
+    endpoints_user_input_of_method_rails(Method, Call).
+
+endpoints_user_input_hops_rails(10).
+
 :- table endpoints_action_controller_rails/1.
 endpoints_action_controller_rails(Class) :-
     kb_class_has_3rd_party_super(Class, 'ActionController.Base', _).
