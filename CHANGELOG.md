@@ -3,6 +3,22 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.6.1
+
+Targets: dhscanner-kbgen 2.4.0. Needs parsers 1.1.57 for java `this.m( .. )`
+edges ( lowered to the bare call `m( .. )`, like ruby's receiverless call ).
+
+- `callgraph/java/dispatch.pl`: `'Unknown.<method>'` is no edge. It was read
+  as a call on the caller's class and on every subclass of it ( java
+  `this.m( .. )` ), so any call on a receiver kbgen could not type became one :
+  ruby `serializer.new( .. )` in Discourse `ApplicationController#serialize_data`
+  reached the `new` action of `UserApiKeysController`, and its 21 `params`
+  reads were user inputs of `TagsController#update_notifications`
+  ( OrenGitHub/dhscanner.runner#157 ). A call on `this` is a
+  `kb_call_method_of_class` fact since parsers 1.1.57 ( the bare call
+  `m( .. )`, a method of the class since codegen 1.0.47 ) and goes through
+  `callgraph/class_method.pl`, with no string parsing.
+
 ## v1.6.0
 
 Targets: dhscanner-kbgen 2.4.0. Ruby sinks and rails handler inputs, no new kb fact.

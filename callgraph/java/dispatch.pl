@@ -11,8 +11,16 @@
 %
 %     'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "<File>", firstPartyImportedName = Just "<Class>"}).<method>'
 %
-%   unqualified call `returnSitemapFile( ... )` from inside a class
-%                   kbgen resolves it to 'Unknown.<method>'
+% A call on the class's own instance, `this.returnSitemapFile( ... )` or a
+% bare `returnSitemapFile( ... )`, is a `kb_call_method_of_class` fact, the
+% way ruby's receiverless call is ( the parsers lower `this.m( .. )` to
+% `m( .. )`, parsers 1.1.57, and codegen 1.0.47 resolves a bare call of a
+% method of the class ), handled by `callgraph/class_method.pl`, not here.
+% 'Unknown.<method>' is a call on a receiver kbgen could not type : it names
+% no class, so it gives no edge. It used to be read as a call on the
+% caller's class and all its subclasses : ruby `serializer.new( .. )` in
+% Discourse `ApplicationController#serialize_data` reached the `new` action
+% of `UserApiKeysController` ( OrenGitHub/dhscanner.runner#157 ).
 %
 % Virtual dispatch : the callee is `<method>` as looked up from the declared
 % class and from each of its 1st party subclasses ( `kb_class_has_1st_party_super` ),
@@ -36,10 +44,6 @@ callgraph_java_dispatch(Caller, Callee) :-
 callgraph_java_receiver_class(_, Fqn, Class, Method) :-
     callgraph_java_first_party_method(Fqn, File, ClassName, Method),
     kb_class_def(Class, ClassName, File).
-callgraph_java_receiver_class(Caller, Fqn, Class, Method) :-
-    atom_concat('Unknown.', Method, Fqn),
-    \+ sub_atom(Method, _, _, _, '.'),
-    kb_method_of_class(Caller, Class).
 
 % splits on '"' : [ prefix, File, middle, ClassName, '}).<method>' ]
 callgraph_java_first_party_method(Fqn, File, ClassName, Method) :-

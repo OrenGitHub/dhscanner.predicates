@@ -44,10 +44,12 @@ callgraph_class_method_callee(Call, Callee) :-
 % looked up from `Class`, nearest definition first.
 %
 % Only the bare name : the lookup by `kb_method_has_name` keeps it so, no
-% method name is dotted, so `'Unknown.<m>'` ( in a ruby kb, a call on a
-% receiver kbgen could not type, `params[:x].to_i` ) and
-% `'<dhscanner-instrumentation>[..]'` never match. Java writes receiverless
-% calls as `'Unknown.<m>'`, `callgraph_java_dispatch/2` handles those.
+% method name is dotted, so `'Unknown.<m>'` ( a call on a receiver kbgen
+% could not type, `params[:x].to_i`, `serializer.new( .. )` ) and
+% `'<dhscanner-instrumentation>[..]'` never match. A bare call of a method of
+% the class is a `kb_call_method_of_class` fact ( codegen 1.0.47 ), the clause
+% above, and so is java `this.m( .. )` : the parsers lower it to `m( .. )`
+% ( parsers 1.1.57 ).
 %
 % Every language : the heuristic is that a method of that exact name exists in
 % the caller's own class ( or up its 1st party supers ). Where a bare `foo()`

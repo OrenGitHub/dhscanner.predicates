@@ -78,8 +78,9 @@ kb_call_resolved(startloc_52_9_endloc_52_48_org_slash_dspace_slash_app_slash_res
 % public void misc( ... ) {
 %     groupService.findAll( ctx ).size();           chained : method part has a '.'
 %     GroupUtils.check( ctx );                      imported name with no class def in that file
-%     helper.run();                                 'Unknown.helper.run' : not an unqualified call
-%     returnSitemapFile( ctx );                     unqualified, but GroupRestController has no such method
+%     helper.run();                                 'Unknown.helper.run' : an untyped receiver
+%     sitemaps.returnSitemapFile( ctx );            'Unknown.returnSitemapFile' : an untyped receiver,
+%                                                   no edge, though SitemapRestController has the method
 % }
 kb_method_of_class(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_10_1_endloc_100_2_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
 kb_method_has_name(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'misc').
@@ -95,8 +96,12 @@ kb_call_resolved(startloc_65_9_endloc_65_32_org_slash_dspace_slash_app_slash_res
 % -----------------------------------------------------------------------------
 % class SitemapRestController
 %
-% public ResponseEntity retrieve( ... ) { return returnSitemapFile( ... ); }   unqualified call
+% public ResponseEntity retrieve( ... ) { return this.returnSitemapFile( ... ); }
 % private ResponseEntity returnSitemapFile( ... ) { ... }
+%
+% `this.m( .. )` is the bare call `m( .. )`, a method of the class
+% ( parsers 1.1.57 + codegen 1.0.47 ) :
+% callgraph/class_method.pl, not java dispatch
 
 kb_class_def(startloc_12_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, 'SitemapRestController', 'org/dspace/app/rest/SitemapRestController.java').
 kb_method_of_class(startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, startloc_12_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java).
@@ -104,7 +109,29 @@ kb_method_has_name(startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_re
 kb_method_of_class(startloc_50_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, startloc_12_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java).
 kb_method_has_name(startloc_50_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, 'returnSitemapFile').
 kb_called_from(startloc_30_16_endloc_30_50_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java).
-kb_call_resolved(startloc_30_16_endloc_30_50_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, 'Unknown.returnSitemapFile').
+kb_call_method_of_class(startloc_30_16_endloc_30_50_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, 'returnSitemapFile', startloc_12_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java).
+
+% -----------------------------------------------------------------------------
+% ruby, Discourse-shaped ( OrenGitHub/dhscanner.runner#157 ) :
+%
+%   class ApplicationController
+%     def serialize_data(obj, serializer, opts = nil)
+%       serializer.new(obj, serializer_opts)          'Unknown.new' : an untyped receiver
+%   class UserApiKeysController < ApplicationController
+%     def new                                        an action named `new`
+%
+% no edge : 'Unknown.new' names no class ( it used to reach every `new` of
+% every subclass of the caller's class )
+
+kb_class_def(startloc_1_1_endloc_900_4_app_slash_controllers_slash_application_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_method_of_class(startloc_504_3_endloc_513_6_app_slash_controllers_slash_application_controller_dot_rb, startloc_1_1_endloc_900_4_app_slash_controllers_slash_application_controller_dot_rb).
+kb_method_has_name(startloc_504_3_endloc_513_6_app_slash_controllers_slash_application_controller_dot_rb, 'serialize_data').
+kb_called_from(startloc_511_7_endloc_511_43_app_slash_controllers_slash_application_controller_dot_rb, startloc_504_3_endloc_513_6_app_slash_controllers_slash_application_controller_dot_rb).
+kb_call_resolved(startloc_511_7_endloc_511_43_app_slash_controllers_slash_application_controller_dot_rb, 'Unknown.new').
+kb_class_def(startloc_3_1_endloc_877_4_app_slash_controllers_slash_user_api_keys_controller_dot_rb, 'UserApiKeysController', 'app/controllers/user_api_keys_controller.rb').
+kb_class_has_1st_party_super(startloc_3_1_endloc_877_4_app_slash_controllers_slash_user_api_keys_controller_dot_rb, 'ApplicationController', 'app/controllers/application_controller.rb').
+kb_method_of_class(startloc_39_3_endloc_71_6_app_slash_controllers_slash_user_api_keys_controller_dot_rb, startloc_3_1_endloc_877_4_app_slash_controllers_slash_user_api_keys_controller_dot_rb).
+kb_method_has_name(startloc_39_3_endloc_71_6_app_slash_controllers_slash_user_api_keys_controller_dot_rb, 'new').
 
 % -----------------------------------------------------------------------------
 % expectations
@@ -115,13 +142,11 @@ must(callgraph_java_first_party_method('FirstPartyImport (FirstPartyImportConten
 must_not(callgraph_java_first_party_method('FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).findAll.size', _, _, _)).
 must_not(callgraph_java_first_party_method('Unknown.returnSitemapFile', _, _, _)).
 
-% receiver class : typed call / unqualified call ( the caller's own class )
+% receiver class : a typed call names its class, an untyped receiver none
 must(callgraph_java_receiver_class(startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java,
      'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).delete',
      startloc_5_1_endloc_20_2_org_slash_dspace_slash_eperson_slash_service_slash_GroupService_dot_java, delete)).
-must(callgraph_java_receiver_class(startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java,
-     'Unknown.returnSitemapFile',
-     startloc_12_1_endloc_90_2_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, returnSitemapFile)).
+must_not(callgraph_java_receiver_class(_, 'Unknown.returnSitemapFile', _, _)).
 must_not(callgraph_java_receiver_class(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'Unknown.helper.run', _, _)).
 
 % class tree : supers and the ( transitive, downward ) dispatch closure
@@ -166,14 +191,16 @@ must_not(callgraph_java_dispatch(startloc_50_5_endloc_55_6_org_slash_dspace_slas
 must_not(callgraph_java_dispatch(startloc_50_5_endloc_55_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java,
      startloc_8_5_endloc_8_60_org_slash_dspace_slash_eperson_slash_service_slash_GroupService_dot_java)).
 
-% unqualified call to a method of the caller's class
-must(callgraph_java_dispatch(startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java,
-     startloc_50_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java)).
+% this.returnSitemapFile( .. ) : not java dispatch ( class_method.pl, below )
+must_not(callgraph_java_dispatch(startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java, _)).
 
-% misc : chained call, class-less import, dotted Unknown, unqualified call to a missing method
+% misc : chained call, class-less import, untyped receivers
 must_not(callgraph_java_dispatch(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, _)).
 
 % wired into the family api
 must(callgraph_callable_calls_callable(startloc_20_5_endloc_40_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java,
      startloc_50_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_SitemapRestController_dot_java)).
 must_not(callgraph_callable_calls_callable(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, _)).
+
+% ruby serializer.new( .. ) : no edge, UserApiKeysController#new is not reached
+must_not(callgraph_callable_calls_callable(startloc_504_3_endloc_513_6_app_slash_controllers_slash_application_controller_dot_rb, _)).
