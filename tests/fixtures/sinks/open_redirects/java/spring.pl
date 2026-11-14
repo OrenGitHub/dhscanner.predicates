@@ -1,0 +1,25 @@
+% fixture : sinks/open_redirects/java/spring.pl
+
+% ThingsBoard BaseController#redirectTo :
+% ResponseEntity.status( HttpStatus.SEE_OTHER ).location( uri ).build()
+kb_call_resolved(startloc_1698_16_endloc_1698_59_application_slash_BaseController_dot_java, 'org.springframework.http.ResponseEntity.status').
+kb_call_resolved(startloc_1698_16_endloc_1699_31_application_slash_BaseController_dot_java, 'org.springframework.http.ResponseEntity.status.location').
+kb_call_resolved(startloc_1698_16_endloc_1700_25_application_slash_BaseController_dot_java, 'org.springframework.http.ResponseEntity.status.location.build').
+% ThingsBoard SignUpController#mobileLogin : headers.setLocation( uri )
+kb_call_resolved(startloc_330_17_endloc_330_46_application_slash_SignUpController_dot_java, 'org.springframework.http.HttpHeaders.setLocation').
+
+% a body, not a Location header
+kb_call_resolved(startloc_77_16_endloc_77_60_application_slash_AuthController_dot_java, 'org.springframework.http.ResponseEntity.status.contentType.body').
+% location on an unresolved receiver
+kb_call_resolved(startloc_90_13_endloc_90_37_application_slash_AuthController_dot_java, 'Unknown.location').
+
+must(sinks_open_redirect_java_spring(startloc_1698_16_endloc_1699_31_application_slash_BaseController_dot_java)).
+must(sinks_open_redirect_java_spring(startloc_330_17_endloc_330_46_application_slash_SignUpController_dot_java)).
+% wired into the family api
+must(sinks_open_redirect(startloc_1698_16_endloc_1699_31_application_slash_BaseController_dot_java)).
+
+% the chain's other links are not the sink
+must_not(sinks_open_redirect_java_spring(startloc_1698_16_endloc_1698_59_application_slash_BaseController_dot_java)).
+must_not(sinks_open_redirect_java_spring(startloc_1698_16_endloc_1700_25_application_slash_BaseController_dot_java)).
+must_not(sinks_open_redirect_java_spring(startloc_77_16_endloc_77_60_application_slash_AuthController_dot_java)).
+must_not(sinks_open_redirect_java_spring(startloc_90_13_endloc_90_37_application_slash_AuthController_dot_java)).

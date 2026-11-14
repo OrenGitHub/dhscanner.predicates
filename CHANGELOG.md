@@ -3,6 +3,21 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.8.0
+
+Targets: dhscanner-kbgen 2.4.0. A new sink catalog, no new kb fact.
+
+- `sinks/open_redirects/java/spring.pl`: `sinks_open_redirect_java_spring/1`,
+  spring's `Location` header redirects, wired into `sinks_open_redirect/1`.
+  kbgen names a chained builder call by the whole chain, so the sink is the
+  exact Fqn of the `.location( .. )` link :
+  `org.springframework.http.ResponseEntity.status.location`, plus
+  `org.springframework.http.HttpHeaders.setLocation`. ThingsBoard
+  `AuthController#checkActivateToken` / `#checkResetToken` : the
+  `@RequestParam` token -> `"/login/..?token=" + ..` -> inherited
+  `BaseController#redirectTo` -> `URI.create` -> `.location( uri )` :1699
+  ( OrenGitHub/dhscanner.runner#161 ).
+
 ## v1.7.0
 
 Targets: dhscanner-kbgen 2.4.0. A new dataflow shape, no new kb fact.
