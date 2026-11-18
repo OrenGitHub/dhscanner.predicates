@@ -48,6 +48,10 @@ java_file_read_fqn('org.apache.commons.io.FileUtils.readFileToString').
 java_file_read_fqn('org.apache.commons.io.FileUtils.readFileToByteArray').
 java_file_read_fqn('org.apache.commons.io.FileUtils.readLines').
 java_file_read_fqn('org.apache.commons.io.FileUtils.openInputStream').
+% ImageIO.read( File | URL | InputStream | ImageInputStream ) : javax.imageio,
+% java SE ( java.desktop ). The kb fqn carries no overload, so all four match ;
+% the File one opens the path, eg ImageIO.read( new File( base + "/" + name ) ).
+java_file_read_fqn('javax.imageio.ImageIO.read').
 
 java_file_write_fqn('java.io.FileOutputStream').
 java_file_write_fqn('java.io.FileWriter').

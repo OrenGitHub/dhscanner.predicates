@@ -3,6 +3,16 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v1.9.0
+
+Targets: dhscanner-kbgen 2.4.0. A new sink fqn, no new kb fact.
+
+- `sinks/files/java/native.pl`: `javax.imageio.ImageIO.read` is a file read
+  ( java SE, `java.desktop` ). The kb fqn carries no overload, so
+  `read( File | URL | InputStream | ImageInputStream )` all match ; the File
+  one opens the path, eg `ImageIO.read( new File( base + "/" + name ) )`.
+  Fixture : the read, and `ImageIO.write` is not one.
+
 ## v1.8.0
 
 Targets: dhscanner-kbgen 2.4.0. A new sink catalog, no new kb fact.
