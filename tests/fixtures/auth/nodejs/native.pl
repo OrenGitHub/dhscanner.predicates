@@ -127,13 +127,17 @@ kb_const_int(startloc_20_62_endloc_20_65_apps_slash_web_slash_lib_slash_response
 % apps/web/lib/guards.ts : returns through the imported `responses` helpers
 
 % return responses.notAuthenticatedResponse();
-kb_call_resolved(startloc_5_12_endloc_5_52_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
+kb_call_resolved(startloc_5_12_endloc_5_52_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_5_12_endloc_5_52_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
 % return responses.forbiddenResponse();
-kb_call_resolved(startloc_6_12_endloc_6_45_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).forbiddenResponse').
+kb_call_resolved(startloc_6_12_endloc_6_45_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.forbiddenResponse').
+kb_call_method_of_1st_party_import(startloc_6_12_endloc_6_45_apps_slash_web_slash_lib_slash_guards_dot_ts, 'forbiddenResponse', 'responses', 'apps/web/lib/responses.ts').
 % return responses.notFoundResponse();
-kb_call_resolved(startloc_7_12_endloc_7_44_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notFoundResponse').
+kb_call_resolved(startloc_7_12_endloc_7_44_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notFoundResponse').
+kb_call_method_of_1st_party_import(startloc_7_12_endloc_7_44_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notFoundResponse', 'responses', 'apps/web/lib/responses.ts').
 % return responses.successResponse();   <-- wraps a 200
-kb_call_resolved(startloc_8_12_endloc_8_43_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).successResponse').
+kb_call_resolved(startloc_8_12_endloc_8_43_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.successResponse').
+kb_call_method_of_1st_party_import(startloc_8_12_endloc_8_43_apps_slash_web_slash_lib_slash_guards_dot_ts, 'successResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % -----------------------------------------------------------------------------
 % apps/web/lib/signing.ts : crypto leaves
@@ -185,14 +189,14 @@ must(auth_ts_response_json_at_with_status(startloc_12_10_endloc_12_72_apps_slash
 must_not(auth_return_value_is_bad_http_response_ts_401(startloc_16_10_endloc_16_72_apps_slash_web_slash_lib_slash_responses_dot_ts)).
 must_not(auth_ts_response_json_at_with_status(startloc_20_10_endloc_20_76_apps_slash_web_slash_lib_slash_responses_dot_ts, _)).
 
-% 1-hop wrapper : responses.<helper>() resolved through the FirstPartyImport atom
+% 1-hop wrapper : responses.<helper>() , a kb_call_method_of_1st_party_import
 must(auth_1st_party_wrapper_helper(startloc_5_12_endloc_5_52_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_3_8_endloc_5_2_apps_slash_web_slash_lib_slash_responses_dot_ts)).
 must(auth_return_value_is_bad_http_response_via_1st_party_wrapper(startloc_5_12_endloc_5_52_apps_slash_web_slash_lib_slash_guards_dot_ts)).
 must(auth_return_value_is_bad_http_response_via_1st_party_wrapper(startloc_6_12_endloc_6_45_apps_slash_web_slash_lib_slash_guards_dot_ts)).
 must(auth_return_value_is_bad_http_response_via_1st_party_wrapper(startloc_7_12_endloc_7_44_apps_slash_web_slash_lib_slash_guards_dot_ts)).
 % wrapper around a 200
 must_not(auth_return_value_is_bad_http_response_via_1st_party_wrapper(startloc_8_12_endloc_8_43_apps_slash_web_slash_lib_slash_guards_dot_ts)).
-% nodejs.Response.json is not a FirstPartyImport atom
+% nodejs.Response.json is not a 1st party import
 must_not(auth_1st_party_wrapper_helper(startloc_4_10_endloc_4_72_apps_slash_web_slash_lib_slash_responses_dot_ts, _)).
 
 % crypto leaves

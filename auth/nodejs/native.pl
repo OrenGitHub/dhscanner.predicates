@@ -148,15 +148,13 @@ auth_return_value_is_bad_http_response_ts_404(ReturnedValue) :-
 % inlined.
 %
 % Method-call-on-imported-object case ( eg
-% `responses.notAuthenticatedResponse()` ) : kbgen resolves such calls
-% through `kb_call_resolved` with a Haskell-Show-formatted qualifier
-% atom of the form
+% `responses.notAuthenticatedResponse()` ) : kbgen ( >= 2.5.0 ) names
+% the imported object and the file defining it :
 %
-%    'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "<File>", firstPartyImportedName = Just "<Qual>"}).<Method>'
+%    kb_call_method_of_1st_party_import( Call, '<Method>', '<Qual>', '<File>' )
 %
-% `auth_1st_party_wrapper_helper/2` splits that atom on `"` to recover
-% the wrapper's defining file + method name and binds Helper via
-% `kb_func_def/4`. From there we recurse the LEAF bad-http checkers
+% `auth_1st_party_wrapper_helper/2` binds Helper to the function of
+% that name in that file via `kb_func_def/4`. From there we recurse the LEAF bad-http checkers
 % ( `_ts_401` / `_ts_403` / `_ts_404` ) on the wrapper's own returns
 % ( `kb_callable_returns_value/2` -- emitted for every explicit return
 % plus the parser-injected fall-through, see
@@ -187,30 +185,10 @@ auth_return_value_is_bad_http_response_via_1st_party_wrapper(ReturnedValue) :-
     kb_callable_returns_value(Helper, HelperReturn),
     auth_return_value_is_bad_http_response_ts_404(HelperReturn).
 
-% Extract the wrapper's ( DefFile, Method ) from a `kb_call_resolved`
-% whose resolved-name atom follows the FirstPartyImport Haskell-Show
-% format documented above. Splits on `"` and re-checks structural
-% anchors so non-FirstPartyImport shapes ( `os/exec.Command`,
-% `nodejs.Response.json`, `Yii.app.db.createCommand.queryAll`, etc. )
-% cleanly FAIL rather than return garbage extractions :
-%
-%   Chunk[0] -- unused ; the fixed prefix
-%              `FirstPartyImport (... firstPartyImportedLocation = `.
-%   Chunk[1] -- the file path, bound to `File`.
-%   Chunk[2..3] -- unused ; the qualifier name between the quotes.
-%   Chunk[4] -- starts with `}).` followed by the method name ;
-%              stripping the sentinel binds `Method`.
-%
-% The 5-part unification is the actual reject-non-matching-shapes gate
-% -- atoms without four `"` characters ( eg `os/exec.Command` )
-% produce a 1-element split_string result and fail here immediately.
+% The wrapper's ( DefFile, Method ) of a 1st party import method call.
+% 3rd party calls ( `nodejs.Response.json` ) have no such fact.
 auth_1st_party_wrapper_helper(ReturnedValue, Helper) :-
-    kb_call_resolved(ReturnedValue, ResolvedName),
-    atom_string(ResolvedName, S),
-    split_string(S, "\"", "", [_, FileStr, _, _, TailStr]),
-    string_concat("}).", MethodStr, TailStr),
-    atom_string(File, FileStr),
-    atom_string(Method, MethodStr),
+    kb_call_method_of_1st_party_import(ReturnedValue, Method, _, File),
     kb_func_def(Helper, Method, File, _).
 
 % Same structural walk as `auth_ts_response_json_with_status/2` above,

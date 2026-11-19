@@ -109,7 +109,8 @@ kb_method_of_class(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_re
 kb_method_has_name(startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'patch').
 % ItemRestController.patch : itemService.update( ctx, item )
 kb_called_from(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, startloc_20_5_endloc_30_6_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java).
-kb_call_resolved(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/content/service/ItemService.java", firstPartyImportedName = Just "ItemService"}).update').
+kb_call_resolved(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, '<1st-party>[org/dspace/content/service/ItemService.java].ItemService.update').
+kb_call_method_of_1st_party_import(startloc_25_9_endloc_25_40_org_slash_dspace_slash_app_slash_rest_slash_ItemRestController_dot_java, 'update', 'ItemService', 'org/dspace/content/service/ItemService.java').
 
 % -----------------------------------------------------------------------------
 % ruby : U = CategoriesController#update , B = its block

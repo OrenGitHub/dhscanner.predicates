@@ -16,7 +16,7 @@
 % src/Kbgen.hs ), and record the new kbgen version here and in CHANGELOG.md.
 % -----------------------------------------------------------------------------
 
-kb_schema_kbgen_version('2.4.0').
+kb_schema_kbgen_version('2.5.0').
 
 kb_schema_fact(kb_arg_i_for_call/3).
 kb_schema_fact(kb_assign_value_to_toplevel_varname/4).
@@ -24,6 +24,7 @@ kb_schema_fact(kb_call_1st_party_func_defined_in_dir/3).
 kb_schema_fact(kb_call_1st_party_func_defined_in_file/3).
 kb_schema_fact(kb_call_guarded_by_cond_in_else_part/3).
 kb_schema_fact(kb_call_guarded_by_cond_in_then_part/3).
+kb_schema_fact(kb_call_method_of_1st_party_import/4).
 kb_schema_fact(kb_call_method_of_class/3).
 kb_schema_fact(kb_call_method_of_untyped_named_param/3).
 kb_schema_fact(kb_call_resolved/2).

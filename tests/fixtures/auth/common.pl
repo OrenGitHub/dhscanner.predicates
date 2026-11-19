@@ -68,7 +68,8 @@ kb_const_int(startloc_16_58_endloc_16_61_apps_slash_web_slash_lib_slash_response
 kb_func_def(startloc_5_8_endloc_9_2_apps_slash_web_slash_lib_slash_guards_dot_ts, 'requireUser', 'apps/web/lib/guards.ts', 'apps/web/lib').
 kb_callable_returns_value(startloc_5_8_endloc_9_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_5_8_endloc_9_2_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_5_8_endloc_9_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_7_25_endloc_7_65_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_7_25_endloc_7_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
+kb_call_resolved(startloc_7_25_endloc_7_65_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_7_25_endloc_7_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % export function requireAdmin( req ) {              2 bad + fall-through
 %     if ( !session ) return responses.notAuthenticatedResponse();
@@ -78,8 +79,10 @@ kb_func_def(startloc_11_8_endloc_17_2_apps_slash_web_slash_lib_slash_guards_dot_
 kb_callable_returns_value(startloc_11_8_endloc_17_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_11_8_endloc_17_2_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_11_8_endloc_17_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_13_25_endloc_13_65_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_11_8_endloc_17_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_15_23_endloc_15_56_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_13_25_endloc_13_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
-kb_call_resolved(startloc_15_23_endloc_15_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).forbiddenResponse').
+kb_call_resolved(startloc_13_25_endloc_13_65_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_13_25_endloc_13_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_15_23_endloc_15_56_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.forbiddenResponse').
+kb_call_method_of_1st_party_import(startloc_15_23_endloc_15_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'forbiddenResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % export function requireOwner( req ) {              3 bad + fall-through
 %     ... notAuthenticatedResponse() ... forbiddenResponse() ... notFoundResponse() ...
@@ -89,9 +92,12 @@ kb_callable_returns_value(startloc_19_8_endloc_27_2_apps_slash_web_slash_lib_sla
 kb_callable_returns_value(startloc_19_8_endloc_27_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_21_25_endloc_21_65_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_19_8_endloc_27_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_23_23_endloc_23_56_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_19_8_endloc_27_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_25_23_endloc_25_55_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_21_25_endloc_21_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
-kb_call_resolved(startloc_23_23_endloc_23_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).forbiddenResponse').
-kb_call_resolved(startloc_25_23_endloc_25_55_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notFoundResponse').
+kb_call_resolved(startloc_21_25_endloc_21_65_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_21_25_endloc_21_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_23_23_endloc_23_56_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.forbiddenResponse').
+kb_call_method_of_1st_party_import(startloc_23_23_endloc_23_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'forbiddenResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_25_23_endloc_25_55_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notFoundResponse').
+kb_call_method_of_1st_party_import(startloc_25_23_endloc_25_55_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notFoundResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % export function requireTeamOwner( req ) {          4 bad + fall-through
 kb_func_def(startloc_29_8_endloc_39_2_apps_slash_web_slash_lib_slash_guards_dot_ts, 'requireTeamOwner', 'apps/web/lib/guards.ts', 'apps/web/lib').
@@ -100,10 +106,14 @@ kb_callable_returns_value(startloc_29_8_endloc_39_2_apps_slash_web_slash_lib_sla
 kb_callable_returns_value(startloc_29_8_endloc_39_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_33_23_endloc_33_56_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_29_8_endloc_39_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_35_23_endloc_35_55_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_29_8_endloc_39_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_37_23_endloc_37_56_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_31_25_endloc_31_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
-kb_call_resolved(startloc_33_23_endloc_33_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).forbiddenResponse').
-kb_call_resolved(startloc_35_23_endloc_35_55_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notFoundResponse').
-kb_call_resolved(startloc_37_23_endloc_37_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).forbiddenResponse').
+kb_call_resolved(startloc_31_25_endloc_31_65_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_31_25_endloc_31_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_33_23_endloc_33_56_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.forbiddenResponse').
+kb_call_method_of_1st_party_import(startloc_33_23_endloc_33_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'forbiddenResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_35_23_endloc_35_55_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notFoundResponse').
+kb_call_method_of_1st_party_import(startloc_35_23_endloc_35_55_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notFoundResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_37_23_endloc_37_56_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.forbiddenResponse').
+kb_call_method_of_1st_party_import(startloc_37_23_endloc_37_56_apps_slash_web_slash_lib_slash_guards_dot_ts, 'forbiddenResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % export function requireSession( req ) {            1 bad + fall-through + a bare `return;`
 %     if ( !session ) return responses.notAuthenticatedResponse();
@@ -113,7 +123,8 @@ kb_func_def(startloc_41_8_endloc_46_2_apps_slash_web_slash_lib_slash_guards_dot_
 kb_callable_returns_value(startloc_41_8_endloc_46_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_41_8_endloc_46_2_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_41_8_endloc_46_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_43_25_endloc_43_65_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_without_value(startloc_41_8_endloc_46_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_44_22_endloc_44_29_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_43_25_endloc_43_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
+kb_call_resolved(startloc_43_25_endloc_43_65_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_43_25_endloc_43_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % export function maybeUser( req ) {                 1 bad + 1 success + fall-through
 %     if ( !session ) return responses.notAuthenticatedResponse();
@@ -123,13 +134,16 @@ kb_func_def(startloc_48_8_endloc_54_2_apps_slash_web_slash_lib_slash_guards_dot_
 kb_callable_returns_value(startloc_48_8_endloc_54_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_48_8_endloc_54_2_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_48_8_endloc_54_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_50_25_endloc_50_65_apps_slash_web_slash_lib_slash_guards_dot_ts).
 kb_callable_returns_value(startloc_48_8_endloc_54_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_52_23_endloc_52_54_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_50_25_endloc_50_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
-kb_call_resolved(startloc_52_23_endloc_52_54_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).successResponse').
+kb_call_resolved(startloc_50_25_endloc_50_65_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_50_25_endloc_50_65_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
+kb_call_resolved(startloc_52_23_endloc_52_54_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.successResponse').
+kb_call_method_of_1st_party_import(startloc_52_23_endloc_52_54_apps_slash_web_slash_lib_slash_guards_dot_ts, 'successResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % a callable without the parser-injected fall-through ( 1 bad return only )
 kb_func_def(startloc_56_8_endloc_58_2_apps_slash_web_slash_lib_slash_guards_dot_ts, 'rejectAll', 'apps/web/lib/guards.ts', 'apps/web/lib').
 kb_callable_returns_value(startloc_56_8_endloc_58_2_apps_slash_web_slash_lib_slash_guards_dot_ts, startloc_57_12_endloc_57_52_apps_slash_web_slash_lib_slash_guards_dot_ts).
-kb_call_resolved(startloc_57_12_endloc_57_52_apps_slash_web_slash_lib_slash_guards_dot_ts, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "apps/web/lib/responses.ts", firstPartyImportedName = Just "responses"}).notAuthenticatedResponse').
+kb_call_resolved(startloc_57_12_endloc_57_52_apps_slash_web_slash_lib_slash_guards_dot_ts, '<1st-party>[apps/web/lib/responses.ts].responses.notAuthenticatedResponse').
+kb_call_method_of_1st_party_import(startloc_57_12_endloc_57_52_apps_slash_web_slash_lib_slash_guards_dot_ts, 'notAuthenticatedResponse', 'responses', 'apps/web/lib/responses.ts').
 
 % -----------------------------------------------------------------------------
 % apps/web/app/api/route.ts : calls to the guards

@@ -3,6 +3,23 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v2.0.0
+
+Targets: dhscanner-kbgen 2.5.0. **Major** : needs the newer kbgen. kbgen no
+longer writes Haskell `show` into kb atoms : a 1st party callee is spelled
+`'<1st-party>[File].Name.m'` ( was
+`'FirstPartyImport (FirstPartyImportContent {...}).m'` ), and `Name.m( .. )`
+on a name imported from a 1st party file is the new fact
+`kb_call_method_of_1st_party_import( Call, Method, Name, File )`.
+
+- `callgraph/java/dispatch.pl`, `auth/nodejs/native.pl`,
+  `sinks/db/ruby/mini_sql.pl` join on the new fact instead of splitting the
+  Show atom on `"` ( `callgraph_java_first_party_method/4`,
+  `ruby_toplevel_name_method/4` are gone ; `callgraph_java_receiver_class`
+  is now `/3`, keyed by the call ). Same edges and sinks as v1.9.0 on the
+  fixtures. Not in `host_calls/1`.
+- `tests/kb_schema.pl`: kbgen 2.5.0, `kb_call_method_of_1st_party_import/4`.
+
 ## v1.9.0
 
 Targets: dhscanner-kbgen 2.4.0. A new sink fqn, no new kb fact.

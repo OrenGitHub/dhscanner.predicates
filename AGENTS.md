@@ -10,9 +10,8 @@ rules that are easy to break by accident.
 `atom_concat/3`, `atomic_list_concat/3` ( split mode ), `split_string/4`,
 `re_match/2` or friends on an atom that came out of a `kb_*` fact : a location
 atom ( `startloc_..._endloc_..._<path>` ), a resolved fqn
-( `kb_call_resolved/2` ), a Haskell-Show atom
-( `'CallMethodOfClass (Location {...}) ...'`,
-`'FirstPartyImport (FirstPartyImportContent {...}).m'` ), a file path.
+( `kb_call_resolved/2`, eg the tagged 1st party spelling
+`'<1st-party>[File].Name.m'` of kbgen >= 2.5.0 ), a file path.
 
 Why : those atoms are an encoding, not an interface. Their spelling changes
 with kbgen / codegen versions ( the Show format, the `Unknown.` prefix, how a
@@ -39,11 +38,12 @@ Instead :
    it, the catalog waits, or the gap is written down ( an issue, the leaf's
    comment ), not worked around.
 
-Legacy : string parsing is already in 13 catalog files ( 61 uses, 2026-11-07 ) :
-`auth/nodejs/native.pl`, `callgraph/java/dispatch.pl`, `endpoints/java/servlet.pl`,
-`endpoints/java/spring.pl`, `endpoints/nodejs/nextjs.pl`, `endpoints/python/django.pl`,
-`endpoints/ruby/rails.pl`, `sinks/db/java/jpa.pl`, `sinks/db/nodejs/prisma.pl`,
-`sinks/db/python/django.pl`, `sinks/db/ruby/mini_sql.pl`, `sinks/files/python/native.pl`,
+Legacy : string parsing is still in 10 catalog files ( v2.0.0 moved
+`auth/nodejs/native.pl`, `callgraph/java/dispatch.pl` and
+`sinks/db/ruby/mini_sql.pl` onto `kb_call_method_of_1st_party_import/4` ) :
+`endpoints/java/servlet.pl`, `endpoints/java/spring.pl`, `endpoints/nodejs/nextjs.pl`,
+`endpoints/python/django.pl`, `endpoints/ruby/rails.pl`, `sinks/db/java/jpa.pl`,
+`sinks/db/nodejs/prisma.pl`, `sinks/db/python/django.pl`, `sinks/files/python/native.pl`,
 `sinks/ssrf/python/native.pl` ( and the queryengine templates' `sink_kind/3` ).
 **Do not add new uses, and do not copy those patterns.** When you touch one of
 those leaves, prefer replacing its string parsing by a kbgen fact.

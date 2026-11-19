@@ -61,11 +61,14 @@ kb_class_def(startloc_10_1_endloc_100_2_org_slash_dspace_slash_app_slash_rest_sl
 kb_method_of_class(startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_10_1_endloc_100_2_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
 kb_method_has_name(startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'deleteGroup').
 kb_called_from(startloc_40_9_endloc_40_42_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
-kb_call_resolved(startloc_40_9_endloc_40_42_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).delete').
+kb_call_resolved(startloc_40_9_endloc_40_42_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, '<1st-party>[org/dspace/eperson/service/GroupService.java].GroupService.delete').
+kb_call_method_of_1st_party_import(startloc_40_9_endloc_40_42_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'delete', 'GroupService', 'org/dspace/eperson/service/GroupService.java').
 kb_called_from(startloc_41_9_endloc_41_41_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
-kb_call_resolved(startloc_41_9_endloc_41_41_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/GroupServiceImpl.java", firstPartyImportedName = Just "GroupServiceImpl"}).find').
+kb_call_resolved(startloc_41_9_endloc_41_41_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, '<1st-party>[org/dspace/eperson/GroupServiceImpl.java].GroupServiceImpl.find').
+kb_call_method_of_1st_party_import(startloc_41_9_endloc_41_41_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'find', 'GroupServiceImpl', 'org/dspace/eperson/GroupServiceImpl.java').
 kb_called_from(startloc_42_9_endloc_42_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
-kb_call_resolved(startloc_42_9_endloc_42_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/content/dao/CollectionDAO.java", firstPartyImportedName = Just "CollectionDAO"}).findByLegacyId').
+kb_call_resolved(startloc_42_9_endloc_42_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, '<1st-party>[org/dspace/content/dao/CollectionDAO.java].CollectionDAO.findByLegacyId').
+kb_call_method_of_1st_party_import(startloc_42_9_endloc_42_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'findByLegacyId', 'CollectionDAO', 'org/dspace/content/dao/CollectionDAO.java').
 
 % public void purgeCache( ... ) {
 %     cachedGroupService.delete( ctx, group );      CachedGroupServiceImpl cachedGroupService
@@ -73,7 +76,8 @@ kb_call_resolved(startloc_42_9_endloc_42_48_org_slash_dspace_slash_app_slash_res
 kb_method_of_class(startloc_50_5_endloc_55_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_10_1_endloc_100_2_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
 kb_method_has_name(startloc_50_5_endloc_55_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'purgeCache').
 kb_called_from(startloc_52_9_endloc_52_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_50_5_endloc_55_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
-kb_call_resolved(startloc_52_9_endloc_52_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/CachedGroupServiceImpl.java", firstPartyImportedName = Just "CachedGroupServiceImpl"}).delete').
+kb_call_resolved(startloc_52_9_endloc_52_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, '<1st-party>[org/dspace/eperson/CachedGroupServiceImpl.java].CachedGroupServiceImpl.delete').
+kb_call_method_of_1st_party_import(startloc_52_9_endloc_52_48_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'delete', 'CachedGroupServiceImpl', 'org/dspace/eperson/CachedGroupServiceImpl.java').
 
 % public void misc( ... ) {
 %     groupService.findAll( ctx ).size();           chained : method part has a '.'
@@ -85,9 +89,10 @@ kb_call_resolved(startloc_52_9_endloc_52_48_org_slash_dspace_slash_app_slash_res
 kb_method_of_class(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_10_1_endloc_100_2_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
 kb_method_has_name(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'misc').
 kb_called_from(startloc_62_9_endloc_62_43_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
-kb_call_resolved(startloc_62_9_endloc_62_43_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).findAll.size').
+kb_call_resolved(startloc_62_9_endloc_62_43_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, '<1st-party>[org/dspace/eperson/service/GroupService.java].GroupService.findAll.size').
 kb_called_from(startloc_63_9_endloc_63_32_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
-kb_call_resolved(startloc_63_9_endloc_63_32_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/GroupUtils.java", firstPartyImportedName = Just "GroupUtils"}).check').
+kb_call_resolved(startloc_63_9_endloc_63_32_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, '<1st-party>[org/dspace/eperson/GroupUtils.java].GroupUtils.check').
+kb_call_method_of_1st_party_import(startloc_63_9_endloc_63_32_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'check', 'GroupUtils', 'org/dspace/eperson/GroupUtils.java').
 kb_called_from(startloc_64_9_endloc_64_21_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
 kb_call_resolved(startloc_64_9_endloc_64_21_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'Unknown.helper.run').
 kb_called_from(startloc_65_9_endloc_65_32_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java).
@@ -136,18 +141,12 @@ kb_method_has_name(startloc_39_3_endloc_71_6_app_slash_controllers_slash_user_ap
 % -----------------------------------------------------------------------------
 % expectations
 
-% FirstPartyImport atom split
-must(callgraph_java_first_party_method('FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).delete',
-     'org/dspace/eperson/service/GroupService.java', 'GroupService', delete)).
-must_not(callgraph_java_first_party_method('FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).findAll.size', _, _, _)).
-must_not(callgraph_java_first_party_method('Unknown.returnSitemapFile', _, _, _)).
-
-% receiver class : a typed call names its class, an untyped receiver none
-must(callgraph_java_receiver_class(startloc_30_5_endloc_45_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java,
-     'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "org/dspace/eperson/service/GroupService.java", firstPartyImportedName = Just "GroupService"}).delete',
+% receiver class : a typed call names its class, an untyped receiver or a
+% longer chain ( groupService.findAll().size() ) none
+must(callgraph_java_receiver_class(startloc_40_9_endloc_40_42_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java,
      startloc_5_1_endloc_20_2_org_slash_dspace_slash_eperson_slash_service_slash_GroupService_dot_java, delete)).
-must_not(callgraph_java_receiver_class(_, 'Unknown.returnSitemapFile', _, _)).
-must_not(callgraph_java_receiver_class(startloc_60_5_endloc_70_6_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, 'Unknown.helper.run', _, _)).
+must_not(callgraph_java_receiver_class(startloc_62_9_endloc_62_43_org_slash_dspace_slash_app_slash_rest_slash_GroupRestController_dot_java, _, _)).
+must_not(( kb_call_resolved(Call, 'Unknown.returnSitemapFile'), callgraph_java_receiver_class(Call, _, _) )).
 
 % class tree : supers and the ( transitive, downward ) dispatch closure
 must(callgraph_java_super(startloc_6_1_endloc_30_2_org_slash_dspace_slash_eperson_slash_CachedGroupServiceImpl_dot_java, startloc_10_1_endloc_80_2_org_slash_dspace_slash_eperson_slash_GroupServiceImpl_dot_java)).

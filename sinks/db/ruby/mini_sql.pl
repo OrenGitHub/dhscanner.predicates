@@ -20,7 +20,7 @@
 % The ruby front binds `DB`, in every file that uses it, to the file that
 % assigns it, and the call reaches the kb as
 %
-%   kb_call_resolved( Call, 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = "config/initializers/000-mini_sql.rb", firstPartyImportedName = Just "DB"}).exec' )
+%   kb_call_method_of_1st_party_import( Call, exec, 'DB', 'config/initializers/000-mini_sql.rb' )
 %   kb_assign_value_to_toplevel_varname( Value, 'DB', 'config/initializers/000-mini_sql.rb', _ )
 %   kb_call_method_of_class( Value, instance, Class )
 %   kb_class_has_3rd_party_super( Class, _, 'MiniSql.ActiveRecordPostgres.Connection' )
@@ -31,8 +31,7 @@
 % -----------------------------------------------------------------------------
 
 sinks_sqli_ruby_mini_sql(Call) :-
-    kb_call_resolved(Call, Fqn),
-    ruby_toplevel_name_method(Fqn, File, Name, Method),
+    kb_call_method_of_1st_party_import(Call, Method, Name, File),
     mini_sql_sql_arg(Method, _),
     kb_assign_value_to_toplevel_varname(Value, Name, File, _),
     mini_sql_connection_value(Value).
@@ -49,15 +48,6 @@ mini_sql_connection_value(Value) :-
     mini_sql_constructor(Constructor),
     atomic_list_concat([Connection, Constructor], '.', Fqn),
     kb_call_resolved(Value, Fqn).
-
-% `DB.<Method>` with `DB` a top level name of `File`. Until kbgen emits it as
-% a fact of its own, the name is read off the resolved callee, every part
-% matched exactly : [ prefix, File, middle, Name, '}).<Method>' ].
-ruby_toplevel_name_method(Fqn, File, Name, Method) :-
-    atomic_list_concat([Prefix, File, Middle, Name, Tail], '"', Fqn),
-    Prefix == 'FirstPartyImport (FirstPartyImportContent {firstPartyImportedLocation = ',
-    Middle == ', firstPartyImportedName = Just ',
-    atom_concat('}).', Method, Tail).
 
 % the gem's connection classes ( mini_sql 1.6.0 ), as the kb spells them
 mini_sql_connection('MiniSql.Connection').
