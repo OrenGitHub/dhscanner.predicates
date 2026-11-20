@@ -20,7 +20,7 @@
 % The ruby front binds `DB`, in every file that uses it, to the file that
 % assigns it, and the call reaches the kb as
 %
-%   kb_call_method_of_1st_party_import( Call, exec, 'DB', 'config/initializers/000-mini_sql.rb' )
+%   kb_call_method_of_1st_party_imported_name( Call, exec, 'DB', 'config/initializers/000-mini_sql.rb' )
 %   kb_assign_value_to_toplevel_varname( Value, 'DB', 'config/initializers/000-mini_sql.rb', _ )
 %   kb_call_method_of_class( Value, instance, Class )
 %   kb_class_has_3rd_party_super( Class, _, 'MiniSql.ActiveRecordPostgres.Connection' )
@@ -31,7 +31,7 @@
 % -----------------------------------------------------------------------------
 
 sinks_sqli_ruby_mini_sql(Call) :-
-    kb_call_method_of_1st_party_import(Call, Method, Name, File),
+    kb_call_method_of_1st_party_imported_name(Call, Method, Name, File),
     mini_sql_sql_arg(Method, _),
     kb_assign_value_to_toplevel_varname(Value, Name, File, _),
     mini_sql_connection_value(Value).

@@ -8,7 +8,7 @@
 %   typed call      `groupService.delete( ... )` with `GroupService groupService`
 %                   kbgen ( >= 2.5.0 ) names the receiver's class and its file :
 %
-%     kb_call_method_of_1st_party_import( Call, delete, 'GroupService', '<File>' )
+%     kb_call_method_of_1st_party_imported_name( Call, delete, 'GroupService', '<File>' )
 %
 % A call on the class's own instance, `this.returnSitemapFile( ... )` or a
 % bare `returnSitemapFile( ... )`, is a `kb_call_method_of_class` fact, the
@@ -16,7 +16,7 @@
 % `m( .. )`, parsers 1.1.57, and codegen 1.0.47 resolves a bare call of a
 % method of the class ), handled by `callgraph/class_method.pl`, not here.
 % 'Unknown.<method>' is a call on a receiver kbgen could not type : it names
-% no class ( no `kb_call_method_of_1st_party_import` ), so it gives no edge.
+% no class ( no `kb_call_method_of_1st_party_imported_name` ), so it gives no edge.
 % Neither does a longer chain, `groupService.findAll().size()`. It used to be read as a call on the
 % caller's class and all its subclasses : ruby `serializer.new( .. )` in
 % Discourse `ApplicationController#serialize_data` reached the `new` action
@@ -41,7 +41,7 @@ callgraph_java_dispatch(Caller, Callee) :-
     callgraph_java_lookup(Dispatched, Method, Callee).
 
 callgraph_java_receiver_class(Call, Class, Method) :-
-    kb_call_method_of_1st_party_import(Call, Method, ClassName, File),
+    kb_call_method_of_1st_party_imported_name(Call, Method, ClassName, File),
     kb_class_def(Class, ClassName, File).
 
 :- table callgraph_java_super/2.

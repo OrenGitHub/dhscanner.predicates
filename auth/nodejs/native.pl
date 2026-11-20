@@ -151,7 +151,7 @@ auth_return_value_is_bad_http_response_ts_404(ReturnedValue) :-
 % `responses.notAuthenticatedResponse()` ) : kbgen ( >= 2.5.0 ) names
 % the imported object and the file defining it :
 %
-%    kb_call_method_of_1st_party_import( Call, '<Method>', '<Qual>', '<File>' )
+%    kb_call_method_of_1st_party_imported_name( Call, '<Method>', '<Qual>', '<File>' )
 %
 % `auth_1st_party_wrapper_helper/2` binds Helper to the function of
 % that name in that file via `kb_func_def/4`. From there we recurse the LEAF bad-http checkers
@@ -188,7 +188,7 @@ auth_return_value_is_bad_http_response_via_1st_party_wrapper(ReturnedValue) :-
 % The wrapper's ( DefFile, Method ) of a 1st party import method call.
 % 3rd party calls ( `nodejs.Response.json` ) have no such fact.
 auth_1st_party_wrapper_helper(ReturnedValue, Helper) :-
-    kb_call_method_of_1st_party_import(ReturnedValue, Method, _, File),
+    kb_call_method_of_1st_party_imported_name(ReturnedValue, Method, _, File),
     kb_func_def(Helper, Method, File, _).
 
 % Same structural walk as `auth_ts_response_json_with_status/2` above,

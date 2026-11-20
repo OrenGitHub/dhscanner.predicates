@@ -24,7 +24,7 @@ kb_schema_fact(kb_call_1st_party_func_defined_in_dir/3).
 kb_schema_fact(kb_call_1st_party_func_defined_in_file/3).
 kb_schema_fact(kb_call_guarded_by_cond_in_else_part/3).
 kb_schema_fact(kb_call_guarded_by_cond_in_then_part/3).
-kb_schema_fact(kb_call_method_of_1st_party_import/4).
+kb_schema_fact(kb_call_method_of_1st_party_imported_name/4).
 kb_schema_fact(kb_call_method_of_class/3).
 kb_schema_fact(kb_call_method_of_untyped_named_param/3).
 kb_schema_fact(kb_call_resolved/2).

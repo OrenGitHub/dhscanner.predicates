@@ -40,7 +40,7 @@ Instead :
 
 Legacy : string parsing is still in 10 catalog files ( v2.0.0 moved
 `auth/nodejs/native.pl`, `callgraph/java/dispatch.pl` and
-`sinks/db/ruby/mini_sql.pl` onto `kb_call_method_of_1st_party_import/4` ) :
+`sinks/db/ruby/mini_sql.pl` onto `kb_call_method_of_1st_party_imported_name/4` ) :
 `endpoints/java/servlet.pl`, `endpoints/java/spring.pl`, `endpoints/nodejs/nextjs.pl`,
 `endpoints/python/django.pl`, `endpoints/ruby/rails.pl`, `sinks/db/java/jpa.pl`,
 `sinks/db/nodejs/prisma.pl`, `sinks/db/python/django.pl`, `sinks/files/python/native.pl`,

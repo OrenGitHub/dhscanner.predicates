@@ -13,10 +13,10 @@ kb_call_method_of_class(startloc_4_81_endloc_4_116_config_slash_initializers_sla
 % app/jobs/onceoff/clean_up_post_timings.rb
 % DB.exec <<~SQL ...
 kb_call_resolved(startloc_8_275_endloc_17_548_app_slash_jobs_slash_onceoff_slash_clean_up_post_timings_dot_rb, '<1st-party>[config/initializers/000-mini_sql.rb].DB.exec').
-kb_call_method_of_1st_party_import(startloc_8_275_endloc_17_548_app_slash_jobs_slash_onceoff_slash_clean_up_post_timings_dot_rb, 'exec', 'DB', 'config/initializers/000-mini_sql.rb').
+kb_call_method_of_1st_party_imported_name(startloc_8_275_endloc_17_548_app_slash_jobs_slash_onceoff_slash_clean_up_post_timings_dot_rb, 'exec', 'DB', 'config/initializers/000-mini_sql.rb').
 % DB.transaction_open? : sends no sql
 kb_call_resolved(startloc_20_600_endloc_20_620_app_slash_jobs_slash_onceoff_slash_clean_up_post_timings_dot_rb, '<1st-party>[config/initializers/000-mini_sql.rb].DB.transaction_open?').
-kb_call_method_of_1st_party_import(startloc_20_600_endloc_20_620_app_slash_jobs_slash_onceoff_slash_clean_up_post_timings_dot_rb, 'transaction_open?', 'DB', 'config/initializers/000-mini_sql.rb').
+kb_call_method_of_1st_party_imported_name(startloc_20_600_endloc_20_620_app_slash_jobs_slash_onceoff_slash_clean_up_post_timings_dot_rb, 'transaction_open?', 'DB', 'config/initializers/000-mini_sql.rb').
 
 % lib/raw.rb
 % RAW = MiniSql::Connection.get( pg )
@@ -24,7 +24,7 @@ kb_assign_value_to_toplevel_varname(startloc_2_6_endloc_2_35_lib_slash_raw_dot_r
 kb_call_resolved(startloc_2_6_endloc_2_35_lib_slash_raw_dot_rb, 'MiniSql.Connection.get').
 % RAW.query( sql )
 kb_call_resolved(startloc_9_4_endloc_9_18_app_slash_models_slash_report_dot_rb, '<1st-party>[lib/raw.rb].RAW.query').
-kb_call_method_of_1st_party_import(startloc_9_4_endloc_9_18_app_slash_models_slash_report_dot_rb, 'query', 'RAW', 'lib/raw.rb').
+kb_call_method_of_1st_party_imported_name(startloc_9_4_endloc_9_18_app_slash_models_slash_report_dot_rb, 'query', 'RAW', 'lib/raw.rb').
 
 % lib/cache.rb
 % class Cache < Redis ; CACHE = Cache.new
@@ -34,7 +34,7 @@ kb_assign_value_to_toplevel_varname(startloc_5_8_endloc_5_17_lib_slash_cache_dot
 kb_call_method_of_class(startloc_5_8_endloc_5_17_lib_slash_cache_dot_rb, new, startloc_1_6_endloc_1_11_lib_slash_cache_dot_rb).
 % CACHE.exec( "..." ) : an exec, not of a mini_sql connection
 kb_call_resolved(startloc_7_4_endloc_7_20_app_slash_models_slash_report_dot_rb, '<1st-party>[lib/cache.rb].CACHE.exec').
-kb_call_method_of_1st_party_import(startloc_7_4_endloc_7_20_app_slash_models_slash_report_dot_rb, 'exec', 'CACHE', 'lib/cache.rb').
+kb_call_method_of_1st_party_imported_name(startloc_7_4_endloc_7_20_app_slash_models_slash_report_dot_rb, 'exec', 'CACHE', 'lib/cache.rb').
 
 % conn.exec( sql ) on an unresolved receiver
 kb_call_resolved(startloc_11_4_endloc_11_18_app_slash_models_slash_report_dot_rb, 'Unknown.exec').
