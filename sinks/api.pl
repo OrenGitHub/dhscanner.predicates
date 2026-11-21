@@ -23,6 +23,10 @@
 :- [ 'predicates/sinks/db/ruby/mini_sql' ].
 :- [ 'predicates/sinks/rce/golang/native' ].
 :- [ 'predicates/sinks/deser/ruby/native' ].
+:- [ 'predicates/sinks/files/csharp/native' ].
+:- [ 'predicates/sinks/ssrf/csharp/native' ].
+:- [ 'predicates/sinks/open_redirects/csharp/aspnet' ].
+:- [ 'predicates/sinks/db/csharp/efcore' ].
 
 sinks_cmd_exec(Call) :- sinks_cmd_exec_golang(Call).
 
@@ -31,11 +35,13 @@ sinks_sqli(Call) :- sinks_sqli_nodejs_prisma(Call).
 sinks_sqli(Call) :- sinks_sqli_java_jpa(Call).
 sinks_sqli(Call) :- sinks_sqli_python_django(Call).
 sinks_sqli(Call) :- sinks_sqli_ruby_mini_sql(Call).
+sinks_sqli(Call) :- sinks_sqli_csharp(Call).
 
 sinks_ssrf(Call) :- sinks_ssrf_python(Call).
 sinks_ssrf(Call) :- sinks_ssrf_nodejs_fetch(Call).
 sinks_ssrf(Call) :- sinks_ssrf_java(Call).
 sinks_ssrf(Call) :- sinks_ssrf_ruby(Call).
+sinks_ssrf(Call) :- sinks_ssrf_csharp(Call).
 
 sinks_http_request(Call) :- sinks_http_request_golang(Call).
 
@@ -43,14 +49,17 @@ sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_nodejs(Call).
 sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_express_sendFile(Call).
 sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_java(Call).
 sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_python(Call).
+sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_csharp(Call).
 
 sinks_arbitrary_file_write(Arg) :- sinks_arbitrary_file_write_nodejs(Arg).
 sinks_arbitrary_file_write(Arg) :- sinks_arbitrary_file_write_java(Arg).
 sinks_arbitrary_file_write(Arg) :- sinks_arbitrary_file_write_python(Arg).
+sinks_arbitrary_file_write(Arg) :- sinks_arbitrary_file_write_csharp(Arg).
 
 sinks_arbitrary_file_deletion(Call) :- sinks_arbitrary_file_deletion_golang(Call).
 sinks_arbitrary_file_deletion(Call) :- sinks_arbitrary_file_deletion_java(Call).
 sinks_arbitrary_file_deletion(Call) :- sinks_arbitrary_file_deletion_python(Call).
+sinks_arbitrary_file_deletion(Call) :- sinks_arbitrary_file_deletion_csharp(Call).
 
 sinks_open_redirect(Call) :- sinks_open_redirect_python_tornado(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_python_django(Call).
@@ -58,6 +67,7 @@ sinks_open_redirect(Call) :- sinks_open_redirect_nodejs_response_redirect(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_java_servlet(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_java_spring(Call).
 sinks_open_redirect(Call) :- sinks_open_redirect_ruby_rails(Call).
+sinks_open_redirect(Call) :- sinks_open_redirect_csharp_aspnet(Call).
 
 sinks_unsafe_deserialization(Call) :- sinks_unsafe_deserialization_ruby(Call).
 

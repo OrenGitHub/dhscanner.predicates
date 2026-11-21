@@ -3,6 +3,40 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v2.1.0
+
+Targets: dhscanner-kbgen 2.5.0. C# ( ASP.NET Core ) catalogs, no new kb
+fact. The kb does not resolve C# `using` namespaces nor type C# receivers,
+so attributes match by their short name ( `'HttpPost'` ) and sinks by the
+exact spelling the kb gives the call ( `'Unknown.Database.ExecuteSqlRawAsync'`,
+the `'HttpRequestMessage'` constructor ) ; whole atoms only.
+
+- `endpoints/csharp/aspnet.pl`: attribute routed actions ( `[HttpGet]` ..
+  `[HttpPatch]`, `[AcceptVerbs]`, `[Route]` alone = `unknown` ), the class
+  `[Route]` prefix joined with the action template ( `/` and `~/` are
+  absolute ) ; every action param is user input except `[FromServices]` /
+  `[FromKeyedServices]`, its kbapi kind from the binding source attribute
+  ( `endpoints_user_input_kind_aspnet/2`, none = `RequestParam` ) ;
+  `[Authorize]` on the action or its class, unless `[AllowAnonymous]`.
+  New host calls : `endpoints_http_aspnet/4`, `endpoints_user_input_kind_aspnet/2`
+  ( queryengine's `SelectHttpHandlers` reads the kinds ).
+- `sinks/open_redirects/csharp/aspnet.pl`: `Redirect` & co with no receiver
+  ( `ControllerBase`, unless the class defines its own ), `Response.Redirect`,
+  `Results.Redirect`, `new RedirectResult( url )`.
+- `sinks/ssrf/csharp/native.pl`: `new HttpRequestMessage( .. )`, `HttpClient`
+  methods on `IHttpClientFactory.CreateClient()` or `new HttpClient()`,
+  `WebClient`, RestSharp `new RestClient( url )`.
+- `sinks/db/csharp/efcore.pl`: EF Core `ExecuteSqlRaw( Async )`,
+  `SqlQueryRaw`, `FromSqlRaw` ; ADO.NET command constructors.
+- `sinks/files/csharp/native.pl`: `FileStream`, `StreamReader` / `StreamWriter`,
+  the `File.ReadAll* / WriteAll* / AppendAll*` methods, `FileInfo.Delete`,
+  `PhysicalFile`.
+
+Not covered yet ( each needs a kb fact first ) : `Request.Query[ .. ]` &
+co ( no C# field read resolution ), a `[Route]` / `[Authorize]` inherited
+from a base controller or a custom `AuthorizeAttribute` ( no C# super
+facts ), static class receivers ( `File.Delete( p )` reads `'Unknown.Delete'` ).
+
 ## v2.0.1
 
 Targets: dhscanner-kbgen 2.5.0. Fix : `callgraph/java/dispatch.pl`,

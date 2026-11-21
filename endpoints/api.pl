@@ -8,6 +8,7 @@
 :- [ 'predicates/endpoints/java/spring' ].
 :- [ 'predicates/endpoints/java/servlet' ].
 :- [ 'predicates/endpoints/ruby/rails' ].
+:- [ 'predicates/endpoints/csharp/aspnet' ].
 
 % Framework recognizers below share one entry point per verb, so a KB
 % from a language without functions ( eg java : methods only ) must
@@ -41,6 +42,7 @@ endpoints_user_input(UserInput) :- endpoints_user_input_echo(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_spring(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_servlet(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_rails(UserInput).
+endpoints_user_input(UserInput) :- endpoints_user_input_aspnet(UserInput).
 
 % -----------------------------------------------------------------------------
 % endpoints_http( Handler, Verb, RequestObject, Url )
@@ -57,6 +59,7 @@ endpoints_http(Handler, delete, Mapping, Url) :- endpoints_http_spring(Handler, 
 endpoints_http(Handler, patch, Mapping, Url) :- endpoints_http_spring(Handler, patch, Url, Mapping).
 endpoints_http(Handler, Verb, Request, Url) :- endpoints_http_django(Handler, Verb, Request, Url).
 endpoints_http(Handler, Verb, Request, Url) :- endpoints_http_rails(Handler, Verb, Request, Url).
+endpoints_http(Handler, Verb, Mapping, Url) :- endpoints_http_aspnet(Handler, Verb, Url, Mapping).
 endpoints_http(Handler, unknown, Request, '{?}') :-
     endpoints_http_servlet(Handler, Request),
     \+ endpoints_http_known_verb(Handler).
@@ -87,3 +90,6 @@ endpoints_http_auth(Handler, AuthFuncName, by_all_but_one_bad_return) :-
 
 endpoints_http_auth(Handler, Name, by_annotations(Annotations)) :-
     endpoints_http_auth_spring(Handler, Name, Annotations).
+
+endpoints_http_auth(Handler, Name, by_annotations(Annotations)) :-
+    endpoints_http_auth_aspnet(Handler, Name, Annotations).

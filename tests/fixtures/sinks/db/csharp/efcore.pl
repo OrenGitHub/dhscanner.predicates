@@ -1,0 +1,40 @@
+% fixture : sinks/db/csharp/efcore.pl
+
+% src/Data/Repositories/ContentRepository.cs
+% dbContext.Database.ExecuteSqlRawAsync(sql, ct)
+kb_call_resolved(startloc_12_19_endloc_12_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.Database.ExecuteSqlRawAsync').
+% Database.ExecuteSqlRaw(sql) ( inside a DbContext )
+kb_call_resolved(startloc_14_19_endloc_14_45_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.ExecuteSqlRaw').
+% dbContext.Database.SqlQueryRaw<long>(sql)
+kb_call_resolved(startloc_16_19_endloc_16_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.Database.SqlQueryRaw').
+% dbContext.Set<T>().FromSqlRaw(sql, parameters)
+kb_call_resolved(startloc_18_35_endloc_18_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.Set.FromSqlRaw').
+% (await CreateDbContextAsync()).Set<T>().FromSqlRaw(sql)
+kb_call_resolved(startloc_20_35_endloc_20_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.CreateDbContextAsync.Set.FromSqlRaw').
+% new SqlCommand(sql, connection)
+kb_call_resolved(startloc_22_19_endloc_22_55_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'SqlCommand').
+% new NpgsqlCommand(sql, connection)
+kb_call_resolved(startloc_24_19_endloc_24_55_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'NpgsqlCommand').
+% dbContext.Database.ExecuteSqlAsync($"... {x}") ( interpolated : parameterized )
+kb_call_resolved(startloc_26_19_endloc_26_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.Database.ExecuteSqlAsync').
+% dbContext.Set<T>().FromSql($"... {x}")
+kb_call_resolved(startloc_28_35_endloc_28_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.Set.FromSql').
+% the .ToListAsync() link after FromSqlRaw
+kb_call_resolved(startloc_30_35_endloc_30_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.Set.FromSqlRaw.ToListAsync').
+% repository.QueryAsync(..) ( Dapper reads the same, not covered )
+kb_call_resolved(startloc_32_35_endloc_32_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs, 'Unknown.QueryAsync').
+
+must(sinks_sqli_csharp(startloc_12_19_endloc_12_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must(sinks_sqli_csharp(startloc_14_19_endloc_14_45_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must(sinks_sqli_csharp(startloc_16_19_endloc_16_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must(sinks_sqli_csharp(startloc_18_35_endloc_18_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must(sinks_sqli_csharp(startloc_20_35_endloc_20_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must(sinks_sqli_csharp(startloc_22_19_endloc_22_55_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must(sinks_sqli_csharp(startloc_24_19_endloc_24_55_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+% wired into the family api
+must(sinks_sqli(startloc_12_19_endloc_12_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+
+must_not(sinks_sqli_csharp(startloc_26_19_endloc_26_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must_not(sinks_sqli_csharp(startloc_28_35_endloc_28_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must_not(sinks_sqli_csharp(startloc_30_35_endloc_30_81_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).
+must_not(sinks_sqli_csharp(startloc_32_35_endloc_32_65_src_slash_Data_slash_Repositories_slash_ContentRepository_dot_cs)).

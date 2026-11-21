@@ -1,0 +1,56 @@
+% fixture : sinks/open_redirects/csharp/aspnet.pl
+
+% src/Web/Controllers/BaseController.cs
+%
+% public abstract class BaseController : Controller {
+%   protected IActionResult RedirectToReturnUrl(string? returnUrl) {
+%     if (urlGenerator.IsAllowedHost(returnUrl)) return Redirect(returnUrl);    // :12
+%     return RedirectToAction("Index");                                        // :13
+%     return LocalRedirect(returnUrl);                                         // :14
+kb_class_def(startloc_5_1_endloc_30_2_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'BaseController', 'src/Web/Controllers/BaseController.cs').
+kb_method_of_class(startloc_10_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_5_1_endloc_30_2_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+kb_method_has_name(startloc_10_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'RedirectToReturnUrl').
+kb_call_resolved(startloc_12_58_endloc_12_77_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'Redirect').
+kb_called_from(startloc_12_58_endloc_12_77_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_10_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+kb_call_resolved(startloc_13_16_endloc_13_41_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'RedirectToAction').
+kb_called_from(startloc_13_16_endloc_13_41_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_10_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+kb_call_resolved(startloc_14_16_endloc_14_34_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'LocalRedirect').
+kb_called_from(startloc_14_16_endloc_14_34_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_10_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+
+% src/Web/Middleware/SetupMiddleware.cs
+%   context.Response.Redirect(url) :12 ; Results.Redirect(url) :14 ; new RedirectResult(url) :16 ; context.Response.WriteAsync(s) :18
+kb_class_def(startloc_5_1_endloc_30_2_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, 'SetupMiddleware', 'src/Web/Middleware/SetupMiddleware.cs').
+kb_method_of_class(startloc_10_5_endloc_20_6_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, startloc_5_1_endloc_30_2_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs).
+kb_method_has_name(startloc_10_5_endloc_20_6_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, 'InvokeAsync').
+kb_call_resolved(startloc_12_13_endloc_12_43_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, 'Unknown.Response.Redirect').
+kb_called_from(startloc_12_13_endloc_12_43_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, startloc_10_5_endloc_20_6_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs).
+kb_call_resolved(startloc_14_13_endloc_14_33_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, 'Unknown.Redirect').
+kb_called_from(startloc_14_13_endloc_14_33_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, startloc_10_5_endloc_20_6_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs).
+kb_call_resolved(startloc_16_20_endloc_16_44_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, 'RedirectResult').
+kb_called_from(startloc_16_20_endloc_16_44_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, startloc_10_5_endloc_20_6_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs).
+kb_call_resolved(startloc_18_13_endloc_18_40_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, 'Unknown.Response.WriteAsync').
+kb_called_from(startloc_18_13_endloc_18_40_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs, startloc_10_5_endloc_20_6_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs).
+
+% hypothetical : a class with a Redirect method of its own
+% class ReturnController { public IActionResult Redirect(string u) .. ; public IActionResult Go() => Redirect("x"); }
+kb_class_def(startloc_5_1_endloc_30_2_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, 'ReturnController', 'src/Web/Controllers/ReturnController.cs').
+kb_method_of_class(startloc_8_5_endloc_10_6_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, startloc_5_1_endloc_30_2_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs).
+kb_method_has_name(startloc_8_5_endloc_10_6_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, 'Redirect').
+kb_method_of_class(startloc_12_5_endloc_14_6_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, startloc_5_1_endloc_30_2_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs).
+kb_method_has_name(startloc_12_5_endloc_14_6_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, 'Go').
+kb_call_resolved(startloc_13_9_endloc_13_22_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, 'Redirect').
+kb_called_from(startloc_13_9_endloc_13_22_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs, startloc_12_5_endloc_14_6_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs).
+
+must(sinks_open_redirect_csharp_aspnet(startloc_12_58_endloc_12_77_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs)).
+must(sinks_open_redirect_csharp_aspnet(startloc_12_13_endloc_12_43_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs)).
+must(sinks_open_redirect_csharp_aspnet(startloc_14_13_endloc_14_33_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs)).
+must(sinks_open_redirect_csharp_aspnet(startloc_16_20_endloc_16_44_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs)).
+% wired into the family api
+must(sinks_open_redirect(startloc_12_58_endloc_12_77_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs)).
+
+% an app route, not a url ; LocalRedirect throws on a non-local url
+must_not(sinks_open_redirect_csharp_aspnet(startloc_13_16_endloc_13_41_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs)).
+must_not(sinks_open_redirect_csharp_aspnet(startloc_14_16_endloc_14_34_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs)).
+must_not(sinks_open_redirect_csharp_aspnet(startloc_18_13_endloc_18_40_src_slash_Web_slash_Middleware_slash_SetupMiddleware_dot_cs)).
+% the class's own Redirect, left to the callgraph
+must_not(sinks_open_redirect_csharp_aspnet(startloc_13_9_endloc_13_22_src_slash_Web_slash_Controllers_slash_ReturnController_dot_cs)).

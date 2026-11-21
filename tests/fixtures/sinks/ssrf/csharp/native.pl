@@ -1,0 +1,37 @@
+% fixture : sinks/ssrf/csharp/native.pl
+
+% src/Core/Http/HttpRunner.cs
+% new HttpRequestMessage(method, uri)
+kb_call_resolved(startloc_12_23_endloc_12_58_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'HttpRequestMessage').
+% httpClientFactory.CreateClient().GetStringAsync(url)
+kb_call_resolved(startloc_14_30_endloc_14_64_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'Unknown.CreateClient.GetStringAsync').
+% var http = httpClientFactory.CreateClient() ; http.SendAsync(request)
+kb_call_resolved(startloc_16_30_endloc_16_64_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'Unknown.CreateClient.SendAsync').
+% new HttpClient().GetAsync(url)
+kb_call_resolved(startloc_18_30_endloc_18_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'HttpClient.GetAsync').
+% new WebClient().DownloadString(url)
+kb_call_resolved(startloc_20_30_endloc_20_66_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'WebClient.DownloadString').
+% new RestClient(url)
+kb_call_resolved(startloc_22_30_endloc_22_50_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'RestClient').
+% cache.GetStringAsync(key) ( IDistributedCache, an untyped receiver )
+kb_call_resolved(startloc_24_30_endloc_24_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'Unknown.GetStringAsync').
+% httpClientFactory.CreateClient() alone sends nothing
+kb_call_resolved(startloc_26_30_endloc_26_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'Unknown.CreateClient').
+% new Uri(url) builds a url
+kb_call_resolved(startloc_28_30_endloc_28_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'Uri').
+% new HttpClient().Dispose()
+kb_call_resolved(startloc_30_30_endloc_30_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs, 'HttpClient.Dispose').
+
+must(sinks_ssrf_csharp(startloc_12_23_endloc_12_58_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must(sinks_ssrf_csharp(startloc_14_30_endloc_14_64_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must(sinks_ssrf_csharp(startloc_16_30_endloc_16_64_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must(sinks_ssrf_csharp(startloc_18_30_endloc_18_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must(sinks_ssrf_csharp(startloc_20_30_endloc_20_66_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must(sinks_ssrf_csharp(startloc_22_30_endloc_22_50_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+% wired into the family api
+must(sinks_ssrf(startloc_12_23_endloc_12_58_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+
+must_not(sinks_ssrf_csharp(startloc_24_30_endloc_24_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must_not(sinks_ssrf_csharp(startloc_26_30_endloc_26_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must_not(sinks_ssrf_csharp(startloc_28_30_endloc_28_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
+must_not(sinks_ssrf_csharp(startloc_30_30_endloc_30_60_src_slash_Core_slash_Http_slash_HttpRunner_dot_cs)).
