@@ -1,4 +1,5 @@
 :- style_check(-singleton).
+:- dynamic kb_call_method_of_1st_party_imported_name/4.
 
 % -----------------------------------------------------------------------------
 % Nodejs runtime auth leaves.

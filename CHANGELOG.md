@@ -3,6 +3,15 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v2.0.1
+
+Targets: dhscanner-kbgen 2.5.0. Fix : `callgraph/java/dispatch.pl`,
+`auth/nodejs/native.pl`, `sinks/db/ruby/mini_sql.pl` declare
+`:- dynamic kb_call_method_of_1st_party_imported_name/4`. A kb with no
+1st party imported name call ( eg a one-file scan ) raised an existence
+error on the first callgraph hop, so the whole reachable-sinks query
+failed ( queryengine reported 0 sinks ).
+
 ## v2.0.0
 
 Targets: dhscanner-kbgen 2.5.0. **Major** : needs the newer kbgen. kbgen no
