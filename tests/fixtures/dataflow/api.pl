@@ -209,3 +209,36 @@ must_not(dataflow_inter_edge(_, startloc_7_190_endloc_7_198_app_slash_controller
 must_not(dataflow_inter_path(startloc_30_692_endloc_30_698_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_7_178_endloc_7_198_app_slash_controllers_slash_slack_uploads_controller_dot_rb, _)).
 % a return flows to the call, never the other way
 must_not(dataflow_inter_edge(startloc_9_228_endloc_9_238_app_slash_controllers_slash_slack_uploads_controller_dot_rb, startloc_30_658_endloc_30_718_app_slash_controllers_slash_slack_uploads_controller_dot_rb)).
+
+% -----------------------------------------------------------------------------
+% inter-procedural, the source passed on as is : the arg IS the source
+% ( src/Web/Controllers/AccountController.cs )
+%
+% class AccountController : BaseController
+%   public IActionResult Login(string? returnUrl)       :12, returnUrl = 12:30-12:47
+%     return RedirectToReturnUrl(returnUrl);            :14, the arg is located at the param
+% class BaseController
+%   protected IActionResult RedirectToReturnUrl(string? url)   :5, url = 5:49-5:60
+%     return Redirect(url);                                    :7
+kb_class_def(startloc_3_1_endloc_20_2_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, 'AccountController', 'src/Web/Controllers/AccountController.cs').
+kb_class_def(startloc_3_1_endloc_10_2_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'BaseController', 'src/Web/Controllers/BaseController.cs').
+kb_class_has_1st_party_super(startloc_3_1_endloc_20_2_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, 'BaseController', 'src/Web/Controllers/BaseController.cs').
+kb_method_of_class(startloc_12_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_3_1_endloc_20_2_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs).
+kb_method_has_name(startloc_12_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, 'Login').
+kb_param_i_of_callable(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, 0, startloc_12_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs).
+kb_call_resolved(startloc_14_16_endloc_14_46_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, 'RedirectToReturnUrl').
+kb_called_from(startloc_14_16_endloc_14_46_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_12_5_endloc_15_6_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs).
+kb_arg_i_for_call(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, 0, startloc_14_16_endloc_14_46_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs).
+kb_dataflow_edge(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_14_16_endloc_14_46_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs).
+kb_method_of_class(startloc_5_5_endloc_8_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_3_1_endloc_10_2_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+kb_method_has_name(startloc_5_5_endloc_8_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'RedirectToReturnUrl').
+kb_param_i_of_callable(startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 0, startloc_5_5_endloc_8_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+kb_call_resolved(startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 'Redirect').
+kb_arg_i_for_call(startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 0, startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+kb_dataflow_edge(startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+% a 2nd param the call does not pass : string? other   5:62-5:75
+kb_param_i_of_callable(startloc_5_62_endloc_5_75_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, 1, startloc_5_5_endloc_8_6_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs).
+
+must(dataflow_inter_path(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, [ (startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs), (startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs) ])).
+% the source reaches no param it is not passed to
+must_not(dataflow_inter_path(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_5_62_endloc_5_75_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, _)).

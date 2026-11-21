@@ -16,6 +16,17 @@ dataflow_bounded_intra_path(A, C, N, Visited, [(A, B)|Path]) :-
     N_MINUS_1 is N - 1,
     dataflow_bounded_intra_path(B, C, N_MINUS_1, [B|Visited], Path).
 
+% the source itself is the arg : a param passed on as is, `RedirectToReturnUrl( returnUrl )`.
+% The kb locates such an arg at the variable's own definition, so the caller side path is
+% empty ( the clause below needs at least one edge ). `U` is bound : start from its calls.
+dataflow_inter_path(U, V, [(U, Param)|CalleeSidePath]) :-
+    kb_arg_i_for_call(U, Index, Call),
+    dataflow_inter_callee(Call, Callee),
+    kb_param_i_of_callable(Param, Index, Callee),
+    Param \== U,
+    between(1, 10, CalleeSideDataflowPathLen),
+    dataflow_bounded_intra_path(Param, V, CalleeSideDataflowPathLen, [U, Param], CalleeSidePath).
+
 dataflow_inter_path(U, V, Path) :-
     dataflow_inter_edge(Call, Callee),
     between(1, 10, CallerSideDataflowPathLen),
@@ -24,6 +35,17 @@ dataflow_inter_path(U, V, Path) :-
     dataflow_bounded_intra_path(Callee, V, CalleeSideDataflowPathLen, [U, Call, Callee], CalleeSidePath),
     \+ member(Callee, [U, Call]),
     append(CallerSidePath, [(Call, Callee)|CalleeSidePath], Path).
+
+% the 1st party callable a call resolves to, the call bound ( same three ways as
+% `dataflow_inter_edge_from_arg_to_param/2` below )
+dataflow_inter_callee(Call, Func) :-
+    kb_call_1st_party_func_defined_in_dir(Call, FuncName, FuncDefinedInDir),
+    kb_func_def(Func, FuncName, _, FuncDefinedInDir).
+dataflow_inter_callee(Call, Func) :-
+    kb_call_1st_party_func_defined_in_file(Call, FuncName, FuncDefinedInFile),
+    kb_func_def(Func, FuncName, FuncDefinedInFile, _).
+dataflow_inter_callee(Call, Method) :-
+    callgraph_class_method_callee(Call, Method).
 
 dataflow_inter_edge(U, V) :- dataflow_inter_edge_from_arg_to_param(U, V).
 dataflow_inter_edge(U, V) :- dataflow_inter_edge_from_return_to_call(U, V).

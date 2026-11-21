@@ -32,6 +32,13 @@ the `'HttpRequestMessage'` constructor ) ; whole atoms only.
   the `File.ReadAll* / WriteAll* / AppendAll*` methods, `FileInfo.Delete`,
   `PhysicalFile`.
 
+- `dataflow/api.pl`: `dataflow_inter_path/3` also takes the source passed
+  on as is ( `RedirectToReturnUrl( returnUrl )` ). The kb locates such an
+  arg at the variable's own definition, so the caller side path is empty,
+  and the one hop clause wanted at least one edge : any language, a param
+  handed straight to a 1st party method had no path. New helper
+  `dataflow_inter_callee/2`, not a host call.
+
 Not covered yet ( each needs a kb fact first ) : `Request.Query[ .. ]` &
 co ( no C# field read resolution ), a `[Route]` / `[Authorize]` inherited
 from a base controller or a custom `AuthorizeAttribute` ( no C# super
