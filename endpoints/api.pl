@@ -9,6 +9,7 @@
 :- [ 'predicates/endpoints/java/servlet' ].
 :- [ 'predicates/endpoints/ruby/rails' ].
 :- [ 'predicates/endpoints/csharp/aspnet' ].
+:- [ 'predicates/endpoints/php/laravel' ].
 
 % Framework recognizers below share one entry point per verb, so a KB
 % from a language without functions ( eg java : methods only ) must
@@ -43,6 +44,7 @@ endpoints_user_input(UserInput) :- endpoints_user_input_spring(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_servlet(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_rails(UserInput).
 endpoints_user_input(UserInput) :- endpoints_user_input_aspnet(UserInput).
+endpoints_user_input(UserInput) :- endpoints_user_input_laravel(UserInput).
 
 % -----------------------------------------------------------------------------
 % endpoints_http( Handler, Verb, RequestObject, Url )
@@ -60,6 +62,7 @@ endpoints_http(Handler, patch, Mapping, Url) :- endpoints_http_spring(Handler, p
 endpoints_http(Handler, Verb, Request, Url) :- endpoints_http_django(Handler, Verb, Request, Url).
 endpoints_http(Handler, Verb, Request, Url) :- endpoints_http_rails(Handler, Verb, Request, Url).
 endpoints_http(Handler, Verb, Mapping, Url) :- endpoints_http_aspnet(Handler, Verb, Url, Mapping).
+endpoints_http(Handler, Verb, Route, Url) :- endpoints_http_laravel(Handler, Verb, Url, Route).
 endpoints_http(Handler, unknown, Request, '{?}') :-
     endpoints_http_servlet(Handler, Request),
     \+ endpoints_http_known_verb(Handler).

@@ -1,7 +1,7 @@
 % -----------------------------------------------------------------------------
 % kb_* fact vocabulary this release of dhscanner.predicates targets.
 %
-% Target : dhscanner-kbgen 2.4.0 ( Hackage ). Every fact kbgen emits is listed
+% Target : dhscanner-kbgen 2.7.0 ( Hackage ). Every fact kbgen emits is listed
 % here, with its arity, as `dynamic` + `discontiguous`, so that :
 %
 %   - a fixture kb only has to state the facts it cares about ; a catalog
@@ -16,7 +16,7 @@
 % src/Kbgen.hs ), and record the new kbgen version here and in CHANGELOG.md.
 % -----------------------------------------------------------------------------
 
-kb_schema_kbgen_version('2.5.0').
+kb_schema_kbgen_version('2.7.0').
 
 kb_schema_fact(kb_arg_i_for_call/3).
 kb_schema_fact(kb_assign_value_to_toplevel_varname/4).
@@ -43,6 +43,7 @@ kb_schema_fact(kb_const_int/2).
 kb_schema_fact(kb_const_null/1).
 kb_schema_fact(kb_const_string/2).
 kb_schema_fact(kb_dataflow_edge/2).
+kb_schema_fact(kb_field_read_of_1st_party_imported_name/4).
 kb_schema_fact(kb_field_read_resolved/2).
 kb_schema_fact(kb_func_def/4).
 kb_schema_fact(kb_gated_return/2).

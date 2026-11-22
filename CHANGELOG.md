@@ -3,6 +3,23 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v3.0.0
+
+Targets: dhscanner-kbgen 2.7.0 ( new fact
+`kb_field_read_of_1st_party_imported_name/4`, so a major ). Laravel routes.
+
+- `endpoints/php/laravel.pl`: `Route::get / post / put / delete / patch /
+  options / any( uri, action )` on the `Route` facade ; the action is
+  `[ X::class, 'm' ]` ( method `m` of the 1st party class `X` ), `X::class`
+  ( `__invoke` ) or a closure ; the uri gets Laravel's leading `/`. Every
+  handler param is user input ( `endpoints_user_input_kind_laravel/2` ) :
+  a `{..}` url segment's one is a `PathVariable`, the others the
+  `RequestObject`. Not covered : route groups ( their middleware and
+  prefix ; the kb does not link a call to the call it is chained on ),
+  `Route::resource`, `Route::match`, `'Controller@method'`.
+  New host calls : `endpoints_http_laravel/4`, `endpoints_user_input_kind_laravel/2`.
+- `tests/kb_schema.pl`: kbgen 2.7.0, `kb_field_read_of_1st_party_imported_name/4`.
+
 ## v2.1.0
 
 Targets: dhscanner-kbgen 2.5.0. C# ( ASP.NET Core ) catalogs, no new kb

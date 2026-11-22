@@ -23,6 +23,8 @@ host_calls(endpoints_user_input_of_method_rails/2).
 host_calls(endpoints_user_input_of_handler_rails/2).
 host_calls(endpoints_http_aspnet/4).
 host_calls(endpoints_user_input_kind_aspnet/2).
+host_calls(endpoints_http_laravel/4).
+host_calls(endpoints_user_input_kind_laravel/2).
 host_calls(sanitizers_condition_checks_input/6).
 host_calls(sanitizers_top_level_if_then_else/4).
 host_calls(sinks_arbitrary_file_deletion/1).
