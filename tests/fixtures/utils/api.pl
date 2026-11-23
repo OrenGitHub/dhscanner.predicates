@@ -3,4 +3,4 @@
 % the leaves are reached through the family api
 must(utils_method_of_class_return_type('where', 'Illuminate.Database.Eloquent.Model', _)).
 
-must_not(utils_method_of_class_return_type('where', 'Illuminate.Database.Eloquent.Builder', _)).
+must_not(utils_method_of_class_return_type('update', 'Illuminate.Database.Eloquent.Builder', _)).
