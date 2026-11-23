@@ -27,6 +27,7 @@
 :- [ 'predicates/sinks/ssrf/csharp/native' ].
 :- [ 'predicates/sinks/open_redirects/csharp/aspnet' ].
 :- [ 'predicates/sinks/db/csharp/efcore' ].
+:- [ 'predicates/sinks/db/php/eloquent' ].
 
 sinks_cmd_exec(Call) :- sinks_cmd_exec_golang(Call).
 
@@ -36,6 +37,8 @@ sinks_sqli(Call) :- sinks_sqli_java_jpa(Call).
 sinks_sqli(Call) :- sinks_sqli_python_django(Call).
 sinks_sqli(Call) :- sinks_sqli_ruby_mini_sql(Call).
 sinks_sqli(Call) :- sinks_sqli_csharp(Call).
+
+sinks_db_write(Call) :- sinks_db_write_php_eloquent(Call).
 
 sinks_ssrf(Call) :- sinks_ssrf_python(Call).
 sinks_ssrf(Call) :- sinks_ssrf_nodejs_fetch(Call).

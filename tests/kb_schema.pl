@@ -1,7 +1,7 @@
 % -----------------------------------------------------------------------------
 % kb_* fact vocabulary this release of dhscanner.predicates targets.
 %
-% Target : dhscanner-kbgen 2.7.0 ( Hackage ). Every fact kbgen emits is listed
+% Target : dhscanner-kbgen 2.9.0 ( Hackage ). Every fact kbgen emits is listed
 % here, with its arity, as `dynamic` + `discontiguous`, so that :
 %
 %   - a fixture kb only has to state the facts it cares about ; a catalog
@@ -16,7 +16,7 @@
 % src/Kbgen.hs ), and record the new kbgen version here and in CHANGELOG.md.
 % -----------------------------------------------------------------------------
 
-kb_schema_kbgen_version('2.7.0').
+kb_schema_kbgen_version('2.9.0').
 
 kb_schema_fact(kb_arg_i_for_call/3).
 kb_schema_fact(kb_assign_value_to_toplevel_varname/4).
@@ -26,6 +26,7 @@ kb_schema_fact(kb_call_guarded_by_cond_in_else_part/3).
 kb_schema_fact(kb_call_guarded_by_cond_in_then_part/3).
 kb_schema_fact(kb_call_method_of_1st_party_imported_name/4).
 kb_schema_fact(kb_call_method_of_class/3).
+kb_schema_fact(kb_call_method_of_return_value/3).
 kb_schema_fact(kb_call_method_of_untyped_named_param/3).
 kb_schema_fact(kb_call_resolved/2).
 kb_schema_fact(kb_callable_has_annotation/2).
@@ -54,6 +55,7 @@ kb_schema_fact(kb_param_has_annotation/2).
 kb_schema_fact(kb_param_has_name/2).
 kb_schema_fact(kb_param_has_resolved_type/2).
 kb_schema_fact(kb_param_i_of_callable/3).
+kb_schema_fact(kb_return_value_of_call/2).
 kb_schema_fact(kb_top_level_if_then_else_gadget/4).
 
 :- forall(kb_schema_fact(PI), ( dynamic(PI), discontiguous(PI) )).

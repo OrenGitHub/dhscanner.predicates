@@ -5,8 +5,10 @@ records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` )
 
 ## v3.0.0
 
-Targets: dhscanner-kbgen 2.7.0 ( new fact
-`kb_field_read_of_1st_party_imported_name/4`, so a major ). Laravel routes.
+Targets: dhscanner-kbgen 2.9.0 ( new facts
+`kb_field_read_of_1st_party_imported_name/4`, `kb_return_value_of_call/2`,
+`kb_call_method_of_return_value/3`, so a major ). Laravel routes, Eloquent
+writes.
 
 - `endpoints/php/laravel.pl`: `Route::get / post / put / delete / patch /
   options / any( uri, action )` on the `Route` facade ; the action is
@@ -18,7 +20,18 @@ Targets: dhscanner-kbgen 2.7.0 ( new fact
   prefix ; the kb does not link a call to the call it is chained on ),
   `Route::resource`, `Route::match`, `'Controller@method'`.
   New host calls : `endpoints_http_laravel/4`, `endpoints_user_input_kind_laravel/2`.
-- `tests/kb_schema.pl`: kbgen 2.7.0, `kb_field_read_of_1st_party_imported_name/4`.
+- `utils/` ( new family ): domain knowledge of 3rd party code the kb cannot
+  say. `utils/types/php/eloquent.pl`: `utils_method_of_class_return_type/3`,
+  `where` of an Eloquent model ( `Illuminate.Database.Eloquent.Model`,
+  `Illuminate.Foundation.Auth.User` ) returns a Builder.
+- `sinks/db/php/eloquent.pl`: `Model::where( .. )->update( .. )` writes rows
+  of the 1st party model ( `sinks_db_write_php_eloquent_model/2` ) ; new
+  family entry point `sinks_db_write/1`. `update` has to be called on the
+  value `where` returns ( `kb_call_method_of_return_value/3` ), not on an
+  argument. Not covered : a Builder in a variable, more than one call
+  between the model and `update`, `find( .. )->update( .. )`, `save()`.
+- `tests/kb_schema.pl`: kbgen 2.9.0, `kb_field_read_of_1st_party_imported_name/4`,
+  `kb_return_value_of_call/2`, `kb_call_method_of_return_value/3`.
 
 ## v2.1.0
 

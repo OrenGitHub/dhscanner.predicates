@@ -9,7 +9,7 @@
 %     swipl predicates/tests/check.pl load       % 1. load gate only
 %     swipl predicates/tests/check.pl fixtures   % 2. + 3. only
 %
-% 1. load gate : api.pl ( the root, including the six family api.pl files )
+% 1. load gate : api.pl ( the root, including the seven family api.pl files )
 %    loads with no warnings or errors, every catalog .pl file is reached
 %    from it, and every predicate a catalog calls is defined : by a catalog,
 %    by SWI or by the KB ( tests/kb_schema.pl ). And every predicate the
@@ -29,7 +29,7 @@
 
 :- initialization(main, main).
 
-% The root : includes the six family api.pl files, exactly what queryengine
+% The root : includes the seven family api.pl files, exactly what queryengine
 % loads ( its utils.pl includes 'predicates/api' ).
 root_api('predicates/api').
 
