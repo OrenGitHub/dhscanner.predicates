@@ -28,7 +28,9 @@ writes.
   of the 1st party model ( `sinks_db_write_php_eloquent_model/2` ) ; new
   family entry point `sinks_db_write/1`. `update` has to be called on the
   value `where` returns ( `kb_call_method_of_return_value/3` ), not on an
-  argument. Not covered : a Builder in a variable, more than one call
+  argument. `sinks_db_write_php_eloquent_column/4` : the written column, a
+  constant key of the update array ( a keyword arg of the array, parsers
+  php `'k' => v` ). Not covered : a Builder in a variable, more than one call
   between the model and `update`, `find( .. )->update( .. )`, `save()`.
 - `tests/kb_schema.pl`: kbgen 2.9.0, `kb_field_read_of_1st_party_imported_name/4`,
   `kb_return_value_of_call/2`, `kb_call_method_of_return_value/3`.

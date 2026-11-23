@@ -13,6 +13,8 @@ kb_class_has_3rd_party_super(startloc_7_7_endloc_7_11_app_slash_Support_slash_Ca
 % Post::where( 'id', $id )->update( [ 'title' => $title ] )
 kb_call_method_of_1st_party_imported_name(startloc_20_9_endloc_20_34_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 'where', 'Post', 'app/Models/Post.php').
 kb_call_method_of_return_value(startloc_20_9_endloc_20_70_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 'update', startloc_20_9_endloc_20_34_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
+kb_arg_i_for_call(startloc_20_44_endloc_20_69_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 0, startloc_20_9_endloc_20_70_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
+kb_keyword_arg_for_call('title', startloc_15_9_endloc_15_14_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_20_44_endloc_20_69_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
 % Member::where( 'id', $id )->update( [ 'name' => $name ] )
 kb_call_method_of_1st_party_imported_name(startloc_30_9_endloc_30_36_app_slash_Http_slash_Controllers_slash_MemberController_dot_php, 'where', 'Member', 'app/Models/Member.php').
 kb_call_method_of_return_value(startloc_30_9_endloc_30_70_app_slash_Http_slash_Controllers_slash_MemberController_dot_php, 'update', startloc_30_9_endloc_30_36_app_slash_Http_slash_Controllers_slash_MemberController_dot_php).
@@ -33,7 +35,10 @@ must(sinks_db_write_php_eloquent_model(startloc_20_9_endloc_20_70_app_slash_Http
 must(sinks_db_write_php_eloquent(startloc_30_9_endloc_30_70_app_slash_Http_slash_Controllers_slash_MemberController_dot_php)).
 % wired into the family api
 must(sinks_db_write(startloc_20_9_endloc_20_70_app_slash_Http_slash_Controllers_slash_PostController_dot_php)).
+must(sinks_db_write_php_eloquent_column(startloc_20_9_endloc_20_70_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_8_7_endloc_8_10_app_slash_Models_slash_Post_dot_php, 'title', startloc_15_9_endloc_15_14_app_slash_Http_slash_Controllers_slash_PostController_dot_php)).
 
 must_not(sinks_db_write_php_eloquent(startloc_40_9_endloc_40_40_app_slash_Http_slash_Controllers_slash_PostController_dot_php)).
 must_not(sinks_db_write_php_eloquent(startloc_50_9_endloc_50_50_app_slash_Http_slash_Controllers_slash_PostController_dot_php)).
 must_not(sinks_db_write_php_eloquent(startloc_60_9_endloc_60_51_app_slash_Http_slash_Controllers_slash_PostController_dot_php)).
+% Member::where( .. )->update( .. ) has no constant key in the fixture
+must_not(sinks_db_write_php_eloquent_column(startloc_30_9_endloc_30_70_app_slash_Http_slash_Controllers_slash_MemberController_dot_php, _, _, _)).
