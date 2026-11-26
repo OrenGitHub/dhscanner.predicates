@@ -30,6 +30,8 @@ host_calls(sanitizers_top_level_if_then_else/4).
 host_calls(sinks_arbitrary_file_deletion/1).
 host_calls(sinks_arbitrary_file_read/1).
 host_calls(sinks_arbitrary_file_write/1).
+host_calls(sinks_db_write/1).
+host_calls(sinks_db_write_column/4).
 host_calls(sinks_http_request/1).
 host_calls(sinks_open_redirect/1).
 host_calls(sinks_sqli/1).

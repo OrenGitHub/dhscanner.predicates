@@ -3,6 +3,16 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v4.1.0
+
+Targets: dhscanner-kbgen 2.9.0 ( no new facts ).
+
+- `sinks/api.pl`: new family entry point `sinks_db_write_column/4`
+  ( `Call` writes `Value` to `Column` of the 1st party `Model` ), wired to
+  `sinks_db_write_php_eloquent_column/4`. New host calls :
+  `sinks_db_write/1`, `sinks_db_write_column/4` ( queryengine's dataflow
+  path reports the model + column a path stores into, kbapi 2.0.0 ).
+
 ## v4.0.0
 
 Targets: dhscanner-kbgen 2.9.0 ( no new facts ). Needs parsers >= 1.1.69 :

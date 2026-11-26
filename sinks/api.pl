@@ -41,6 +41,10 @@ sinks_sqli(Call) :- sinks_sqli_csharp(Call).
 
 sinks_db_write(Call) :- sinks_db_write_php_eloquent(Call).
 
+% sinks_db_write_column( Call, Model, Column, Value ) : `Call` writes `Value`
+% to the `Column` of the 1st party `Model` ( the location of its class def )
+sinks_db_write_column(Call, Model, Column, Value) :- sinks_db_write_php_eloquent_column(Call, Model, Column, Value).
+
 sinks_ssrf(Call) :- sinks_ssrf_python(Call).
 sinks_ssrf(Call) :- sinks_ssrf_nodejs_fetch(Call).
 sinks_ssrf(Call) :- sinks_ssrf_java(Call).
