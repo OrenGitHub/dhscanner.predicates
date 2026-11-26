@@ -3,6 +3,20 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v4.0.0
+
+Targets: dhscanner-kbgen 2.9.0 ( no new facts ). Needs parsers >= 1.1.69 :
+php array literals are now `<dhscanner-instrumentation>[arrayify]` ( was the
+bare `arrayify` ), so a major.
+
+- `endpoints/php/laravel.pl`: the handler pair `[ X::class, 'm' ]` is matched
+  as `'<dhscanner-instrumentation>[arrayify]'`.
+- `sinks/files/php/native.pl` ( new ): `include` / `require` ( and `_once` )
+  of a non constant file, `<dhscanner-instrumentation>[dynamic-import]( file )`
+  in the kb ( parsers >= 1.1.69 ), is a read sink ( local file inclusion ),
+  `sinks_arbitrary_file_read_php/1`, wired into `sinks_arbitrary_file_read/1`.
+  A constant file ( `include 'a.php'` ) is not a call.
+
 ## v3.0.0
 
 Targets: dhscanner-kbgen 2.9.0 ( new facts
