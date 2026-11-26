@@ -27,7 +27,7 @@ kb_call_resolved(startloc_5_1_endloc_5_80_routes_slash_web_dot_php, 'Illuminate.
 kb_arg_i_for_call(startloc_5_12_endloc_5_28_routes_slash_web_dot_php, 0, startloc_5_1_endloc_5_80_routes_slash_web_dot_php).
 kb_const_string(startloc_5_12_endloc_5_28_routes_slash_web_dot_php, '/profile/{id}').
 kb_arg_i_for_call(startloc_5_30_endloc_5_70_routes_slash_web_dot_php, 1, startloc_5_1_endloc_5_80_routes_slash_web_dot_php).
-kb_call_resolved(startloc_5_30_endloc_5_70_routes_slash_web_dot_php, 'arrayify').
+kb_call_resolved(startloc_5_30_endloc_5_70_routes_slash_web_dot_php, '<dhscanner-instrumentation>[arrayify]').
 kb_arg_i_for_call(startloc_5_31_endloc_5_55_routes_slash_web_dot_php, 0, startloc_5_30_endloc_5_70_routes_slash_web_dot_php).
 kb_field_read_of_1st_party_imported_name(startloc_5_31_endloc_5_55_routes_slash_web_dot_php, 'class', 'ProfileController', 'app/Http/Controllers/ProfileController.php').
 kb_arg_i_for_call(startloc_5_57_endloc_5_69_routes_slash_web_dot_php, 1, startloc_5_30_endloc_5_70_routes_slash_web_dot_php).
@@ -51,7 +51,7 @@ kb_call_resolved(startloc_8_1_endloc_8_80_routes_slash_web_dot_php, 'Illuminate.
 kb_arg_i_for_call(startloc_8_12_endloc_8_28_routes_slash_web_dot_php, 0, startloc_8_1_endloc_8_80_routes_slash_web_dot_php).
 kb_const_string(startloc_8_12_endloc_8_28_routes_slash_web_dot_php, '/gone').
 kb_arg_i_for_call(startloc_8_30_endloc_8_70_routes_slash_web_dot_php, 1, startloc_8_1_endloc_8_80_routes_slash_web_dot_php).
-kb_call_resolved(startloc_8_30_endloc_8_70_routes_slash_web_dot_php, 'arrayify').
+kb_call_resolved(startloc_8_30_endloc_8_70_routes_slash_web_dot_php, '<dhscanner-instrumentation>[arrayify]').
 kb_arg_i_for_call(startloc_8_31_endloc_8_55_routes_slash_web_dot_php, 0, startloc_8_30_endloc_8_70_routes_slash_web_dot_php).
 kb_field_read_of_1st_party_imported_name(startloc_8_31_endloc_8_55_routes_slash_web_dot_php, 'class', 'ProfileController', 'app/Http/Controllers/ProfileController.php').
 kb_arg_i_for_call(startloc_8_57_endloc_8_69_routes_slash_web_dot_php, 1, startloc_8_30_endloc_8_70_routes_slash_web_dot_php).
@@ -62,7 +62,7 @@ kb_call_resolved(startloc_9_1_endloc_9_80_routes_slash_web_dot_php, 'Illuminate.
 kb_arg_i_for_call(startloc_9_12_endloc_9_28_routes_slash_web_dot_php, 0, startloc_9_1_endloc_9_80_routes_slash_web_dot_php).
 kb_const_string(startloc_9_12_endloc_9_28_routes_slash_web_dot_php, '/named').
 kb_arg_i_for_call(startloc_9_30_endloc_9_70_routes_slash_web_dot_php, 1, startloc_9_1_endloc_9_80_routes_slash_web_dot_php).
-kb_call_resolved(startloc_9_30_endloc_9_70_routes_slash_web_dot_php, 'arrayify').
+kb_call_resolved(startloc_9_30_endloc_9_70_routes_slash_web_dot_php, '<dhscanner-instrumentation>[arrayify]').
 kb_arg_i_for_call(startloc_9_31_endloc_9_55_routes_slash_web_dot_php, 0, startloc_9_30_endloc_9_70_routes_slash_web_dot_php).
 kb_field_read_of_1st_party_imported_name(startloc_9_31_endloc_9_55_routes_slash_web_dot_php, 'class', 'ProfileController', 'app/Http/Controllers/ProfileController.php').
 kb_arg_i_for_call(startloc_9_57_endloc_9_69_routes_slash_web_dot_php, 1, startloc_9_30_endloc_9_70_routes_slash_web_dot_php).
@@ -73,7 +73,7 @@ kb_call_resolved(startloc_10_1_endloc_10_80_routes_slash_web_dot_php, 'Illuminat
 kb_arg_i_for_call(startloc_10_12_endloc_10_28_routes_slash_web_dot_php, 0, startloc_10_1_endloc_10_80_routes_slash_web_dot_php).
 kb_const_string(startloc_10_12_endloc_10_28_routes_slash_web_dot_php, '/cached').
 kb_arg_i_for_call(startloc_10_30_endloc_10_70_routes_slash_web_dot_php, 1, startloc_10_1_endloc_10_80_routes_slash_web_dot_php).
-kb_call_resolved(startloc_10_30_endloc_10_70_routes_slash_web_dot_php, 'arrayify').
+kb_call_resolved(startloc_10_30_endloc_10_70_routes_slash_web_dot_php, '<dhscanner-instrumentation>[arrayify]').
 kb_arg_i_for_call(startloc_10_31_endloc_10_55_routes_slash_web_dot_php, 0, startloc_10_30_endloc_10_70_routes_slash_web_dot_php).
 kb_field_read_of_1st_party_imported_name(startloc_10_31_endloc_10_55_routes_slash_web_dot_php, 'class', 'ProfileController', 'app/Http/Controllers/ProfileController.php').
 kb_arg_i_for_call(startloc_10_57_endloc_10_69_routes_slash_web_dot_php, 1, startloc_10_30_endloc_10_70_routes_slash_web_dot_php).

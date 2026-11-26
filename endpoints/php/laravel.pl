@@ -14,7 +14,7 @@
 %
 % The facade method resolves to an exact atom
 % ( `'Illuminate.Support.Facades.Route.get'` ). The handler pair is an array
-% literal ( `'arrayify'` in the kb ) : its element 0 is the read of
+% literal ( `'<dhscanner-instrumentation>[arrayify]'` in the kb, parsers >= 1.1.69 ) : its element 0 is the read of
 % `ProfileController::class`, a field `'class'` of a 1st party imported name
 % ( `kb_field_read_of_1st_party_imported_name/4`, kbgen >= 2.7.0 ), its
 % element 1 the method name as a constant string. The class is the one that
@@ -78,7 +78,7 @@ endpoints_verb_laravel('Illuminate.Support.Facades.Route.any', unknown).
 %   function () { .. }                     --> the closure itself
 
 endpoints_action_handler_laravel(Action, Handler) :-
-    kb_call_resolved(Action, 'arrayify'),
+    kb_call_resolved(Action, '<dhscanner-instrumentation>[arrayify]'),
     kb_arg_i_for_call(ClassRead, 0, Action),
     kb_arg_i_for_call(MethodArg, 1, Action),
     kb_const_string(MethodArg, MethodName),

@@ -28,6 +28,7 @@
 :- [ 'predicates/sinks/open_redirects/csharp/aspnet' ].
 :- [ 'predicates/sinks/db/csharp/efcore' ].
 :- [ 'predicates/sinks/db/php/eloquent' ].
+:- [ 'predicates/sinks/files/php/native' ].
 
 sinks_cmd_exec(Call) :- sinks_cmd_exec_golang(Call).
 
@@ -53,6 +54,7 @@ sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_express_sendFile(Ca
 sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_java(Call).
 sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_python(Call).
 sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_csharp(Call).
+sinks_arbitrary_file_read(Call) :- sinks_arbitrary_file_read_php(Call).
 
 sinks_arbitrary_file_write(Arg) :- sinks_arbitrary_file_write_nodejs(Arg).
 sinks_arbitrary_file_write(Arg) :- sinks_arbitrary_file_write_java(Arg).
