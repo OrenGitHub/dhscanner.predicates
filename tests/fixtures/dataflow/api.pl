@@ -242,3 +242,55 @@ kb_param_i_of_callable(startloc_5_62_endloc_5_75_src_slash_Web_slash_Controllers
 must(dataflow_inter_path(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, [ (startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs), (startloc_5_49_endloc_5_60_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, startloc_7_16_endloc_7_29_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs) ])).
 % the source reaches no param it is not passed to
 must_not(dataflow_inter_path(startloc_12_30_endloc_12_47_src_slash_Web_slash_Controllers_slash_AccountController_dot_cs, startloc_5_62_endloc_5_75_src_slash_Web_slash_Controllers_slash_BaseController_dot_cs, _)).
+
+% ---------------------------------------------------------------------------
+% two arg -> param hops ( dataflow_inter_path_2_hops/3 ) : app/batch.py
+%
+%  1  def post( request ):
+%  2      items = request.items
+%  3      return export( key, items )          hop 1 : items -> export( _, items )
+%  6  def export( key, items ):
+%  7      return Response( render( items ) )   hop 2 : items passed as is -> render( items )
+% 10  def render( items ):
+% 11      for item in items:                   item = <dhscanner-instrumentation>[iterate-over]( items )
+% 12          requests.get( item['href'] )
+kb_func_def(startloc_1_1_endloc_3_30_app_slash_batch_dot_py, post, 'app/batch.py', app).
+kb_param_i_of_callable(startloc_1_9_endloc_1_16_app_slash_batch_dot_py, 0, startloc_1_1_endloc_3_30_app_slash_batch_dot_py).
+kb_dataflow_edge(startloc_1_9_endloc_1_16_app_slash_batch_dot_py, startloc_2_13_endloc_2_26_app_slash_batch_dot_py).
+kb_dataflow_edge(startloc_2_13_endloc_2_26_app_slash_batch_dot_py, startloc_2_5_endloc_2_10_app_slash_batch_dot_py).
+kb_call_1st_party_func_defined_in_file(startloc_3_12_endloc_3_30_app_slash_batch_dot_py, export, 'app/batch.py').
+kb_arg_i_for_call(startloc_3_19_endloc_3_22_app_slash_batch_dot_py, 0, startloc_3_12_endloc_3_30_app_slash_batch_dot_py).
+kb_arg_i_for_call(startloc_2_5_endloc_2_10_app_slash_batch_dot_py, 1, startloc_3_12_endloc_3_30_app_slash_batch_dot_py).
+
+kb_func_def(startloc_6_1_endloc_7_40_app_slash_batch_dot_py, export, 'app/batch.py', app).
+kb_param_i_of_callable(startloc_6_12_endloc_6_15_app_slash_batch_dot_py, 0, startloc_6_1_endloc_7_40_app_slash_batch_dot_py).
+kb_param_i_of_callable(startloc_6_17_endloc_6_22_app_slash_batch_dot_py, 1, startloc_6_1_endloc_7_40_app_slash_batch_dot_py).
+kb_call_1st_party_func_defined_in_file(startloc_7_21_endloc_7_34_app_slash_batch_dot_py, render, 'app/batch.py').
+kb_arg_i_for_call(startloc_6_17_endloc_6_22_app_slash_batch_dot_py, 0, startloc_7_21_endloc_7_34_app_slash_batch_dot_py).
+
+kb_func_def(startloc_10_1_endloc_12_40_app_slash_batch_dot_py, render, 'app/batch.py', app).
+kb_param_i_of_callable(startloc_10_12_endloc_10_17_app_slash_batch_dot_py, 0, startloc_10_1_endloc_12_40_app_slash_batch_dot_py).
+kb_dataflow_edge(startloc_10_12_endloc_10_17_app_slash_batch_dot_py, startloc_11_5_endloc_12_40_app_slash_batch_dot_py).
+kb_dataflow_edge(startloc_11_5_endloc_12_40_app_slash_batch_dot_py, startloc_11_9_endloc_11_13_app_slash_batch_dot_py).
+kb_dataflow_edge(startloc_11_9_endloc_11_13_app_slash_batch_dot_py, startloc_12_22_endloc_12_33_app_slash_batch_dot_py).
+kb_dataflow_edge(startloc_12_22_endloc_12_33_app_slash_batch_dot_py, startloc_12_9_endloc_12_34_app_slash_batch_dot_py).
+
+% request -> items -> export( _, items ) -> items -> render( items ) -> items -> item -> item['href'] -> requests.get
+must(dataflow_inter_path_2_hops(startloc_1_9_endloc_1_16_app_slash_batch_dot_py, startloc_12_9_endloc_12_34_app_slash_batch_dot_py,
+     [(startloc_1_9_endloc_1_16_app_slash_batch_dot_py, startloc_2_13_endloc_2_26_app_slash_batch_dot_py),
+      (startloc_2_13_endloc_2_26_app_slash_batch_dot_py, startloc_2_5_endloc_2_10_app_slash_batch_dot_py),
+      (startloc_2_5_endloc_2_10_app_slash_batch_dot_py, startloc_6_17_endloc_6_22_app_slash_batch_dot_py),
+      (startloc_6_17_endloc_6_22_app_slash_batch_dot_py, startloc_10_12_endloc_10_17_app_slash_batch_dot_py),
+      (startloc_10_12_endloc_10_17_app_slash_batch_dot_py, startloc_11_5_endloc_12_40_app_slash_batch_dot_py),
+      (startloc_11_5_endloc_12_40_app_slash_batch_dot_py, startloc_11_9_endloc_11_13_app_slash_batch_dot_py),
+      (startloc_11_9_endloc_11_13_app_slash_batch_dot_py, startloc_12_22_endloc_12_33_app_slash_batch_dot_py),
+      (startloc_12_22_endloc_12_33_app_slash_batch_dot_py, startloc_12_9_endloc_12_34_app_slash_batch_dot_py)])).
+% one hop is not enough for it, dataflow_inter_path falls back to two
+must_not(dataflow_inter_path_1_hop(startloc_1_9_endloc_1_16_app_slash_batch_dot_py, startloc_12_9_endloc_12_34_app_slash_batch_dot_py, _)).
+must(dataflow_inter_path(startloc_1_9_endloc_1_16_app_slash_batch_dot_py, startloc_12_9_endloc_12_34_app_slash_batch_dot_py, _)).
+% key ( arg 0 of export ) never reaches render( items )
+must_not(dataflow_inter_path_2_hops(startloc_6_12_endloc_6_15_app_slash_batch_dot_py, startloc_12_9_endloc_12_34_app_slash_batch_dot_py, _)).
+% a 1 hop flow is not a 2 hops flow ( request.args.get -> run_user( name ) -> os.system( cmd ) )
+must_not(dataflow_inter_path_2_hops(startloc_40_12_endloc_40_35_app_slash_views_dot_py, startloc_4_15_endloc_4_18_app_slash_utils_dot_py, _)).
+% reach : U itself first, with no edges
+must(( dataflow_reach(startloc_10_12_endloc_10_17_app_slash_batch_dot_py, 10, [First|_]), First == startloc_10_12_endloc_10_17_app_slash_batch_dot_py-[] )).

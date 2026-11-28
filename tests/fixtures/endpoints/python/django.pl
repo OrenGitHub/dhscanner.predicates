@@ -146,6 +146,98 @@ kb_const_string(startloc_28_10_endloc_28_18_weblate_slash_urls_dot_py, 'login/')
 kb_arg_i_for_call(startloc_28_20_endloc_28_69_weblate_slash_urls_dot_py, 1, startloc_28_5_endloc_28_70_weblate_slash_urls_dot_py).
 kb_call_resolved(startloc_28_20_endloc_28_69_weblate_slash_urls_dot_py, 'django.contrib.auth.views.LoginView.as_view').
 
+% def edit( request ): ...
+kb_func_def(startloc_10_1_endloc_12_20_weblate_slash_urls_dot_py, edit, 'weblate/urls.py', weblate).
+kb_param_i_of_callable(startloc_10_14_endloc_10_21_weblate_slash_urls_dot_py, 0, startloc_10_1_endloc_12_20_weblate_slash_urls_dot_py).
+kb_param_has_name(startloc_10_14_endloc_10_21_weblate_slash_urls_dot_py, request).
+% def spliced( request ): ...
+kb_func_def(startloc_13_1_endloc_14_20_weblate_slash_urls_dot_py, spliced, 'weblate/urls.py', weblate).
+
+% re_path( fr'^items/{ITEM_ID_PATTERN}/edit$', edit )   : f-string url ( runner #256 )
+kb_call_resolved(startloc_30_5_endloc_30_70_weblate_slash_urls_dot_py, 'django.urls.re_path').
+kb_arg_i_for_call(startloc_30_13_endloc_30_55_weblate_slash_urls_dot_py, 0, startloc_30_5_endloc_30_70_weblate_slash_urls_dot_py).
+kb_call_resolved(startloc_30_13_endloc_30_55_weblate_slash_urls_dot_py, fstring).
+kb_arg_i_for_call(startloc_30_16_endloc_30_24_weblate_slash_urls_dot_py, 0, startloc_30_13_endloc_30_55_weblate_slash_urls_dot_py).
+kb_const_string(startloc_30_16_endloc_30_24_weblate_slash_urls_dot_py, '^items/').
+kb_arg_i_for_call(startloc_30_25_endloc_30_40_weblate_slash_urls_dot_py, 1, startloc_30_13_endloc_30_55_weblate_slash_urls_dot_py).
+kb_arg_i_for_call(startloc_30_42_endloc_30_54_weblate_slash_urls_dot_py, 2, startloc_30_13_endloc_30_55_weblate_slash_urls_dot_py).
+kb_const_string(startloc_30_42_endloc_30_54_weblate_slash_urls_dot_py, '/edit$').
+kb_arg_i_for_call(startloc_10_1_endloc_12_20_weblate_slash_urls_dot_py, 1, startloc_30_5_endloc_30_70_weblate_slash_urls_dot_py).
+
+% re_path( f'{PREFIX}{ID}', spliced )   : f-string with no const part
+kb_call_resolved(startloc_31_5_endloc_31_40_weblate_slash_urls_dot_py, 'django.urls.re_path').
+kb_arg_i_for_call(startloc_31_13_endloc_31_28_weblate_slash_urls_dot_py, 0, startloc_31_5_endloc_31_40_weblate_slash_urls_dot_py).
+kb_call_resolved(startloc_31_13_endloc_31_28_weblate_slash_urls_dot_py, fstring).
+kb_arg_i_for_call(startloc_31_16_endloc_31_22_weblate_slash_urls_dot_py, 0, startloc_31_13_endloc_31_28_weblate_slash_urls_dot_py).
+kb_arg_i_for_call(startloc_31_23_endloc_31_27_weblate_slash_urls_dot_py, 1, startloc_31_13_endloc_31_28_weblate_slash_urls_dot_py).
+kb_arg_i_for_call(startloc_13_1_endloc_14_20_weblate_slash_urls_dot_py, 1, startloc_31_5_endloc_31_40_weblate_slash_urls_dot_py).
+
+% ---------------------------------------------------------------------------
+% items/views/detail.py
+%
+% class ItemView:
+%     def patch( self, request ): ...
+kb_class_def(startloc_5_1_endloc_9_20_items_slash_views_slash_detail_dot_py, 'ItemView', 'items/views/detail.py').
+kb_method_of_class(startloc_6_5_endloc_8_20_items_slash_views_slash_detail_dot_py, startloc_5_1_endloc_9_20_items_slash_views_slash_detail_dot_py).
+kb_method_has_name(startloc_6_5_endloc_8_20_items_slash_views_slash_detail_dot_py, patch).
+kb_param_i_of_callable(startloc_6_19_endloc_6_26_items_slash_views_slash_detail_dot_py, 1, startloc_6_5_endloc_8_20_items_slash_views_slash_detail_dot_py).
+kb_param_has_name(startloc_6_19_endloc_6_26_items_slash_views_slash_detail_dot_py, request).
+
+% items/views/__init__.py
+%
+% from .detail import ItemView, Unrelated   -->  <dhscanner-instrumentation>[1st-party-import-from-dunder-init]( 'items/views/detail.py', 'ItemView', 'Unrelated' )
+kb_call_resolved(startloc_3_1_endloc_3_40_items_slash_views_slash___init___dot_py, '<dhscanner-instrumentation>[1st-party-import-from-dunder-init]').
+kb_called_from_script(startloc_3_1_endloc_3_40_items_slash_views_slash___init___dot_py, 'items/views/__init__.py').
+kb_arg_i_for_call(startloc_3_1_endloc_3_1_items_slash_views_slash___init___dot_py, 0, startloc_3_1_endloc_3_40_items_slash_views_slash___init___dot_py).
+kb_const_string(startloc_3_1_endloc_3_1_items_slash_views_slash___init___dot_py, 'items/views/detail.py').
+kb_arg_i_for_call(startloc_3_21_endloc_3_29_items_slash_views_slash___init___dot_py, 1, startloc_3_1_endloc_3_40_items_slash_views_slash___init___dot_py).
+kb_const_string(startloc_3_21_endloc_3_29_items_slash_views_slash___init___dot_py, 'ItemView').
+kb_arg_i_for_call(startloc_3_31_endloc_3_40_items_slash_views_slash___init___dot_py, 2, startloc_3_1_endloc_3_40_items_slash_views_slash___init___dot_py).
+kb_const_string(startloc_3_31_endloc_3_40_items_slash_views_slash___init___dot_py, 'Unrelated').
+
+% items/__init__.py   : a package of packages
+%
+% from .views import ItemView   -->  <dhscanner-instrumentation>[1st-party-import-from-dunder-init]( 'items/views/__init__.py', 'ItemView' )
+kb_call_resolved(startloc_2_1_endloc_2_30_items_slash___init___dot_py, '<dhscanner-instrumentation>[1st-party-import-from-dunder-init]').
+kb_called_from_script(startloc_2_1_endloc_2_30_items_slash___init___dot_py, 'items/__init__.py').
+kb_arg_i_for_call(startloc_2_1_endloc_2_1_items_slash___init___dot_py, 0, startloc_2_1_endloc_2_30_items_slash___init___dot_py).
+kb_const_string(startloc_2_1_endloc_2_1_items_slash___init___dot_py, 'items/views/__init__.py').
+kb_arg_i_for_call(startloc_2_20_endloc_2_28_items_slash___init___dot_py, 1, startloc_2_1_endloc_2_30_items_slash___init___dot_py).
+kb_const_string(startloc_2_20_endloc_2_28_items_slash___init___dot_py, 'ItemView').
+
+% items/api.py
+%
+% class ItemListView:
+%     def get( self, request ): ...
+kb_class_def(startloc_4_1_endloc_8_20_items_slash_api_dot_py, 'ItemListView', 'items/api.py').
+kb_method_of_class(startloc_5_5_endloc_7_20_items_slash_api_dot_py, startloc_4_1_endloc_8_20_items_slash_api_dot_py).
+kb_method_has_name(startloc_5_5_endloc_7_20_items_slash_api_dot_py, get).
+kb_param_i_of_callable(startloc_5_19_endloc_5_26_items_slash_api_dot_py, 1, startloc_5_5_endloc_7_20_items_slash_api_dot_py).
+kb_param_has_name(startloc_5_19_endloc_5_26_items_slash_api_dot_py, request).
+
+% items/urls.py
+%
+% from .views import ItemView, Missing   ( a package : the parser resolves the names to items/views/__init__.py )
+% from .api import ItemListView         ( a file )
+% path( "items/", ItemView.as_view() )
+kb_call_resolved(startloc_10_5_endloc_10_50_items_slash_urls_dot_py, 'django.urls.path').
+kb_arg_i_for_call(startloc_10_10_endloc_10_18_items_slash_urls_dot_py, 0, startloc_10_5_endloc_10_50_items_slash_urls_dot_py).
+kb_const_string(startloc_10_10_endloc_10_18_items_slash_urls_dot_py, 'items/').
+kb_arg_i_for_call(startloc_10_20_endloc_10_37_items_slash_urls_dot_py, 1, startloc_10_5_endloc_10_50_items_slash_urls_dot_py).
+kb_call_method_of_1st_party_imported_name(startloc_10_20_endloc_10_37_items_slash_urls_dot_py, as_view, 'ItemView', 'items/views/__init__.py').
+% path( "list/", ItemListView.as_view() )
+kb_call_resolved(startloc_11_5_endloc_11_50_items_slash_urls_dot_py, 'django.urls.path').
+kb_arg_i_for_call(startloc_11_10_endloc_11_17_items_slash_urls_dot_py, 0, startloc_11_5_endloc_11_50_items_slash_urls_dot_py).
+kb_const_string(startloc_11_10_endloc_11_17_items_slash_urls_dot_py, 'list/').
+kb_arg_i_for_call(startloc_11_19_endloc_11_40_items_slash_urls_dot_py, 1, startloc_11_5_endloc_11_50_items_slash_urls_dot_py).
+kb_call_method_of_1st_party_imported_name(startloc_11_19_endloc_11_40_items_slash_urls_dot_py, as_view, 'ItemListView', 'items/api.py').
+% path( "missing/", Missing.as_view() )   : not re-exported by items/views/__init__.py
+kb_call_resolved(startloc_12_5_endloc_12_50_items_slash_urls_dot_py, 'django.urls.path').
+kb_arg_i_for_call(startloc_12_10_endloc_12_20_items_slash_urls_dot_py, 0, startloc_12_5_endloc_12_50_items_slash_urls_dot_py).
+kb_const_string(startloc_12_10_endloc_12_20_items_slash_urls_dot_py, 'missing/').
+kb_arg_i_for_call(startloc_12_22_endloc_12_38_items_slash_urls_dot_py, 1, startloc_12_5_endloc_12_50_items_slash_urls_dot_py).
+kb_call_method_of_1st_party_imported_name(startloc_12_22_endloc_12_38_items_slash_urls_dot_py, as_view, 'Missing', 'items/views/__init__.py').
+
 % ---------------------------------------------------------------------------
 % routes : path and re_path, const string url
 must(endpoints_route_django('stats/', startloc_20_20_endloc_20_59_weblate_slash_urls_dot_py)).
@@ -163,6 +255,19 @@ must(endpoints_http_django(startloc_50_1_endloc_60_20_weblate_slash_accounts_sla
 must(endpoints_http_django(startloc_8_1_endloc_12_20_weblate_slash_wladmin_slash_views_dot_py, unknown, startloc_8_1_endloc_12_20_weblate_slash_wladmin_slash_views_dot_py, 'alerts/')).
 % function view of the same file
 must(endpoints_http_django(startloc_5_1_endloc_7_20_weblate_slash_urls_dot_py, unknown, startloc_5_10_endloc_5_17_weblate_slash_urls_dot_py, '')).
+% f-string url : const parts joined, no ^ / $ / //
+must(endpoints_route_django('items/edit', startloc_10_1_endloc_12_20_weblate_slash_urls_dot_py)).
+must(endpoints_http_django(startloc_10_1_endloc_12_20_weblate_slash_urls_dot_py, unknown, startloc_10_14_endloc_10_21_weblate_slash_urls_dot_py, 'items/edit')).
+must(endpoints_url_normalized_django('^a//b///c$', 'a/b/c')).
+must(endpoints_url_normalized_django('a/b', 'a/b')).
+% class view imported from a package, re-exported by its __init__.py
+must(endpoints_http_django(startloc_6_5_endloc_8_20_items_slash_views_slash_detail_dot_py, patch, startloc_6_19_endloc_6_26_items_slash_views_slash_detail_dot_py, 'items/')).
+% class view imported from a file
+must(endpoints_http_django(startloc_5_5_endloc_7_20_items_slash_api_dot_py, get, startloc_5_19_endloc_5_26_items_slash_api_dot_py, 'list/')).
+% re-export resolution : defined in the file, one __init__.py hop, a chain of two
+must(python_imported_class('ItemListView', 'items/api.py', startloc_4_1_endloc_8_20_items_slash_api_dot_py)).
+must(python_imported_class('ItemView', 'items/views/__init__.py', startloc_5_1_endloc_9_20_items_slash_views_slash_detail_dot_py)).
+must(python_imported_class('ItemView', 'items/__init__.py', startloc_5_1_endloc_9_20_items_slash_views_slash_detail_dot_py)).
 % name resolution helpers
 must(python_class_by_fqn('weblate.api.views.Metrics', startloc_20_1_endloc_40_20_weblate_slash_api_slash_views_dot_py)).
 must(python_class_by_fqn('weblate.trans.views.AboutView', startloc_3_1_endloc_9_20_weblate_slash_trans_slash_views_slash___init___dot_py)).
@@ -181,6 +286,15 @@ must_not(endpoints_http_django(_, unknown, _, 'stats/')).
 must_not(endpoints_http_django(startloc_70_1_endloc_72_20_weblate_slash_accounts_slash_views_dot_py, _, _, _)).
 % url is not a const string
 must_not(endpoints_http_django(startloc_8_1_endloc_9_20_weblate_slash_urls_dot_py, _, _, _)).
+% a name the __init__.py does not re-export : no class, no endpoint
+must_not(python_imported_class('Missing', 'items/views/__init__.py', _)).
+must_not(endpoints_http_django(_, _, _, 'missing/')).
+% re-exported, but defined nowhere as a class
+must_not(python_imported_class('Unrelated', 'items/views/__init__.py', _)).
+% f-string url with no const part : no route
+must_not(endpoints_http_django(startloc_13_1_endloc_14_20_weblate_slash_urls_dot_py, _, _, _)).
+% the f-string url is normalized, never the raw join
+must_not(endpoints_route_django('^items//edit$', _)).
 % include() is not a route
 must_not(endpoints_http_django(startloc_9_1_endloc_9_30_weblate_slash_urls_dot_py, _, _, _)).
 must_not(endpoints_route_django('api/', _)).

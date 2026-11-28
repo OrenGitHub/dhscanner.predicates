@@ -3,6 +3,27 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v5.1.0
+
+Targets: dhscanner-kbgen 2.10.0 ( no new facts ). Needs parsers >= 1.1.72
+for the python `1st-party-import-from-dunder-init` and `iterate-over` tags.
+
+- `endpoints/python/django.pl`: a route url may be an f-string
+  ( runner #256 ) : its const string parts, joined in arg order, with no
+  leading `^`, no trailing `$` and no `//` ( `fr'^items/{ID}/edit$'` ->
+  `items/edit` ). A class view may be a name imported from a 1st party
+  file ( `from .views import ItemView` then `ItemView.as_view()` ),
+  defined there or re-exported by a package `__init__.py`
+  ( new `python_imported_class/3`, up to 8 re-export levels ).
+- `dataflow/api.pl`: `dataflow_inter_path/3` crosses one call, else two
+  ( new `dataflow_inter_path_1_hop/3`, `dataflow_inter_path_2_hops/3` ).
+  Both walk forward from the bound source ( breadth first
+  `dataflow_reach/3`, `dataflow_inter_step/2` : arg -> param, or a
+  returned value -> the calls of its method ) instead of enumerating every
+  inter edge of the kb first, which ran past the queryengine timeout on a
+  large kb whenever no 1 hop path existed. Same name / arity : the host
+  call is unchanged.
+
 ## v5.0.0
 
 Targets: dhscanner-kbgen 2.10.0 ( new fact `kb_called_from_script/2` : a

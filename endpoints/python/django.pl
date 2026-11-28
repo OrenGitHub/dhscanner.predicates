@@ -37,6 +37,8 @@
 :- dynamic kb_class_has_1st_party_super/3.
 :- dynamic kb_param_i_of_callable/3.
 :- dynamic kb_param_has_name/2.
+:- dynamic kb_call_method_of_1st_party_imported_name/4.
+:- dynamic kb_called_from_script/2.
 
 % -----------------------------------------------------------------------------
 % endpoints_http_django( Handler, Verb, Request, Url )
@@ -64,17 +66,56 @@ endpoints_http_django(Handler, unknown, Request, Url) :-
 % -----------------------------------------------------------------------------
 % endpoints_route_django( Url, View )
 %
-% `django.urls.path( Url, View, ... )` / `re_path`, with a const string url.
+% `django.urls.path( Url, View, ... )` / `re_path`, with a const string url,
+% or an f-string url ( runner #256 ).
 
 endpoints_route_django(Url, View) :-
     kb_call_resolved(Call, Fqn),
     endpoints_route_fqn_django(Fqn),
     kb_arg_i_for_call(UrlArg, 0, Call),
-    kb_const_string(UrlArg, Url),
+    endpoints_url_django(UrlArg, Url),
     kb_arg_i_for_call(View, 1, Call).
 
 endpoints_route_fqn_django('django.urls.path').
 endpoints_route_fqn_django('django.urls.re_path').
+
+% -----------------------------------------------------------------------------
+% endpoints_url_django( UrlArg, Url )
+%
+% A const string url as is. An f-string url ( a shared id regex spliced in,
+% `fr'^items/{ITEM_ID_PATTERN}/edit$'` ) reaches the kb as the
+% instrumented call `fstring( '^items/', ITEM_ID_PATTERN, '/edit$' )` :
+% the url is its const string args only, in arg order, joined, then
+% normalized ( no leading `^`, no trailing `$`, no `//` ) -> 'items/edit'.
+% The spliced names are dropped ( resolving them is out of scope ).
+%
+% The atom work below is on const string VALUES ( the source's own url
+% text ), never on a location / fqn / path atom of the kb.
+
+endpoints_url_django(UrlArg, Url) :-
+    kb_const_string(UrlArg, Url).
+endpoints_url_django(UrlArg, Url) :-
+    kb_call_resolved(UrlArg, fstring),
+    findall(I-Part, ( kb_arg_i_for_call(Arg, I, UrlArg), kb_const_string(Arg, Part) ), Parts),
+    Parts \= [],
+    keysort(Parts, Sorted),
+    pairs_values(Sorted, Strings),
+    atomic_list_concat(Strings, Joined),
+    endpoints_url_normalized_django(Joined, Url).
+
+endpoints_url_normalized_django(Raw, Url) :-
+    ( atom_concat('^', NoCaret, Raw) -> true ; NoCaret = Raw ),
+    ( atom_concat(NoDollar, '$', NoCaret) -> true ; NoDollar = NoCaret ),
+    endpoints_url_single_slashes_django(NoDollar, Url).
+
+endpoints_url_single_slashes_django(Url0, Url) :-
+    (   sub_atom(Url0, Before, 2, After, '//')
+    ->  sub_atom(Url0, 0, Before, _, Prefix),
+        sub_atom(Url0, _, After, 0, Suffix),
+        atomic_list_concat([Prefix, '/', Suffix], Url1),
+        endpoints_url_single_slashes_django(Url1, Url)
+    ;   Url = Url0
+    ).
 
 % The python front rewrites `weblate.trans.views.about.StatsView.as_view()`
 % into `<alias>_Subclass.as_view()`, with `class <alias>_Subclass(<alias>)`
@@ -87,6 +128,11 @@ endpoints_view_class_django(View, Class) :-
     kb_call_resolved(View, Fqn),
     atom_concat(ClassFqn, '.as_view', Fqn),
     python_class_by_fqn(ClassFqn, Class).
+% `from .views import ItemView` then `ItemView.as_view()` : a name imported
+% from a 1st party file, defined there or re-exported by an `__init__.py`
+endpoints_view_class_django(View, Class) :-
+    kb_call_method_of_1st_party_imported_name(View, as_view, Name, File),
+    python_imported_class(Name, File, Class).
 
 % The python front calls a 1st party function passed as an argument :
 % `path("hosting/", weblate.accounts.views.hosting)` -> `<alias>()`, with
@@ -140,6 +186,41 @@ python_module_file(ModuleParts, File) :-
     (   atom_concat(Path, '.py', File)
     ;   atom_concat(Path, '/__init__.py', File)
     ).
+
+% -----------------------------------------------------------------------------
+% python_imported_class( Name, File, Class )
+%
+% The class a `Name` imported from `File` stands for : the class `Name`
+% defined in `File`, else the one `File` re-exports. A package
+% `__init__.py` re-exports the names it imports from a 1st party file
+% ( `from .detail import ItemView, ItemListView` ), which the python parser
+% instruments, in that `__init__.py`, as
+%
+%   <dhscanner-instrumentation>[1st-party-import-from-dunder-init]( 'views/detail.py', 'ItemView', 'ItemListView' )
+%
+% arg 0 the source file, args 1.. the names. Re-exports chain ( a package
+% of packages ), followed up to 8 levels ( cycle safe ).
+
+python_imported_class(Name, File, Class) :-
+    python_imported_class(Name, File, Class, 8).
+
+python_imported_class(Name, File, Class, _) :-
+    kb_class_def(Class, Name, File),
+    !.
+python_imported_class(Name, File, Class, Depth) :-
+    Depth > 0,
+    Depth1 is Depth - 1,
+    python_dunder_init_reexport(File, Name, Source),
+    python_imported_class(Name, Source, Class, Depth1).
+
+python_dunder_init_reexport(Init, Name, Source) :-
+    kb_call_resolved(Call, '<dhscanner-instrumentation>[1st-party-import-from-dunder-init]'),
+    kb_called_from_script(Call, Init),
+    kb_arg_i_for_call(NameArg, I, Call),
+    I > 0,
+    kb_const_string(NameArg, Name),
+    kb_arg_i_for_call(SourceArg, 0, Call),
+    kb_const_string(SourceArg, Source).
 
 % -----------------------------------------------------------------------------
 % python_method_resolved( Class, Name, Method )
