@@ -186,3 +186,38 @@ must_not(callgraph_reach_edge(startloc_257_5_endloc_317_8_app_slash_controllers_
 % the block of another def is not reached
 must_not(callgraph_reaches_call_bounded(startloc_257_5_endloc_317_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_321_15_endloc_321_35_app_slash_controllers_slash_categories_controller_dot_rb, 10)).
 must(callgraph_reaches_call_bounded(startloc_320_5_endloc_322_8_app_slash_controllers_slash_categories_controller_dot_rb, startloc_321_15_endloc_321_35_app_slash_controllers_slash_categories_controller_dot_rb, 1)).
+
+% -----------------------------------------------------------------------------
+% php / Laravel ( script edge ) :
+%
+%   app/Http/Controllers/PostController.php
+%     public function index() {                                  H   ( hop 0 )
+%         return view( 'resources/views/posts/index.blade.php' ); -> S  ( script edge, the rewritten view name )
+%         file_exists( 'resources/views/posts/gone.blade.php' );  no script of that file, no edge
+%     }
+%   resources/views/posts/index.blade.php                         S   ( hop 1 )
+%     <?php echo e( $title ); ?>                                 top level call
+kb_called_from(startloc_7_16_endloc_7_60_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_5_5_endloc_9_5_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
+kb_call_resolved(startloc_7_16_endloc_7_60_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 'laravel.view').
+kb_arg_i_for_call(startloc_7_21_endloc_7_35_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 0, startloc_7_16_endloc_7_60_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
+kb_const_string(startloc_7_21_endloc_7_35_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 'resources/views/posts/index.blade.php').
+kb_called_from(startloc_8_9_endloc_8_40_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_5_5_endloc_9_5_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
+kb_call_resolved(startloc_8_9_endloc_8_40_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 'file_exists').
+kb_arg_i_for_call(startloc_8_21_endloc_8_35_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 0, startloc_8_9_endloc_8_40_app_slash_Http_slash_Controllers_slash_PostController_dot_php).
+kb_const_string(startloc_8_21_endloc_8_35_app_slash_Http_slash_Controllers_slash_PostController_dot_php, 'resources/views/posts/gone.blade.php').
+kb_called_from(startloc_2_5_endloc_2_30_resources_slash_views_slash_posts_slash_index_dot_blade_dot_php, startloc_0_0_endloc_0_0_resources_slash_views_slash_posts_slash_index_dot_blade_dot_php).
+kb_called_from_script(startloc_2_5_endloc_2_30_resources_slash_views_slash_posts_slash_index_dot_blade_dot_php, 'resources/views/posts/index.blade.php').
+
+must(callgraph_reach_edge(startloc_5_5_endloc_9_5_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_0_0_endloc_0_0_resources_slash_views_slash_posts_slash_index_dot_blade_dot_php)).
+must(callgraph_reaches_call_bounded(startloc_5_5_endloc_9_5_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_2_5_endloc_2_30_resources_slash_views_slash_posts_slash_index_dot_blade_dot_php, 1)).
+must_not(callgraph_reaches_call_bounded(startloc_5_5_endloc_9_5_app_slash_Http_slash_Controllers_slash_PostController_dot_php, startloc_2_5_endloc_2_30_resources_slash_views_slash_posts_slash_index_dot_blade_dot_php, 0)).
+
+% callgraph_reaches_call_bounded_chain/4 : the call sites from W down
+% hop 0 : W's own call site, an empty chain
+must(callgraph_reaches_call_bounded_chain(startloc_3_14_endloc_8_7_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_4_5_endloc_8_6_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, 0, [])).
+% hop 2 : the hoc hop has no call site, spelled by the lambda ; then upsertBulkContacts( data )
+must(callgraph_reaches_call_bounded_chain(startloc_3_14_endloc_8_7_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_10_5_endloc_10_40_app_slash_lib_slash_contact_dot_ts, 3, [startloc_5_18_endloc_7_10_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_6_13_endloc_6_40_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts])).
+% hop 3 : then helper()
+must(callgraph_reaches_call_bounded_chain(startloc_3_14_endloc_8_7_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_2_5_endloc_2_30_app_slash_lib_slash_helper_dot_ts, 3, [startloc_5_18_endloc_7_10_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_6_13_endloc_6_40_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_12_5_endloc_12_13_app_slash_lib_slash_contact_dot_ts])).
+% bounded as callgraph_reaches_call_bounded/3
+must_not(callgraph_reaches_call_bounded_chain(startloc_3_14_endloc_8_7_app_slash_api_slash_v2_slash_contacts_slash_bulk_slash_route_dot_ts, startloc_10_5_endloc_10_40_app_slash_lib_slash_contact_dot_ts, 1, _)).

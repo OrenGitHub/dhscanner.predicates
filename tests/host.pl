@@ -13,6 +13,7 @@
 % -----------------------------------------------------------------------------
 
 host_calls(callgraph_reaches_call_bounded/3).
+host_calls(callgraph_reaches_call_bounded_chain/4).
 host_calls(dataflow_bounded_intra_path/5).
 host_calls(dataflow_inter_path/3).
 host_calls(endpoints_http/4).
@@ -30,6 +31,7 @@ host_calls(sanitizers_top_level_if_then_else/4).
 host_calls(sinks_arbitrary_file_deletion/1).
 host_calls(sinks_arbitrary_file_read/1).
 host_calls(sinks_arbitrary_file_write/1).
+host_calls(sinks_db_read_column/3).
 host_calls(sinks_db_write/1).
 host_calls(sinks_db_write_column/4).
 host_calls(sinks_http_request/1).

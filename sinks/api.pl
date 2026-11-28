@@ -45,6 +45,11 @@ sinks_db_write(Call) :- sinks_db_write_php_eloquent(Call).
 % to the `Column` of the 1st party `Model` ( the location of its class def )
 sinks_db_write_column(Call, Model, Column, Value) :- sinks_db_write_php_eloquent_column(Call, Model, Column, Value).
 
+% sinks_db_read_column( Call, Model, Column ) : `Call` returns the `Column` of
+% rows of the 1st party `Model` ( the location of its class def ) ; `'*'` :
+% every column
+sinks_db_read_column(Call, Model, Column) :- sinks_db_read_php_eloquent_column(Call, Model, Column).
+
 sinks_ssrf(Call) :- sinks_ssrf_python(Call).
 sinks_ssrf(Call) :- sinks_ssrf_nodejs_fetch(Call).
 sinks_ssrf(Call) :- sinks_ssrf_java(Call).

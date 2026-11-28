@@ -3,6 +3,30 @@
 Semver, see [CONTRIBUTING.md](CONTRIBUTING.md#versioning). Every release
 records the kbgen version whose `kb_*` facts it targets ( `tests/kb_schema.pl` ).
 
+## v5.0.0
+
+Targets: dhscanner-kbgen 2.10.0 ( new fact `kb_called_from_script/2` : a
+call made at the top level of a script, with the script's file name ), so a
+major. Needs parsers >= 1.1.71 for the php globals tags
+( `native-php-globals-read` / `native-php-globals-write` ).
+
+- `callgraph/reach.pl`: a call whose arg 0 is a constant file name ( a
+  Laravel view, after fronts rewrote it to its `.blade.php` path ) reaches
+  the script of that file. New `callgraph_reaches_call_bounded_chain/4` :
+  like `callgraph_reaches_call_bounded/3`, plus the call sites from the
+  source down to the reached call ( BFS, first parent per callee ).
+- `dataflow/php/blade.pl` ( new ): a value passed to a view as a keyword
+  arg flows to the view's unbound var of that name, 1 or 2 hops ( the view
+  itself, or a view it includes ). No transitive closure.
+- `dataflow/php/globals.pl` ( new ): a write to `$GLOBALS[ k ]` flows to a
+  read of `$GLOBALS[ k ]` inside a callee of a call from the writer's
+  caller.
+- `dataflow/api.pl`: `dataflow_bounded_intra_path/5` walks kb edges plus
+  the blade and globals edges.
+- `sinks/api.pl`: new family entry point `sinks_db_read_column/3`, wired to
+  the eloquent reads. New host calls : `callgraph_reaches_call_bounded_chain/4`,
+  `sinks_db_read_column/3`.
+
 ## v4.1.0
 
 Targets: dhscanner-kbgen 2.9.0 ( no new facts ).

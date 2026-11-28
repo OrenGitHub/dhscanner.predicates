@@ -1,0 +1,57 @@
+% fixture : dataflow/php/globals.pl
+
+% function greeting() { return 'hello ' . $GLOBALS['name'] . $GLOBALS['other']; }   ( :2-4 )
+kb_func_def(startloc_2_1_endloc_4_2_app_slash_views_slash_page_dot_php, 'greeting', 'app/views/page.php', 'app/views').
+kb_call_resolved(startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php, '<dhscanner-instrumentation>[native-php-globals-read]').
+kb_called_from(startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php, startloc_2_1_endloc_4_2_app_slash_views_slash_page_dot_php).
+kb_arg_i_for_call(startloc_3_5_endloc_3_12_app_slash_views_slash_page_dot_php, 0, startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_3_5_endloc_3_12_app_slash_views_slash_page_dot_php, 'GLOBALS').
+kb_arg_i_for_call(startloc_3_14_endloc_3_22_app_slash_views_slash_page_dot_php, 1, startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_3_14_endloc_3_22_app_slash_views_slash_page_dot_php, 'name').
+kb_call_resolved(startloc_30_5_endloc_30_40_app_slash_views_slash_page_dot_php, '<dhscanner-instrumentation>[native-php-globals-read]').
+kb_called_from(startloc_30_5_endloc_30_40_app_slash_views_slash_page_dot_php, startloc_2_1_endloc_4_2_app_slash_views_slash_page_dot_php).
+kb_arg_i_for_call(startloc_30_5_endloc_30_12_app_slash_views_slash_page_dot_php, 0, startloc_30_5_endloc_30_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_30_5_endloc_30_12_app_slash_views_slash_page_dot_php, 'GLOBALS').
+kb_arg_i_for_call(startloc_30_14_endloc_30_22_app_slash_views_slash_page_dot_php, 1, startloc_30_5_endloc_30_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_30_14_endloc_30_22_app_slash_views_slash_page_dot_php, 'other').
+% function unused() { return $GLOBALS['name']; }   ( :6-8, never called )
+kb_func_def(startloc_6_1_endloc_8_2_app_slash_views_slash_page_dot_php, 'unused', 'app/views/page.php', 'app/views').
+kb_call_resolved(startloc_7_5_endloc_7_40_app_slash_views_slash_page_dot_php, '<dhscanner-instrumentation>[native-php-globals-read]').
+kb_called_from(startloc_7_5_endloc_7_40_app_slash_views_slash_page_dot_php, startloc_6_1_endloc_8_2_app_slash_views_slash_page_dot_php).
+kb_arg_i_for_call(startloc_7_5_endloc_7_12_app_slash_views_slash_page_dot_php, 0, startloc_7_5_endloc_7_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_7_5_endloc_7_12_app_slash_views_slash_page_dot_php, 'GLOBALS').
+kb_arg_i_for_call(startloc_7_14_endloc_7_22_app_slash_views_slash_page_dot_php, 1, startloc_7_5_endloc_7_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_7_14_endloc_7_22_app_slash_views_slash_page_dot_php, 'name').
+% function outer() { return greeting2(); }  function greeting2() { return $GLOBALS['name']; }   ( 2 calls deep )
+kb_func_def(startloc_10_1_endloc_12_2_app_slash_views_slash_page_dot_php, 'outer', 'app/views/page.php', 'app/views').
+kb_func_def(startloc_14_1_endloc_16_2_app_slash_views_slash_page_dot_php, 'greeting2', 'app/views/page.php', 'app/views').
+kb_called_from(startloc_11_1_endloc_11_20_app_slash_views_slash_page_dot_php, startloc_10_1_endloc_12_2_app_slash_views_slash_page_dot_php).
+kb_call_1st_party_func_defined_in_file(startloc_11_1_endloc_11_20_app_slash_views_slash_page_dot_php, 'greeting2', 'app/views/page.php').
+kb_call_resolved(startloc_15_5_endloc_15_40_app_slash_views_slash_page_dot_php, '<dhscanner-instrumentation>[native-php-globals-read]').
+kb_called_from(startloc_15_5_endloc_15_40_app_slash_views_slash_page_dot_php, startloc_14_1_endloc_16_2_app_slash_views_slash_page_dot_php).
+kb_arg_i_for_call(startloc_15_5_endloc_15_12_app_slash_views_slash_page_dot_php, 0, startloc_15_5_endloc_15_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_15_5_endloc_15_12_app_slash_views_slash_page_dot_php, 'GLOBALS').
+kb_arg_i_for_call(startloc_15_14_endloc_15_22_app_slash_views_slash_page_dot_php, 1, startloc_15_5_endloc_15_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_15_14_endloc_15_22_app_slash_views_slash_page_dot_php, 'name').
+% function other_caller() { $GLOBALS['name'] = 'x'; }  ( a write whose caller calls nothing )
+kb_func_def(startloc_18_1_endloc_20_2_app_slash_views_slash_page_dot_php, 'other_caller', 'app/views/page.php', 'app/views').
+kb_call_resolved(startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php, '<dhscanner-instrumentation>[native-php-globals-write]').
+kb_called_from(startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php, startloc_18_1_endloc_20_2_app_slash_views_slash_page_dot_php).
+kb_arg_i_for_call(startloc_19_5_endloc_19_12_app_slash_views_slash_page_dot_php, 0, startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_19_5_endloc_19_12_app_slash_views_slash_page_dot_php, 'GLOBALS').
+kb_arg_i_for_call(startloc_19_14_endloc_19_22_app_slash_views_slash_page_dot_php, 1, startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_19_14_endloc_19_22_app_slash_views_slash_page_dot_php, 'name').
+kb_arg_i_for_call(startloc_19_30_endloc_19_33_app_slash_views_slash_page_dot_php, 2, startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php).  kb_dataflow_edge(startloc_19_30_endloc_19_33_app_slash_views_slash_page_dot_php, startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php).
+% top level :  $GLOBALS['name'] = $user->name;  echo greeting();  echo outer();
+kb_call_resolved(startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php, '<dhscanner-instrumentation>[native-php-globals-write]').
+kb_called_from(startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php, startloc_0_0_endloc_0_0_app_slash_views_slash_page_dot_php).
+kb_arg_i_for_call(startloc_22_5_endloc_22_12_app_slash_views_slash_page_dot_php, 0, startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_22_5_endloc_22_12_app_slash_views_slash_page_dot_php, 'GLOBALS').
+kb_arg_i_for_call(startloc_22_14_endloc_22_22_app_slash_views_slash_page_dot_php, 1, startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php).  kb_const_string(startloc_22_14_endloc_22_22_app_slash_views_slash_page_dot_php, 'name').
+kb_arg_i_for_call(startloc_22_24_endloc_22_35_app_slash_views_slash_page_dot_php, 2, startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php).  kb_dataflow_edge(startloc_22_24_endloc_22_35_app_slash_views_slash_page_dot_php, startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php).
+kb_called_from(startloc_23_1_endloc_23_20_app_slash_views_slash_page_dot_php, startloc_0_0_endloc_0_0_app_slash_views_slash_page_dot_php).
+kb_call_1st_party_func_defined_in_file(startloc_23_1_endloc_23_20_app_slash_views_slash_page_dot_php, 'greeting', 'app/views/page.php').
+kb_called_from(startloc_24_1_endloc_24_20_app_slash_views_slash_page_dot_php, startloc_0_0_endloc_0_0_app_slash_views_slash_page_dot_php).
+kb_call_1st_party_func_defined_in_file(startloc_24_1_endloc_24_20_app_slash_views_slash_page_dot_php, 'outer', 'app/views/page.php').
+% greeting()'s read flows on to its return value
+kb_dataflow_edge(startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php, startloc_3_12_endloc_3_60_app_slash_views_slash_page_dot_php).
+
+must(dataflow_edge_php_globals(startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php, startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php)).
+% wired into the family api : value -> write -> read -> return
+must(dataflow_intra_path(startloc_22_24_endloc_22_35_app_slash_views_slash_page_dot_php, startloc_3_12_endloc_3_60_app_slash_views_slash_page_dot_php, _)).
+
+must_not(dataflow_edge_php_globals(startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php, startloc_30_5_endloc_30_40_app_slash_views_slash_page_dot_php)).
+must_not(dataflow_edge_php_globals(startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php, startloc_7_5_endloc_7_40_app_slash_views_slash_page_dot_php)).
+must_not(dataflow_edge_php_globals(startloc_22_5_endloc_22_40_app_slash_views_slash_page_dot_php, startloc_15_5_endloc_15_40_app_slash_views_slash_page_dot_php)).
+must_not(dataflow_edge_php_globals(startloc_19_5_endloc_19_40_app_slash_views_slash_page_dot_php, _)).
+% a read is not a write
+must_not(dataflow_edge_php_globals(startloc_3_5_endloc_3_40_app_slash_views_slash_page_dot_php, _)).

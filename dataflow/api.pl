@@ -1,5 +1,8 @@
 :- style_check(-singleton).
 
+:- [ 'predicates/dataflow/php/blade' ].
+:- [ 'predicates/dataflow/php/globals' ].
+
 dataflow_intra_path(U, V, Path) :-
     between(1, 10, N),
     dataflow_bounded_intra_path(U, V, N, [U], Path),
@@ -7,14 +10,22 @@ dataflow_intra_path(U, V, Path) :-
 
 dataflow_bounded_intra_path(A, C, N, _, [(A, C)]) :-
     N >= 1,
-    kb_dataflow_edge(A, C).
+    dataflow_edge(A, C).
 
 dataflow_bounded_intra_path(A, C, N, Visited, [(A, B)|Path]) :-
     N >= 2,
-    kb_dataflow_edge(A, B),
+    dataflow_edge(A, B),
     \+ member(B, Visited),
     N_MINUS_1 is N - 1,
     dataflow_bounded_intra_path(B, C, N_MINUS_1, [B|Visited], Path).
+
+% an edge : the kb's own, or one the kb cannot see ( a value passed to a
+% Blade template, `php/blade.pl` ; a php global written then read in a
+% callee, `php/globals.pl` ). Bounded like every other edge : each one
+% counts against the path length.
+dataflow_edge(A, B) :- kb_dataflow_edge(A, B).
+dataflow_edge(A, B) :- dataflow_edge_blade(A, B).
+dataflow_edge(A, B) :- dataflow_edge_php_globals(A, B).
 
 % the source itself is the arg : a param passed on as is, `RedirectToReturnUrl( returnUrl )`.
 % The kb locates such an arg at the variable's own definition, so the caller side path is
